@@ -1,0 +1,17 @@
+ *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f4f4f5;color:#111;width:100%}
+header{background:#000;color:#fff;padding:20px;text-align:center}
+.container{width:100%;max-width:100%;padding:12px;margin:0}
+.jobs{display:flex;flex-direction:column;gap:15px;width:100%}
+.job-card{background:#fff;border-radius:12px;padding:16px;width:100%;box-shadow:0 2px 10px rgba(0,0,0,0.08);border:1px solid #eee}
+.job-card img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:10px;background:#ddd}
+.job-card h3{font-size:18px;margin:8px 0}
+.job-card p{font-size:14px;color:#555;line-height:1.4;margin:4px 0}
+.apply-btn{width:100%;padding:14px;background:#000;color:#fff;border:none;border-radius:8px;font-weight:bold;margin-top:12px;font-size:16px}
+.green-btn{background:#16a34a;color:#fff;padding:14px 20px;border:none;border-radius:8px;font-weight:bold;font-size:16px;width:90%;max-width:350px;margin:20px auto;display:block}
+
+/* LAPTOP - 3 columns */
+@media(min-width:768px){
+  .jobs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .container{max-width:1200px;margin:auto;padding:20px}
+}

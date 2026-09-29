@@ -1,0 +1,33 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Works Kenya</title>
+<style>
+body{margin:0;font-family:Arial;background:#f4f1ec;}
+.header{background:#5D4037;color:white;padding:15px;display:flex;justify-content:space-between;align-items:center;}
+.header a{color:white;text-decoration:none;margin-left:15px;font-weight:bold;}
+.banner{width:100%;height:320px;overflow:hidden;background:#3E2723;}
+.banner img{width:100%;height:100%;object-fit:cover;}
+.jobs{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;}
+.job{background:white;padding:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+.job h3{color:#5D4037;margin:0 0 10px;}
+.price{color:green;font-weight:bold;font-size:18px;}
+.btn{background:#5D4037;color:white;border:none;padding:10px 20px;border-radius:5px;width:100%;margin-top:10px;cursor:pointer;}
+.btn:hover{background:#3E2723;}
+</style>
+</head>
+<body>
+<div class="header">
+<div><b>ONLINE WORKS KENYA</b></div>
+<div><a href="index.html">Home</a> <a href="about.html">About</a> <a href="login.html">Login</a> <a href="register.html">Register</a></div>
+</div>
+<div class="banner">
+<img src="banner.jpg.webp" alt="Online Works Kenya">
+</div>
+<div class="jobs" id="api-jobs">
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+<style>
+body{padding:20px;font-family:Arial;max-width:1000px;margin:auto;background:#f5f5f5}
+table{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden}
+th,td{padding:12px;text-align:left;border-bottom:1px solid #eee;font-size:13px}
+th{background:#000;color:white}
+.approve-btn{background:green;color:white;border:none;padding:6px 12px;border-radius:4px;cursor:pointer}
+.reject-btn{background:red;color:white;border:none;padding:6px 12px;border-radius:4px;cursor:pointer}
+</style>
+</head>
+<body>
+<script>
+var correctPass = "12003142D!y";
+var entered = prompt("Enter Admin Password:");
+if (entered!== correctPass) {
+  document.body.innerHTML = "<h1 style='text-align:center;margin-top:100px'>ACCESS DENIED</h1>";
+  throw new Error("Wrong password");
+}
+</script>
+
+<h2>Admin Panel - M-Pesa 0791957646</h2>
+<button onclick="loadUsers()" style="padding:8px 15px;background:black;color:white;border:none;border-radius:5px">REFRESH</button>
+<button onclick="clearAll()" style="padding:8px 15px;background:red;color:white;border:none;border-radius:5px;margin-left:10px">CLEAR ALL</button>
+
+<p><b>Total:</b> <span id="total">0</span> | <b>Pending:</b> <span id="pending">0</span> | <b>Approved:</b> <span id="approved">0</span></p>
+
+<table>
+<thead><tr><th>Email</th><th>M-Pesa Code</th><th>Status</th><th>Action</th></tr></thead>
+<tbody id="userTable"></tbody>
+</table>
+
+<script>
+function loadUsers(){
+ var users=JSON.parse(localStorage.getItem('users')||'[]');
+ var tbody=document.getElementById('userTable');
+ document.getElementById('total').innerText=users.length;
+ document.getElementById('pending').innerText=users.filter(u=>u.mpesaCode &&!u.paid).length;
+ document.getElementById('approved').innerText=users.filter(u=>u.paid).length;
+ if(users.length===0){
+   tbody.innerHTML='<tr><td colspan=4 style="text-align:center;padding:20px">No users yet</td></tr>';
+   return;
+ }
+ tbody.innerHTML='';
+ users.forEach(function(user,index){
+   var tr=document.createElement('tr');
+   var statusText=user.paid?'APPROVED':(user.mpesaCode?'PENDING':'NOT PAID');
+   tr.innerHTML='<td>'+user.email+'</td><td><b>'+(user.mpesaCode||'-')+'</b></td><td>'+statusText+'</td><td>'+(!user.paid?'<button class="approve-btn" onclick="approveUser('+index+')">Approve</button> <button class="reject-btn" onclick="rejectUser('+index+')">Delete</button>':'Done')+'</td>';
+   tbody.appendChild(tr);
+ });
+}
+function approveUser(i){
+ if(!confirm('Check M-Pesa 0791957646 first. Approve?')) return;
+ var users=JSON.parse(localStorage.getItem('users')||'[]');
+ users[i].paid=true;
+ localStorage.setItem('users',JSON.stringify(users));
+ loadUsers();
+}
+function rejectUser(i){
+ var users=JSON.parse(localStorage.getItem('users')||'[]');
+ users.splice(i,1);
+ localStorage.setItem('users',JSON.stringify(users));
+ loadUsers();
+}
+function clearAll(){
+ var p=prompt('Type 12003142D!y to clear all');
+ if(p==='12003142D!y'){localStorage.removeItem('users');loadUsers();}
+}
+loadUsers();
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+ <!DOCTYPE html>
+<html>
+<head><title>Dashboard</title><link rel="stylesheet" href="style.css"></head>
+<body style="padding:20px">
+<h2 id="welcome"></h2>
+<div id="content"></div>
+<script>
+var email=localStorage.getItem('loggedInUser');
+var users=JSON.parse(localStorage.getItem('users')||'[]');
+var user=users.find(u=>u.email===email);
+document.getElementById('welcome').innerText=email||'No user';
+var content=document.getElementById('content');
+console.log('User found:', user);
+if(!user){content.innerHTML='No user. <a href=register.html>Register</a>';}
+else if(user.paid===true){
+ content.innerHTML='<h3>APPROVED - Jobs Available</h3><p>Data Entry - 500 KSH</p><p>Survey - 300 KSH</p>';
+}
+else if(user.mpesaCode){
+ content.innerHTML='<h3>Verifying Payment</h3><p>Code: <b>'+user.mpesaCode+'</b></p><p>Status: Waiting for verification on 0791957646</p><p>Do not pay again. Admin will approve after checking M-Pesa.</p>';
+}
+else{
+ content.innerHTML='<h3>Account Not Active</h3><a href=payment.html>Pay Now - KSH 150 to 0791957646</a>';
+}
+</script>
+</body>
+</html>

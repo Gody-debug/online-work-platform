@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+body{margin:0;font-family:Arial;background:#f4f1ec;}
+.header{background:#5D4037;color:white;padding:15px;display:flex;justify-content:space-between;align-items:center;}
+.header a{color:white;text-decoration:none;margin-left:15px;font-weight:bold;}
+.box{background:white;max-width:400px;margin:50px auto;padding:25px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+input{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:5px;box-sizing:border-box;}
+.btn{background:#5D4037;color:white;border:none;padding:12px;width:100%;border-radius:5px;cursor:pointer;font-size:16px;}
+.btn:hover{background:#3E2723;}
+h2{color:#5D4037;text-align:center;}
+.error{color:red;font-size:13px;display:none;}
+</style>
+</head>
+<body>
+<div class="header">
+<div><b>ONLINE WORKS KENYA</b></div>
+<div><a href="index.html">Home</a> <a href="about.html">About</a> <a href="login.html">Login</a> <a href="register.html">Register</a></div>
+</div>
+<div class="box">
+<h2>Login</h2>
+<input id="email" type="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password">
+<p id="error" class="error"></p>
+<button class="btn" onclick="login()">Login</button>
+<p style="text-align:center;margin-top:15px;">No account? <a href="register.html" style="color:#5D4037;">Register</a></p>
+</div>
+<script>
+function login(){
+var email=document.getElementById('email').value.trim().toLowerCase();
+var pass=document.getElementById('pass').value;
+var err=document.getElementById('error');
+var users=JSON.parse(localStorage.getItem('owk_users')||'[]');
+var found=users.find(u=>u.email===email && u.pass===pass);
+if(!found){
+err.textContent='Wrong email or password, or account does not exist!'; err.style.display='block'; return;
+}
+err.style.display='none';
+alert('Login successful!');
+window.location.href='index.html';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f1ec;
+}
+
+.header{
+    background:#5D4037;
+    color:white;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.header a{
+    color:white;
+    text-decoration:none;
+    margin-left:15px;
+    font-weight:bold;
+}
+
+.box{
+    background:white;
+    max-width:400px;
+    margin:50px auto;
+    padding:25px;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+    box-sizing:border-box;
+}
+
+.btn{
+    background:#5D4037;
+    color:white;
+    border:none;
+    padding:12px;
+    width:100%;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.btn:hover{
+    background:#3E2723;
+}
+
+h2{
+    color:#5D4037;
+    text-align:center;
+}
+
+.error{
+    color:red;
+    font-size:13px;
+    display:none;
+}
+
+.selected-job{
+    background:#f4f1ec;
+    padding:12px;
+    margin-bottom:15px;
+    border-radius:5px;
+    color:#5D4037;
+    text-align:center;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div>
+<b>ONLINE WORKS KENYA</b>
+</div>
+
+<div>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="login.html">Login</a>
+<a href="register.html">Register</a>
+</div>
+
+</div>
+
+
+<div class="box">
+
+<h2>Create Account</h2>
+
+<div id="selected-job" class="selected-job">
+Loading selected job...
+</div>
+
+<input id="name" type="text" placeholder="Full Name">
+
+<input id="email" type="email" placeholder="Email">
+
+<input id="pass" type="password" placeholder="Password (min 8 chars)">
+
+<p id="error" class="error"></p>
+
+<input id="mpesa" type="text" placeholder="M-Pesa Number">
+
+<button class="btn" onclick="register()">Register</button>
+
+<p style="text-align:center;margin-top:15px;">
+Already have account?
+<a href="login.html" style="color:#5D4037;">Login</a>
+</p>
+
+</div>
+
+
+<script>
+
+var selectedJob = null;
+
+const jobId = new URLSearchParams(window.location.search).get("job");
+
+
+if (jobId) {
+
+    fetch("http://localhost:3000/api/jobs")
+
+        .then(response => response.json())
+
+        .then(jobs => {
+
+            selectedJob = jobs.find(job => job.id == jobId);
+
+            const jobDisplay = document.getElementById("selected-job");
+
+            if (selectedJob) {
+
+                jobDisplay.textContent =
+                    selectedJob.title + " — KSH " + selectedJob.pay;
+
+            } else {
+
+                jobDisplay.textContent = "Job not found.";
+
+            }
+
+        })
+
+        .catch(error => {
+
+            console.error("Error loading selected job:", error);
+
+            document.getElementById("selected-job").textContent =
+                "Unable to load selected job.";
+
+        });
+
+} else {
+
+    document.getElementById("selected-job").textContent =
+        "No job selected.";
+
+}
+
+
+function register(){
+
+    var name = document.getElementById("name").value.trim();
+
+    var email = document.getElementById("email").value.trim().toLowerCase();
+
+    var pass = document.getElementById("pass").value;
+
+    var mpesa = document.getElementById("mpesa").value.trim();
+
+    var err = document.getElementById("error");
+
+
+    if(name === ""){
+
+        err.textContent = "Enter your full name!";
+
+        err.style.display = "block";
+
+        return;
+    }
+
+
+    if(pass.length < 8){
+
+        err.textContent = "Password must be at least 8 characters!";
+
+        err.style.display = "block";
+
+        return;
+    }
+
+
+    if(!email.includes("@")){
+
+        err.textContent = "Enter valid email!";
+
+        err.style.display = "block";
+
+        return;
+    }
+
+
+    if(mpesa === ""){
+
+        err.textContent = "Enter your M-Pesa number!";
+
+        err.style.display = "block";
+
+        return;
+    }
+
+
+    var users = JSON.parse(
+        localStorage.getItem("owk_users") || "[]"
+    );
+
+
+    if(users.find(u => u.email === email)){
+
+        err.textContent =
+            "This email already has an account! Please login.";
+
+        err.style.display = "block";
+
+        return;
+    }
+
+
+    users.push({
+
+        name: name,
+
+        email: email,
+
+        mpesa: mpesa,
+
+        jobId: selectedJob ? selectedJob.id : null,
+
+        jobTitle: selectedJob ? selectedJob.title : null
+
+    });
+
+
+    localStorage.setItem(
+        "owk_users",
+        JSON.stringify(users)
+    );
+
+    localStorage.setItem(
+        "owk_current",
+        email
+    );
+
+
+    err.style.display = "none";
+
+
+    fetch("http://localhost:3000/api/register", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+
+            name: name,
+
+            email: email,
+
+            mpesa: mpesa,
+
+            jobId: selectedJob ? selectedJob.id : null,
+
+            jobTitle: selectedJob ? selectedJob.title : null
+
+        })
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        alert(data.message);
+
+        window.location.href = "payment.html";
+
+    })
+
+    .catch(error => {
+
+        console.error("Registration error:", error);
+
+        alert("Could not connect to the registration server.");
+
+    });
+
+}
+
+</script>
+
+</body>
+
+</html>
