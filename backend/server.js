@@ -1,4 +1,4 @@
- const http = require("http");
+  const http = require("http");
 const fs = require("fs");
 
 const jobs = [
@@ -119,7 +119,7 @@ const server = http.createServer((req, res) => {
 
     // M-PESA VALIDATION CALLBACK
     if (
-        req.url === "/api/mpesa/validation" &&
+        req.url === "/api/payments/validation" &&
         req.method === "POST"
     ) {
 
@@ -145,7 +145,7 @@ const server = http.createServer((req, res) => {
 
     // M-PESA CONFIRMATION CALLBACK
     if (
-        req.url === "/api/mpesa/confirmation" &&
+        req.url === "/api/payments/confirmation" &&
         req.method === "POST"
     ) {
 
