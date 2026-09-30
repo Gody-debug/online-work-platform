@@ -1,25 +1,142 @@
  <!DOCTYPE html>
 <html>
-<head><title>Dashboard</title><link rel="stylesheet" href="style.css"></head>
-<body style="padding:20px">
-<h2 id="welcome"></h2>
-<div id="content"></div>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - WorkRemote</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body style="font-family:'Segoe UI',Arial; margin:0; background:#FAF8F3;">
+
+<!-- TOP -->
+<div style="background:white; padding:16px 30px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+  <b style="color:#5D4037;"><i class="fa-solid fa-briefcase"></i> WorkRemote</b>
+  <div style="display:flex; gap:12px; align-items:center;">
+    <span id="userPhone" style="font-size:12px; color:#666;"></span>
+    <button onclick="logout()" style="background:#f5f5f5; border:1px solid #ddd; padding:8px 14px; border-radius:20px; font-size:12px; cursor:pointer;">Logout</button>
+  </div>
+</div>
+
+<div style="max-width:1100px; margin:30px auto; padding:0 20px; display:grid; grid-template-columns:320px 1fr; gap:24px;">
+
+  <!-- LEFT PANEL -->
+  <div>
+    <div style="background:white; border-radius:14px; padding:22px; box-shadow:0 4px 18px rgba(0,0,0,0.05);">
+      <p style="margin:0 0 6px 0; font-size:12px; color:#999; text-transform:uppercase;">Payment Status</p>
+      <p style="margin:0; color:#2E7D32; font-weight:bold;"><i class="fa-solid fa-circle-check"></i> Activated - Ksh 150 Paid</p>
+      <p id="codeShow" style="margin:8px 0 0 0; font-size:11px; color:#666; background:#F5F1E8; padding:8px; border-radius:6px;"></p>
+      <hr style="border:none; border-top:1px solid #eee; margin:18px 0;">
+      <p style="font-size:13px; margin:0 0 8px 0;"><b>Your Task:</b></p>
+      <div id="taskMini" style="background:#FAF8F3; padding:12px; border-radius:8px; font-size:13px;"></div>
+      <hr style="border:none; border-top:1px solid #eee; margin:18px 0;">
+      <p style="font-size:12px; color:#666; line-height:1.6;"><i class="fa-solid fa-money-bill-wave"></i> Payout: M-Pesa within 24hrs after approval.<br><i class="fa-solid fa-phone"></i> Support: WhatsApp 0791957646</p>
+    </div>
+
+    <div style="background:#5D4037; color:white; border-radius:14px; padding:18px; margin-top:16px;">
+      <p style="margin:0; font-size:13px;"><i class="fa-solid fa-trophy"></i> Earn More</p>
+      <p style="margin:8px 0 0 0; font-size:12px; opacity:0.8; line-height:1.5;">Complete this task well and you will be invited to 5 more high-paying tasks (Ksh 2000-4000 each) without extra fee.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT - TASK WORKSPACE -->
+  <div style="background:white; border-radius:14px; padding:28px; box-shadow:0 4px 18px rgba(0,0,0,0.05);">
+    <h2 id="jobTitle" style="margin:0 0 8px 0; color:#5D4037;">Loading your task...</h2>
+    <p id="jobMeta" style="margin:0 0 18px 0; color:#888; font-size:13px;"></p>
+    
+    <div style="background:#FFF8E1; border-left:4px solid #C9A227; padding:16px; border-radius:0 8px 8px 0; margin-bottom:22px;">
+      <p style="margin:0; font-size:13px; font-weight:bold; color:#5D4037;"><i class="fa-solid fa-list-check"></i> What to do:</p>
+      <p id="jobDesc" style="margin:8px 0 0 0; font-size:13.5px; line-height:1.7; color:#555;"></p>
+    </div>
+
+    <label style="font-size:13px; font-weight:bold;">Your Work Submission</label>
+    <textarea id="submission" placeholder="Paste your completed work here in detail... The better your work, the faster approval." style="width:100%; min-height:260px; padding:14px; border:1px solid #ddd; border-radius:10px; margin-top:8px; box-sizing:border-box; font-family:Arial; font-size:13px; line-height:1.6;"></textarea>
+
+    <div style="display:flex; gap:12px; margin-top:18px;">
+      <button onclick="submitWork()" style="flex:1; background:#2E7D32; color:white; border:none; padding:14px; border-radius:10px; font-weight:bold; cursor:pointer; font-size:14px;">Submit for Review →</button>
+      <button onclick="saveDraft()" style="background:#f5f5f5; border:1px solid #ddd; padding:14px 18px; border-radius:10px; font-size:13px; cursor:pointer;">Save Draft</button>
+    </div>
+
+    <p id="submitMsg" style="font-size:13px; margin-top:14px; text-align:center;"></p>
+
+    <div id="afterSubmit" style="display:none; margin-top:25px; background:#E8F5E9; padding:20px; border-radius:10px; border:1px solid #A5D6A7; text-align:center;">
+      <h3 style="margin:0; color:#2E7D32;"><i class="fa-solid fa-hourglass-half"></i> Under Review</h3>
+      <p style="font-size:13px; color:#555; line-height:1.6; margin:10px 0 0 0;">Your work has been sent to our client. You will receive Ksh <span id="payAmount"></span> via M-Pesa to <span id="payPhone"></span> within 24hrs if approved.<br><br>Keep your phone on.</p>
+      <a href="index.html" style="display:inline-block; margin-top:14px; font-size:12px; color:#5D4037;">← Back to Home</a>
+    </div>
+
+  </div>
+</div>
+
 <script>
-var email=localStorage.getItem('loggedInUser');
-var users=JSON.parse(localStorage.getItem('users')||'[]');
-var user=users.find(u=>u.email===email);
-document.getElementById('welcome').innerText=email||'No user';
-var content=document.getElementById('content');
-console.log('User found:', user);
-if(!user){content.innerHTML='No user. <a href=register.html>Register</a>';}
-else if(user.paid===true){
- content.innerHTML='<h3>APPROVED - Jobs Available</h3><p>Data Entry - 500 KSH</p><p>Survey - 300 KSH</p>';
+// CHECK IF PAID
+const paid = localStorage.getItem('workremote_paid');
+const user = localStorage.getItem('workremote_user');
+const code = localStorage.getItem('workremote_code');
+const selectedId = localStorage.getItem('selectedJob') || 1;
+
+if(!paid){
+  window.location.href='payment.html';
 }
-else if(user.mpesaCode){
- content.innerHTML='<h3>Verifying Payment</h3><p>Code: <b>'+user.mpesaCode+'</b></p><p>Status: Waiting for verification on 0791957646</p><p>Do not pay again. Admin will approve after checking M-Pesa.</p>';
+
+document.getElementById('userPhone').innerText = user || '';
+document.getElementById('codeShow').innerHTML = `M-Pesa Code: <b>${code || '---'}</b><br>Paid to: <b>0791957646</b>`;
+
+const jobs = {
+1:{title:"Senior RLHF Annotator", pay:1500, meta:"AI Lab US • 45-60 min • Ksh 1500", desc:"1. You will be given 5 AI answers to same question.<br>2. Rank them 1-5 (best to worst).<br>3. For worst answer, rewrite it in perfect Swahili + English (200 words).<br>4. Explain why best is best (100 words).<br><br><b>Client prompt to use:</b> 'Explain why young people in Kenya should consider remote work.'"},
+2:{title:"Data Protection Researcher", pay:1800, meta:"Fintech UK • 60 min • Ksh 1800", desc:"Research Kenya Data Protection Act 2019. Write 400-word summary covering: 1) Right to be forgotten 2) Consent rules 3) Penalty for breach. Add 2 source links from ODPC website."},
+3:{title:"Vision AI Annotation", pay:1200, meta:"AutoDrive • 40 min • Ksh 1200", desc:"Download sample image set (we will send link after submit). Label: traffic signs, pedestrians, boda-bodas, matatus. Follow format: [object, x, y, w, h]. Example provided in submission."},
+4:{title:"Fact-Checking Specialist", pay:1500, meta:"News AI • 50 min • Ksh 1500", desc:"Verify these 5 claims: 1) M-Pesa launched 2007 2) Kenya has 47 counties 3) Nairobi National Park is inside city 4) Swahili is official language 5) Lake Turkana is largest desert lake. Mark True/False with 2 sources each."},
+5:{title:"Swahili Cultural Expert", pay:1000, meta:"LLM Training • 30 min • Ksh 1000", desc:"Explain in 350+ words: What is Sheng? Give 10 examples with English. Explain Harambee spirit. Explain matatu culture. Write like teaching a foreigner."},
+6:{title:"Chain-of-Thought Math Creator", pay:1000, meta:"Edu AI • 35 min • Ksh 1000", desc:"Create 10 KCSE Form 3 math questions (Algebra, Geometry). For each: Question + Step-by-step solution + Final Answer + Common mistake to avoid."},
+7:{title:"Toxic Content Rewriter", pay:1300, meta:"Trust & Safety • 40 min • Ksh 1300", desc:"Rewrite these 15 toxic comments (we send after submit) into respectful Swahili/English that keeps meaning but removes insult. Show Before/After."},
+8:{title:"Prompt Engineer", pay:1200, meta:"LLM Eval • 35 min • Ksh 1200", desc:"Create 20 prompts that would trick AI about Kenya (e.g. 'Who is current governor of Kaaga?' ). For each: Prompt + Expected Correct Answer + Why it's tricky."}
+};
+
+const job = jobs[selectedId] || jobs[1];
+document.getElementById('jobTitle').innerText = job.title;
+document.getElementById('jobMeta').innerText = job.meta;
+document.getElementById('jobDesc').innerHTML = job.desc;
+document.getElementById('taskMini').innerHTML = `<b>${job.title}</b><br>${job.meta}<br><br><span style="color:#2E7D32; font-weight:bold;">Pay: Ksh ${job.pay}</span>`;
+document.getElementById('payAmount').innerText = job.pay;
+document.getElementById('payPhone').innerText = user;
+
+// Draft load
+document.getElementById('submission').value = localStorage.getItem('draft_'+selectedId) || '';
+
+function saveDraft(){
+  localStorage.setItem('draft_'+selectedId, document.getElementById('submission').value);
+  document.getElementById('submitMsg').innerHTML = "<span style='color:#666;'>✓ Draft saved</span>";
 }
-else{
- content.innerHTML='<h3>Account Not Active</h3><a href=payment.html>Pay Now - KSH 150 to 0791957646</a>';
+
+function submitWork(){
+  const work = document.getElementById('submission').value.trim();
+  if(work.length < 100){
+    document.getElementById('submitMsg').innerHTML = "<span style='color:red;'>Please write at least 100 words of quality work for approval</span>";
+    return;
+  }
+  // Save submission for you to check later (in their browser - but you can ask them to WhatsApp you)
+  localStorage.setItem('submission_'+selectedId, work);
+  localStorage.setItem('submitted_time', new Date().toISOString());
+  
+  document.getElementById('submitMsg').innerHTML = "";
+  document.getElementById('afterSubmit').style.display = 'block';
+  document.getElementById('submission').style.display = 'none';
+  
+  // Optional: Open WhatsApp to you with details
+  setTimeout(()=>{
+    if(confirm("Send your submission details to admin WhatsApp (0791957646) for faster review?")){
+      const msg = `New WorkRemote Submission%0APhone: ${user}%0AJob: ${job.title}%0APay: Ksh ${job.pay}%0AM-Pesa Code: ${code}%0A%0AWork:%0A${encodeURIComponent(work.substring(0,500))}...`;
+      window.open(`https://wa.me/254791957646?text=${msg}`, '_blank');
+    }
+  },800);
+}
+
+function logout(){
+  if(confirm("Logout? You can login again with same phone.")){
+    localStorage.removeItem('workremote_user');
+    localStorage.removeItem('workremote_paid');
+    location.href='index.html';
+  }
 }
 </script>
 </body>

@@ -1,55 +1,15 @@
- const registrationForm = document.getElementById("registrationForm");
-
-if (registrationForm) {
-    registrationForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-
-        if (password !== confirmPassword) {
-            alert("Passwords do not match.");
-            return;
-        }
-
-        alert("Registration successful!");
-    });
-}
-
-
-const loginForm = document.getElementById("loginForm");
-
-if (loginForm) {
-    loginForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        alert("Login successful!");
-    });
-}
-
-
-const jobsContainer = document.getElementById("api-jobs");
-
-if (jobsContainer) {
-    fetch("http://localhost:3000/api/jobs")
-        .then(response => response.json())
-        .then(jobs => {
-            jobsContainer.innerHTML = "";
-
-            jobs.forEach(job => {
-                jobsContainer.innerHTML += `
-                    <div class="job">
-                        <h3>${job.title}</h3>
-                        <p>${job.description}</p>
-                        <div class="price">KSH ${job.pay}</div>
-                        <a href="register.html?job=${job.id}">
-                            <button class="btn">Apply</button>
-                        </a>
-                    </div>
-                `;
-            });
-        })
-        .catch(error => {
-            console.error("Error loading jobs:", error);
-        });
-}
+ // Dashboard and Job Search logic - does not touch Daraja endpoint
+// Keep your existing Daraja fetch as is
+document.getElementById('paymentForm')?.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const phone = document.getElementById('phone').value;
+  const amount = document.getElementById('amount').value;
+  // This endpoint must stay same as your server.js
+  const res = await fetch('http://localhost:3000/api/stkpush', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({phone, amount})
+  });
+  const data = await res.json();
+  document.getElementById('paymentStatus').innerText = data.message;
+});
