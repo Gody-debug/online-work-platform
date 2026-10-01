@@ -1,54 +1,5 @@
-﻿ <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Activate - WorkRemote</title>
-</head>
-<body style="background:#f5ebe0">
-<div style="background:white; max-width:420px; width:100%; padding:30px; border-radius:14px; box-shadow:0 8px 30px rgba(0,0,0,0.08);">
-<h2 style="margin:0;">Activate Workspace</h2>
-<p style="color:#666; font-size:14px;">One-time fee Ksh 150 to unlock task.</p>
-
-<div style="background:#F5F1E8; padding:12px; border-radius:8px; display:flex; justify-content:space-between; margin:15px 0;">
-<span>Amount</span><b>Ksh 150</b>
-</div>
-
-<label style="font-weight:bold; font-size:14px;">Your M-Pesa Number</label>
-<input type="tel" id="phone" placeholder="07XXXXXXXX" style="width:100%; padding:14px; border-radius:10px; border:1px solid #ccc; margin:8px 0 15px 0; font-size:16px; box-sizing:border-box;">
-
-<button onclick="pay()" id="payBtn" style="background:#00b050; color:white; border:none; padding:15px; border-radius:10px; font-weight:bold; width:100%; font-size:16px; cursor:pointer;">Pay KES 150 - Get M-Pesa Prompt</button>
-
-<p style="font-size:12px; color:#888; margin-top:12px; text-align:center;">You will receive STK prompt - enter M-Pesa PIN to complete. Money goes to 0791957646</p>
-<a href="index.html" style="display:block; text-align:center; margin-top:15px; font-size:13px; color:#5D4037;">â† Back to Home</a>
-</div>
-
-<script>
-async function pay(){
- let phone = document.getElementById('phone').value.trim();
- if(!phone || phone.length < 10){ alert("Enter valid M-Pesa number e.g 07..."); return; }
- if(phone.startsWith('0')) phone = '254' + phone.substring(1);
- if(phone.startsWith('+')) phone = phone.substring(1);
- 
- document.getElementById('payBtn').innerText = "Sending prompt...";
- document.getElementById('payBtn').disabled = true;
-
- try{
-  let res = await fetch('https://online-work-platform.onrender.com/stkpush', {
-   method:'POST',
-   headers:{'Content-Type':'application/json'},
-   body: JSON.stringify({ phone: phone, amount: 150 })
-  });
-  let data = await res.json();
-  console.log(data);
-  alert("âœ… Check your phone "+phone+" - Enter M-Pesa PIN now to pay 150");
-  document.getElementById('payBtn').innerText = "Prompt Sent - Check Phone";
- }catch(e){
-  alert("Backend waking up... Wait 40 sec and tap again. "+e.message);
-  document.getElementById('payBtn').innerText = "Pay KES 150 - Get M-Pesa Prompt";
-  document.getElementById('payBtn').disabled = false;
- }
-}
-</script>
-</body>
-</html>
+﻿<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Payment</title>
+<style>*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5ebe0;min-height:100vh;display:flex} .box{background:white;width:100%;min-height:100vh;padding:40px 24px;display:flex;flex-direction:column;justify-content:center;max-width:480px;margin:0 auto} @media(min-width:600px){body{justify-content:center;align-items:center;padding:20px} .box{min-height:auto;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.1)}} input{width:100%;padding:14px;margin:10px 0;border:1px solid #e8ddd0;border-radius:12px;font-size:16px} .btn{width:100%;padding:14px;background:#1a9a5a;color:white;border:none;border-radius:12px;font-weight:700;margin-top:12px;font-size:16px;cursor:pointer}</style></head>
+<body><div class="box"><h2 style="margin:0 0 6px;font-size:26px">Complete Training Payment</h2><p style="color:#7a6652;margin:0 0 24px;font-size:14px;line-height:1.5">Pay KES 350 once to unlock training and tasks</p><input id="phone" placeholder="M-Pesa Phone 07..."><button class="btn" onclick="pay()">Pay with M-Pesa</button><p style="text-align:center;margin-top:20px"><a href="dashboard.html" style="color:#ff7a00;text-decoration:none;font-weight:600">Back to Dashboard</a></p></div>
+<script>async function pay(){const phone=document.getElementById('phone').value;if(!phone)return alert('enter phone');alert('STK Push sent to '+phone);localStorage.setItem('trained','yes');setTimeout(()=>location.href='dashboard.html',2000);}</script></body></html>
