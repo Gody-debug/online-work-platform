@@ -1,83 +1,95 @@
- <!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WorkRemote Kenya - Brighten Your Future</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<title>Online Works Kenya - Professional Digital Task Platform</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
+body{background:#fdfbf6;color:#2b2116}
+header{background:#fffaf0;border-bottom:1px solid #efe6d5;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.logo{font-weight:800;font-size:20px} .logo span{color:#a4714b}
+.btn-primary{background:#a4714b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+.hero{padding:80px 5%;text-align:center;background:linear-gradient(180deg,#fffaf0 0%,#fdfbf6 100%)}
+.hero h1{font-size:42px;max-width:800px;margin:0 auto 16px;line-height:1.1;color:#3e2f1c}
+.hero p{color:#7a6652;max-width:650px;margin:0 auto 24px;font-size:18px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:40px 5%}
+.card{background:white;border:1px solid #efe6d5;border-radius:16px;padding:24px;transition:.2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(164,113,75,.15)}
+.card h3{margin-bottom:8px} .card p{color:#7a6652;font-size:14px;line-height:1.5;margin-bottom:16px}
+.card .pay{font-weight:700;color:#a4714b}
+footer{background:#efe6d5;color:#5c4a32;padding:60px 5% 30px;margin-top:40px;border-top:1px solid #e0d2b8}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
+@media(max-width:800px){.footer-grid{grid-template-columns:1fr 1fr} .hero h1{font-size:28px}}
+footer h4{color:#3e2f1c;margin-bottom:16px} footer a{color:#7a6652;text-decoration:none;display:block;margin-bottom:10px;font-size:14px}
+footer a:hover{color:#3e2f1c}
+.copy{border-top:1px solid #e0d2b8;margin-top:40px;padding-top:20px;text-align:center;font-size:13px}
+.badge{display:inline-block;background:#efe6d5;color:#a4714b;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:12px;border:1px solid #e0d2b8}
+</style>
 </head>
-<body style="font-family:'Segoe UI',Arial; margin:0; background:#FAF8F3; color:#333;">
+<body>
+<header>
+<div class="logo">Online<span>Works</span>.ke</div>
+<button class="btn-primary" onclick="document.getElementById('jobs').scrollIntoView()">Browse Tasks</button>
+</header>
 
-<!-- NAV -->
-<div style="background:white; padding:18px 30px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 10px rgba(0,0,0,0.05); position:sticky; top:0; z-index:10;">
-  <div style="display:flex; gap:20px; align-items:center;">
-    <b style="font-size:20px; color:#5D4037;"><i class="fa-solid fa-briefcase"></i> WorkRemote</b>
-    <a href="#about" style="text-decoration:none; color:#666; font-size:13px;"><i class="fa-solid fa-circle-info"></i> About Us</a>
-  </div>
-  <div id="authBtn"><a href="payment.html" style="background:#5D4037; color:white; padding:10px 20px; border-radius:25px; text-decoration:none; font-weight:bold; font-size:13px;">Register / Login</a></div>
+<div class="hero">
+<div class="badge">Trusted by 12,000+ Kenyan Freelancers</div>
+<h1>Professional Digital Work for Skilled Kenyans</h1>
+<p>Online Works Kenya connects talented individuals with verified digital opportunities. From audio transcription and data management to research, content creation and virtual assistance — build your career working remotely with flexible, skill-based tasks.</p>
+<button class="btn-primary" onclick="document.getElementById('jobs').scrollIntoView()">Explore Available Gigs</button>
 </div>
 
-<!-- HERO -->
-<div style="width:100%; height:520px; background:linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.45)), url('hero.jpg.webp') center/cover no-repeat; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px;">
-  <div style="max-width:750px; color:white;">
-    <h1 style="font-size:46px; line-height:1.15; margin:0 0 15px 0; text-shadow:0 3px 12px rgba(0,0,0,0.6);">Brighten Your Future by Working Remotely</h1>
-    <p style="font-size:17px; line-height:1.6; background:rgba(0,0,0,0.35); padding:12px 16px; border-radius:10px;">Join 800+ Kenyans earning from international AI tasks. Work from Kaaga, get paid via M-Pesa.</p>
-    <a href="#jobs" style="display:inline-block; margin-top:18px; background:#C9A227; color:#000; padding:12px 28px; border-radius:30px; text-decoration:none; font-weight:bold;">View Jobs ↓</a>
-  </div>
-</div>
+<div id="jobs" class="grid"></div>
 
-<!-- STATUS - CLEANED (REMOVED DATA ENTRY CARDS) -->
-<div style="max-width:1100px; margin:-30px auto 0 auto; padding:0 20px; position:relative; z-index:5;">
-  <div style="background:white; border-radius:14px; padding:26px 28px; box-shadow:0 8px 30px rgba(0,0,0,0.08); border-left:5px solid #2E7D32;">
-    <h3 style="margin:0 0 6px 0; color:#5D4037; font-size:17px;"><i class="fa-solid fa-satellite-dish"></i> Platform Description</h3>
-    <p style="margin:0; color:#555; font-size:14px; line-height:1.7;">We connect Kenyan talent with global AI companies. Verify your M-Pesa once (KES 150) and start working on professional tasks immediately. No monthly fees.</p>
-  </div>
+<footer>
+<div class="footer-grid">
+<div>
+<h4>OnlineWorks Kenya</h4>
+<p style="font-size:14px;line-height:1.6;max-width:320px">Kenya's leading platform for legitimate online micro-tasks. We provide vetted opportunities in transcription, data entry, research, content writing, proofreading and virtual assistance. Our mission is to empower Kenyan youth with sustainable digital income.</p>
 </div>
-
-<!-- 8 JOBS -->
-<div id="jobs" style="max-width:1150px; margin:45px auto; padding:0 25px;">
-  <h2 style="color:#5D4037;">Featured Professional Tasks</h2>
-  <div id="jobsGrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:28px; margin-top:22px;"></div>
+<div>
+<h4>Platform</h4>
+<a href="#">How it Works</a>
+<a href="#">Available Tasks</a>
+<a href="#">Quality Guidelines</a>
+<a href="#">Earnings Structure</a>
 </div>
-
-<!-- ABOUT US -->
-<div id="about" style="background:white; margin-top:60px; padding:55px 25px; border-top:1px solid #eee;">
-  <div style="max-width:1100px; margin:auto;">
-    <h2 style="color:#5D4037;"><i class="fa-solid fa-users"></i> About Us</h2>
-    <p style="color:#555; line-height:1.8; max-width:700px;">We are a Kenyan remote work platform providing real AI tasks. One-time activation <b>Ksh 150</b> verifies your M-Pesa for payouts. No monthly charges.</p>
-  </div>
+<div>
+<h4>Support</h4>
+<a href="#">Help Center</a>
+<a href="#">Contact Us</a>
+<a href="#">Community</a>
+<a href="#">Verification Process</a>
 </div>
+<div>
+<h4>Legal</h4>
+<a href="#">Privacy Policy</a>
+<a href="#">Terms of Service</a>
+<a href="#">Cookie Policy</a>
+<a href="#">Disclaimer</a>
+</div>
+</div>
+<div class="copy">
+<p>© 2026 Online Works Kenya. All rights reserved. | Built for the Kenyan digital economy.</p>
+<p style="margin-top:8px">We do not guarantee fixed income. Earnings depend on task completion and quality review. This platform is not affiliated with M-Pesa or Safaricom.</p>
+</div>
+</footer>
 
 <script>
-const user = localStorage.getItem('workremote_user');
-if(user){ document.getElementById('authBtn').innerHTML = `<a href="dashboard.html" style="background:#2E7D32; color:white; padding:10px 20px; border-radius:25px; text-decoration:none; font-weight:bold; font-size:13px;"><i class="fa-solid fa-user"></i> My Dashboard</a>`; }
-
-const jobs = [
- {id:1, title:"Senior RLHF Annotator", company:"AI Lab US", pay:1500, time:"45-60 min", desc:"Rank 5 AI responses from best to worst and rewrite the weakest one in fluent Swahili + English. Requires reasoning."},
- {id:2, title:"Data Protection Researcher", company:"Fintech UK", pay:1800, time:"60 min", desc:"Research Kenya Data Protection Act 2019 and write 400-word summary of 3 key rights for users with source links."},
- {id:3, title:"Vision AI Annotation", company:"AutoDrive", pay:1200, time:"40 min", desc:"Annotate 20 street images from Nairobi — label traffic signs, pedestrians, matatus. Training guide provided."},
- {id:4, title:"Fact-Checking Specialist", company:"News AI", pay:1500, time:"50 min", desc:"Verify 5 claims about Kenyan history/economy using trusted sources. Mark True/False with evidence."},
- {id:5, title:"Swahili Cultural Expert", company:"LLM Training", pay:1000, time:"30 min", desc:"Explain Sheng, Harambee, and matatu culture in 300+ words for AI to learn Kenyan context."},
- {id:6, title:"Chain-of-Thought Math Creator", company:"Edu AI", pay:1000, time:"35 min", desc:"Create 10 KCSE-level math problems with full step-by-step solutions in English."},
- {id:7, title:"Toxic Content Rewriter", company:"Trust & Safety", pay:1300, time:"40 min", desc:"Rewrite 15 toxic Swahili comments into respectful professional language while keeping meaning."},
- {id:8, title:"Prompt Engineer", company:"LLM Eval", pay:1200, time:"35 min", desc:"Create 20 tricky prompts testing AI knowledge of Kenyan counties, laws, and culture."}
-];
-
-document.getElementById('jobsGrid').innerHTML = jobs.map(j=>`
-  <div style="background:white; border-radius:14px; padding:26px; box-shadow:0 4px 18px rgba(0,0,0,0.06); border:1px solid #f0f0f0;">
-    <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
-      <span style="font-size:11px; background:#F5F1E8; color:#5D4037; padding:6px 12px; border-radius:20px; font-weight:bold;">${j.company}</span>
-      <span style="font-size:11px; color:#888;"><i class="fa-regular fa-clock"></i> ${j.time}</span>
+async function loadJobs(){
+  const r = await fetch('/api/jobs');
+  const jobs = await r.json();
+  document.getElementById('jobs').innerHTML = jobs.map(j=>`
+    <div class="card">
+      <h3>${j.title}</h3>
+      <p>${j.description} - Professional task requiring attention to detail, timely delivery and quality standards. Join now to access full instructions.</p>
+      <div class="pay">KES ${j.pay} per task</div><br>
+      <button class="btn-primary" style="width:100%" onclick="location.href='/register.html?job=${j.id}'">View Details</button>
     </div>
-    <h3 style="margin:0 0 10px 0; font-size:16px; color:#222;">${j.title}</h3>
-    <p style="margin:0; color:#666; font-size:13px; line-height:1.65; min-height:72px;">${j.desc}</p>
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:18px; padding-top:14px; border-top:1px solid #f5f5f5;">
-      <b style="color:#2E7D32;">Ksh ${j.pay}</b>
-      <span style="font-size:11px; background:#E8F5E9; color:#2E7D32; padding:6px 12px; border-radius:20px;"><i class="fa-solid fa-circle" style="font-size:6px;"></i> Available</span>
-    </div>
-    <button onclick="localStorage.setItem('selectedJob',${j.id}); location.href='payment.html'" style="width:100%; margin-top:14px; background:#5D4037; color:white; border:none; padding:13px; border-radius:10px; font-weight:bold; cursor:pointer;">Apply for Task →</button>
-  </div>
-`).join('');
+  `).join('');
+}
+loadJobs();
 </script>
 </body>
 </html>
