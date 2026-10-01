@@ -124,7 +124,7 @@ async function load(){
  "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400"
  ];
  document.getElementById('jobs').innerHTML=jobs.map((j,i)=>{
-  const img = j.image || imgs[i % imgs.length];
+  const img = (j.image && j.image.length>10 ? j.image : null) || imgs[i % imgs.length];
   return `<div class="card"><div style="position:relative"><img src="${img}" onerror="this.src='${imgs[0]}'"><div style="position:absolute;top:10px;left:10px" class="badge-green">Available Now</div><div style="position:absolute;top:10px;right:10px;background:white;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:700">KES ${j.pay}</div></div><div class="card-body"><h4 style="font-size:15px">${j.title}</h4><p style="font-size:13px;color:#7a6652;margin:6px 0 10px;line-height:1.4">${j.description}</p><button class="btn">Start Task</button><button class="btn-outline" onclick="document.getElementById('trainingBox').scrollIntoView({behavior:'smooth'})">View Training First</button></div></div>`;
  }).join('');
  if(localStorage.getItem('trained')!=='yes'){document.getElementById('jobs').style.opacity='0.4';document.getElementById('jobs').style.pointerEvents='none';}
@@ -133,3 +133,5 @@ load();
 </script>
 </body>
 </html>
+
+
