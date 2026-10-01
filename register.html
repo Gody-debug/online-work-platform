@@ -1,6 +1,49 @@
 ﻿<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Register</title>
-<style>*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5ebe0;min-height:100vh;display:flex} .box{background:white;width:100%;min-height:100vh;padding:40px 24px;display:flex;flex-direction:column;justify-content:center;max-width:480px;margin:0 auto} @media(min-width:600px){body{justify-content:center;align-items:center;padding:20px} .box{min-height:auto;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.1)}} input{width:100%;padding:14px;margin:10px 0;border:1px solid #e8ddd0;border-radius:12px;font-size:16px} .btn{width:100%;padding:14px;background:#ff7a00;color:white;border:none;border-radius:12px;font-weight:700;margin-top:12px;font-size:16px;cursor:pointer}</style></head>
+<style>*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5ebe0;min-height:100vh;display:flex} .box{background:white;width:100%;min-height:100vh;padding:40px 24px;display:flex;flex-direction:column;justify-content:center;max-width:480px;margin:0 auto} @media(min-width:600px){body{justify-content:center;align-items:center;padding:20px} .box{min-height:auto;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.1)}} input{width:100%;padding:14px;margin:10px 0;border:1px solid #e8ddd0;border-radius:12px;font-size:16px} .btn{width:100%;padding:14px;background:#ff7a00;color:white;border:none;border-radius:12px;font-weight:700;margin-top:12px;font-size:16px;cursor:pointer}.field-error{color:#d93025;font-size:11.5px;margin-top:4px;display:none}
+.input-error{border:1px solid #d93025 !important}
+</style></head>
 <body><div class="box"><h2 style="margin:0 0 6px;font-size:26px">Create Account</h2><p style="color:#7a6652;margin:0 0 24px">Join and start earning today</p><input id="name" required oninvalid="this.setCustomValidity('This field is required')" oninput="this.setCustomValidity('')" placeholder="Full Name"><input id="email" required oninvalid="this.setCustomValidity('This field is required')" oninput="this.setCustomValidity('')" placeholder="Email Address" type="email"><input id="phone" required oninvalid="this.setCustomValidity('This field is required')" oninput="this.setCustomValidity('')" placeholder="Phone Number 07..."><input id="password" required oninvalid="this.setCustomValidity('This field is required')" oninput="this.setCustomValidity('')" placeholder="Password" type="password"><button class="btn" onclick="register()">Create Account</button><p style="text-align:center;margin-top:20px;font-size:14px"><a href="login.html" style="color:#ff7a00;text-decoration:none;font-weight:600">Already have an account? Login</a></p></div>
-<script>async function register(){const name=document.getElementById('name').value;const email=document.getElementById('email').value;const phone=document.getElementById('phone').value;const password=document.getElementById('password').value;if(!name||!email||!phone||!password)return alert('Please fill all fields');const res=await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,phone,password})});const data=await res.json();if(data.token){localStorage.setItem('token',data.token);localStorage.setItem('phone',phone);location.href='payment.html';}else alert(data.message||'Registration failed');}</script></body></html>
+<script>async function register(){const name=document.getElementById('name').value;const email=document.getElementById('email').value;const phone=document.getElementById('phone').value;const password=document.getElementById('password').value;if(!name||!email||!phone||!password)return alert('Please fill all fields');const res=await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,phone,password})});const data=await res.json();if(data.token){localStorage.setItem('token',data.token);localStorage.setItem('phone',phone);location.href='payment.html';}else alert(data.message||'Registration failed');}</script><script>
+(function(){
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form=>{
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach(inp=>{
+      // create error span after each input if not exists
+      if(!inp.nextElementSibling || !inp.nextElementSibling.classList?.contains('field-error')){
+        const err = document.createElement('div');
+        err.className='field-error';
+        err.textContent='This field is required';
+        inp.insertAdjacentElement('afterend', err);
+      }
+      inp.addEventListener('input', ()=>{
+        if(inp.value.trim()!==''){
+          inp.classList.remove('input-error');
+          inp.nextElementSibling.style.display='none';
+        }
+      });
+      inp.addEventListener('blur', ()=>{
+        if(inp.value.trim()===''){
+          inp.classList.add('input-error');
+          inp.nextElementSibling.style.display='block';
+        }
+      });
+    });
+    form.addEventListener('submit', (e)=>{
+      let hasError=false;
+      inputs.forEach(inp=>{
+        if(inp.type!=='hidden' && inp.value.trim()===''){
+          inp.classList.add('input-error');
+          inp.nextElementSibling.style.display='block';
+          hasError=true;
+        }
+      });
+      if(hasError) e.preventDefault();
+    });
+  });
+})();
+</script>
+</body></html>
+
 

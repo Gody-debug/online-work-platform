@@ -27,6 +27,8 @@
 .footer h4{color:white;font-size:12px;margin-bottom:14px;letter-spacing:.7px;text-transform:uppercase}
 .footer a{color:#8a8580;text-decoration:none;font-size:13px;display:block;margin-bottom:9px}
 .footer-bottom{max-width:1280px;margin:40px auto 0;border-top:1px solid #222;padding-top:16px;display:flex;justify-content:space-between;font-size:11.5px;color:#555}
+.field-error{color:#d93025;font-size:11.5px;margin-top:4px;display:none}
+.input-error{border:1px solid #d93025 !important}
 </style></head>
 <body>
 <div class="header"><div class="logo">OnlineWorks Kenya</div><div class="nav"><a href="login.html">Login</a><a href="register.html" style="background:#111;color:white;padding:8px 18px;border-radius:20px">Register</a></div></div>
@@ -61,4 +63,45 @@ async function load(){
 }
 load();
 </script>
+<script>
+(function(){
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form=>{
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach(inp=>{
+      // create error span after each input if not exists
+      if(!inp.nextElementSibling || !inp.nextElementSibling.classList?.contains('field-error')){
+        const err = document.createElement('div');
+        err.className='field-error';
+        err.textContent='This field is required';
+        inp.insertAdjacentElement('afterend', err);
+      }
+      inp.addEventListener('input', ()=>{
+        if(inp.value.trim()!==''){
+          inp.classList.remove('input-error');
+          inp.nextElementSibling.style.display='none';
+        }
+      });
+      inp.addEventListener('blur', ()=>{
+        if(inp.value.trim()===''){
+          inp.classList.add('input-error');
+          inp.nextElementSibling.style.display='block';
+        }
+      });
+    });
+    form.addEventListener('submit', (e)=>{
+      let hasError=false;
+      inputs.forEach(inp=>{
+        if(inp.type!=='hidden' && inp.value.trim()===''){
+          inp.classList.add('input-error');
+          inp.nextElementSibling.style.display='block';
+          hasError=true;
+        }
+      });
+      if(hasError) e.preventDefault();
+    });
+  });
+})();
+</script>
 </body></html>
+
