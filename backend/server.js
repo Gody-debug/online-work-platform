@@ -1,19 +1,14 @@
-﻿ require('dotenv').config();
+﻿require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const app = express();
-
 app.use(cors());
 app.use(express.json());
-
-// Serve frontend
 app.use(express.static(path.join(__dirname, '..')));
-
 let latestPaymentStatus = { status: "pending", message: "Waiting..." };
-
 const jobs = [
  {id:1,title:"Audio Transcription",description:"Transcribe",pay:1000},
  {id:2,title:"Data Entry",pay:800,description:"Enter data"},
@@ -24,9 +19,7 @@ const jobs = [
  {id:7,title:"Data Collection",pay:1100,description:"Collect"},
  {id:8,title:"Virtual Assistant Tasks",pay:1300,description:"VA"},
 ];
-
 app.get('/api/jobs',(req,res)=>res.json(jobs));
-
 app.post('/api/register',(req,res)=>{
   let regs=[]; 
   const regFile = path.join(__dirname, 'registrations.json');
@@ -35,22 +28,18 @@ app.post('/api/register',(req,res)=>{
   fs.writeFileSync(regFile,JSON.stringify(regs,null,2));
   res.json({message:"ok"});
 });
-
 app.post('/api/payments/confirmation',(req,res)=>{
   console.log(JSON.stringify(req.body,null,2));
   const stk=req.body.Body?.stkCallback;
   if(stk) latestPaymentStatus={status:stk.ResultCode===0?"paid":"failed",message:stk.ResultDesc};
   res.json({ResultCode:0,ResultDesc:"Received"});
 });
-
 app.get('/api/payments/status',(req,res)=>res.json({success:latestPaymentStatus.status==="paid",...latestPaymentStatus}));
-
 async function getToken(){
   const auth=Buffer.from(`${process.env.MPESA_CONSUMER_KEY}:${process.env.MPESA_CONSUMER_SECRET}`).toString('base64');
   const r=await axios.get('https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',{headers:{Authorization:`Basic ${auth}`}});
   return r.data.access_token;
 }
-
 app.post('/api/stkpush',async(req,res)=>{
   try{
     const {phone,amount}=req.body;
@@ -68,10 +57,8 @@ app.post('/api/stkpush',async(req,res)=>{
     res.json(resp.data);
   }catch(e){res.status(500).json({error:e.response?.data||e.message})}
 });
-
 app.get('*',(req,res)=>{
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
-
 const PORT=process.env.PORT||10000;
 app.listen(PORT,'0.0.0.0',()=>console.log(`Running on ${PORT}`));
