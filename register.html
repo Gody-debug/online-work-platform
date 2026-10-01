@@ -1,82 +1,104 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register - OnlineWorks Kenya</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account - OnlineWorks</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{background:#fdfbf6;display:flex;justify-content:center;padding:40px 16px}
-.box{background:white;max-width:480px;width:100%;border-radius:20px;padding:32px;border:1px solid #efe6d5;box-shadow:0 10px 30px rgba(164,113,75,.1)}
-h2{color:#3e2f1c;margin-bottom:8px} .sub{color:#7a6652;font-size:14px;margin-bottom:24px;line-height:1.5}
-label{font-size:13px;font-weight:600;color:#3e2f1c;display:block;margin:12px 0 6px}
-input{width:100%;padding:12px 14px;border:1px solid #efe6d5;border-radius:10px;background:#fffaf0}
+body{background:#fdfbf6;display:flex;justify-content:center;padding:30px 16px;min-height:100vh}
+.box{background:white;max-width:520px;width:100%;border-radius:20px;padding:32px;border:1px solid #efe6d5;box-shadow:0 10px 30px rgba(164,113,75,.1)}
+h2{color:#3e2f1c} .sub{color:#7a6652;font-size:14px;margin:8px 0 20px;line-height:1.5}
+label{font-size:13px;font-weight:600;color:#3e2f1c;display:block;margin:14px 0 6px}
+input,select{width:100%;padding:12px 14px;border:1px solid #efe6d5;border-radius:10px;background:#fffaf0}
+.step{display:none}.step.active{display:block}
 .btn{width:100%;background:#a4714b;color:white;padding:14px;border:none;border-radius:10px;font-weight:700;cursor:pointer;margin-top:20px}
-.btn:disabled{opacity:.5}
-.note{background:#fffaf0;border:1px dashed #e0d2b8;padding:12px;border-radius:10px;font-size:12px;color:#7a6652;margin-top:16px;line-height:1.5}
-.status{margin-top:16px;padding:12px;border-radius:10px;font-size:13px;display:none}
-.status.show{display:block}
-.status.pending{background:#fffbeb;color:#92400e}
-.status.paid{background:#ecfdf5;color:#065f46}
+.btn-outline{background:white;color:#a4714b;border:1px solid #a4714b}
+.progress{display:flex;gap:8px;margin-bottom:20px}.dot{height:8px;flex:1;background:#efe6d5;border-radius:10px}.dot.active{background:#a4714b}
+.q{background:#fffaf0;padding:16px;border-radius:12px;margin-bottom:12px;border:1px solid #efe6d5}
+.status{margin-top:16px;padding:12px;border-radius:10px;font-size:13px;display:none}.status.show{display:block}
+.status.pending{background:#fffbeb;color:#92400e}.status.paid{background:#ecfdf5;color:#065f46}
+img.hero{width:100%;border-radius:12px;margin-bottom:16px;height:180px;object-fit:cover}
 </style>
 </head>
 <body>
 <div class="box">
-<h2>Activate Your Account</h2>
-<p class="sub">Complete your registration to start accessing verified digital tasks. One-time activation required.</p>
+<div class="progress"><div id="d1" class="dot active"></div><div id="d2" class="dot"></div><div id="d3" class="dot"></div></div>
 
-<label>Full Name</label>
-<input id="name" placeholder="John Doe">
-<label>Email Address</label>
-<input id="email" type="email" placeholder="john@example.com">
-<label>M-Pesa Phone Number</label>
-<input id="phone" placeholder="07XXXXXXXX">
-<label>Password</label>
-<input id="password" type="password" placeholder="Create password">
+<!-- STEP 1 -->
+<div id="step1" class="step active">
+<img class="hero" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600" alt="work">
+<h2>Create Your Account</h2>
+<p class="sub">Join 12,000+ Kenyans earning remotely. Takes 30 seconds.</p>
+<label>Full Name</label><input id="name" placeholder="John Doe">
+<label>Email</label><input id="email" type="email" placeholder="john@example.com">
+<label>Phone (M-Pesa)</label><input id="phone" placeholder="07XXXXXXXX">
+<label>Password</label><input id="password" type="password" placeholder="Create password">
+<button class="btn" onclick="goStep2()">Continue</button>
+<p style="text-align:center;font-size:13px;margin-top:14px">Already have account? <a href="/login.html" style="color:#a4714b;font-weight:600">Login</a></p>
+</div>
 
-<button id="payBtn" class="btn">Pay KES 150 to Activate</button>
+<!-- STEP 2 SURVEY -->
+<div id="step2" class="step">
+<h2>Quick Qualification</h2>
+<p class="sub">Answer 4 questions to check if you qualify for tasks.</p>
+<div class="q"><label>1. Do you have reliable internet and smartphone/laptop?</label><select id="q1"><option value="">Select</option><option value="yes">Yes, I have</option><option value="no">No</option></select></div>
+<div class="q"><label>2. How many hours can you work daily?</label><select id="q2"><option value="">Select</option><option>1-2 hours</option><option>3-5 hours</option><option>5+ hours</option></select></div>
+<div class="q"><label>3. Have you done online tasks before?</label><select id="q3"><option value="">Select</option><option>Yes</option><option>No, beginner</option></select></div>
+<div class="q"><label>4. Age group?</label><select id="q4"><option value="">Select</option><option>18-25</option><option>26-35</option><option>36+</option></select></div>
+<button class="btn" onclick="checkQualify()">Submit & Check Qualification</button>
+<button class="btn btn-outline" onclick="goStep1()">Back</button>
+</div>
 
+<!-- STEP 3 PAYMENT -->
+<div id="step3" class="step">
+<img class="hero" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600" alt="success">
+<h2>Congratulations! You Qualify 🎉</h2>
+<p class="sub">You passed qualification. Activate your account with one-time KES 150 fee to unlock all tasks and start earning.</p>
+<div style="background:#fffaf0;border:1px solid #e0d2b8;padding:16px;border-radius:12px">
+<p style="font-size:14px"><strong>What you get after activation:</strong></p>
+<p style="font-size:13px;color:#7a6652;margin-top:8px;line-height:1.6">✓ Access to 50+ daily tasks<br>✓ Instant M-Pesa withdrawals<br>✓ Training & support<br>✓ KES 500 - 3000 per day potential</p>
+</div>
+<button id="payBtn" class="btn" style="margin-top:20px">Pay KES 150 to Activate Account</button>
 <div id="status" class="status"></div>
-
-<div class="note">
-<strong>Secure Activation:</strong> You will receive an M-Pesa STK push prompt on your phone. Enter your M-Pesa PIN to authorize the KES 150 activation fee. Account activated instantly after confirmation.<br><br>
-100% secure via Safaricom Daraja API. No manual Till number needed.
+<p style="font-size:11px;color:#7a6652;text-align:center;margin-top:12px">One-time activation. Secure payment handled automatically.</p>
 </div>
 
-<p style="text-align:center;font-size:12px;color:#7a6652;margin-top:20px"><a href="/" style="color:#a4714b;text-decoration:none">← Back to tasks</a></p>
 </div>
-
 <script>
-const payBtn=document.getElementById('payBtn');
-const statusEl=document.getElementById('status');
+let userData={};
+function goStep1(){document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));document.getElementById('step1').classList.add('active');document.getElementById('d1').classList.add('active');document.getElementById('d2').classList.remove('active')}
+function goStep2(){
+ const name=document.getElementById('name').value,email=document.getElementById('email').value,phone=document.getElementById('phone').value,pass=document.getElementById('password').value;
+ if(!name||!email||!phone||!pass){alert('Fill all fields');return}
+ userData={name,email,phone,password:pass,job:new URLSearchParams(location.search).get('job'),date:new Date().toISOString()};
+ document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));document.getElementById('step2').classList.add('active');
+ document.getElementById('d2').classList.add('active');
+ // save account first
+ fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(userData)});
+}
+function checkQualify(){
+ if(!document.getElementById('q1').value||!document.getElementById('q2').value||!document.getElementById('q3').value||!document.getElementById('q4').value){alert('Answer all questions');return}
+ if(document.getElementById('q1').value==='no'){alert('You need internet to qualify');return}
+ document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));document.getElementById('step3').classList.add('active');document.getElementById('d3').classList.add('active');
+}
 let interval;
-payBtn.onclick=async()=>{
-  const name=document.getElementById('name').value;
-  const email=document.getElementById('email').value;
-  const phone=document.getElementById('phone').value;
-  if(!name||!email||!phone){alert('Fill all fields');return}
-  payBtn.disabled=true; payBtn.innerText='Processing...';
-  statusEl.className='status pending show'; statusEl.innerText='Sending secure M-Pesa prompt to your phone...';
-  try{
-    await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,phone,job:new URLSearchParams(location.search).get('job'),date:new Date().toISOString()})});
-    const res=await fetch('/api/stkpush',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone,amount:150})});
-    const data=await res.json();
-    if(data.ResponseCode==='0'){
-      statusEl.innerText='STK Push sent! Check your phone and enter M-Pesa PIN to complete activation.';
-      startPolling();
-    }else throw new Error('Failed');
-  }catch(e){
-    statusEl.innerText='Error: '+(e.message||'Could not process');
-    payBtn.disabled=false; payBtn.innerText='Pay KES 150 to Activate';
-  }
-};
-function startPolling(){
-  interval=setInterval(async()=>{
+document.getElementById('payBtn').onclick=async()=>{
+ const btn=document.getElementById('payBtn'); const statusEl=document.getElementById('status');
+ btn.disabled=true; btn.innerText='Processing...';
+ statusEl.className='status pending show'; statusEl.innerText='Sending M-Pesa prompt to '+userData.phone+'...';
+ try{
+  const res=await fetch('/api/stkpush',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:userData.phone,amount:150})});
+  const data=await res.json();
+  if(data.ResponseCode==='0'){
+   statusEl.innerText='STK Push sent! Enter M-Pesa PIN on your phone.';
+   interval=setInterval(async()=>{
     const r=await fetch('/api/payments/status'); const s=await r.json();
     if(s.status==='paid'){clearInterval(interval); statusEl.className='status paid show'; statusEl.innerText='Payment confirmed! Redirecting...'; setTimeout(()=>location.href='/dashboard.html',1500);}
-    else if(s.status==='failed'){clearInterval(interval); statusEl.innerText='Payment failed: '+s.message; payBtn.disabled=false; payBtn.innerText='Try Again';}
-  },3000);
-}
+    else if(s.status==='failed'){clearInterval(interval); statusEl.innerText='Failed: '+s.message; btn.disabled=false; btn.innerText='Pay KES 150 to Activate Account';}
+   },3000);
+  }else throw new Error('Failed');
+ }catch(e){statusEl.innerText='Error: Try again'; btn.disabled=false; btn.innerText='Pay KES 150 to Activate Account';}
+};
 </script>
 </body>
 </html>

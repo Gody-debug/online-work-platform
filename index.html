@@ -1,93 +1,81 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Online Works Kenya - Professional Digital Task Platform</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
 body{background:#fdfbf6;color:#2b2116}
 header{background:#fffaf0;border-bottom:1px solid #efe6d5;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
-.logo{font-weight:800;font-size:20px} .logo span{color:#a4714b}
-.btn-primary{background:#a4714b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
-.hero{padding:80px 5%;text-align:center;background:linear-gradient(180deg,#fffaf0 0%,#fdfbf6 100%)}
-.hero h1{font-size:42px;max-width:800px;margin:0 auto 16px;line-height:1.1;color:#3e2f1c}
-.hero p{color:#7a6652;max-width:650px;margin:0 auto 24px;font-size:18px;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:40px 5%}
-.card{background:white;border:1px solid #efe6d5;border-radius:16px;padding:24px;transition:.2s}
+.logo{font-weight:800;font-size:20px}.logo span{color:#a4714b}
+.btn-primary{background:#a4714b;color:white;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-weight:600;text-decoration:none;font-size:14px}
+.btn-outline{background:white;color:#a4714b;border:1px solid #a4714b;padding:10px 20px;border-radius:8px;font-weight:600;text-decoration:none;font-size:14px}
+.hero{padding:60px 5%;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;max-width:1200px;margin:0 auto}
+.hero img{width:100%;border-radius:20px;height:380px;object-fit:cover}
+.hero h1{font-size:42px;line-height:1.1;color:#3e2f1c;margin-bottom:16px}.hero p{color:#7a6652;font-size:17px;line-height:1.6;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:40px 5%;max-width:1200px;margin:0 auto}
+.card{background:white;border:1px solid #efe6d5;border-radius:16px;overflow:hidden;transition:.2s}
 .card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(164,113,75,.15)}
-.card h3{margin-bottom:8px} .card p{color:#7a6652;font-size:14px;line-height:1.5;margin-bottom:16px}
-.card .pay{font-weight:700;color:#a4714b}
+.card img{width:100%;height:160px;object-fit:cover}
+.card-body{padding:20px}.card-body p{color:#7a6652;font-size:13px;margin:8px 0 12px;line-height:1.5}
+.pay{font-weight:700;color:#a4714b;font-size:13px}
 footer{background:#efe6d5;color:#5c4a32;padding:60px 5% 30px;margin-top:40px;border-top:1px solid #e0d2b8}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
-@media(max-width:800px){.footer-grid{grid-template-columns:1fr 1fr} .hero h1{font-size:28px}}
-footer h4{color:#3e2f1c;margin-bottom:16px} footer a{color:#7a6652;text-decoration:none;display:block;margin-bottom:10px;font-size:14px}
-footer a:hover{color:#3e2f1c}
-.copy{border-top:1px solid #e0d2b8;margin-top:40px;padding-top:20px;text-align:center;font-size:13px}
-.badge{display:inline-block;background:#efe6d5;color:#a4714b;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:12px;border:1px solid #e0d2b8}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;max-width:1200px;margin:0 auto}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero h1{font-size:30px}.footer-grid{grid-template-columns:1fr 1fr}}
+footer h4{color:#3e2f1c;margin-bottom:16px}footer a{color:#7a6652;text-decoration:none;display:block;margin-bottom:10px;font-size:14px}
+.copy{border-top:1px solid #e0d2b8;margin-top:40px;padding-top:20px;text-align:center;font-size:13px;max-width:1200px;margin-left:auto;margin-right:auto}
+.badge{display:inline-block;background:#efe6d5;color:#a4714b;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:12px;border:1px solid #e0d2b8}
 </style>
 </head>
 <body>
 <header>
 <div class="logo">Online<span>Works</span>.ke</div>
-<button class="btn-primary" onclick="document.getElementById('jobs').scrollIntoView()">Browse Tasks</button>
+<div style="display:flex;gap:10px">
+<a href="/login.html" class="btn-outline">Login</a>
+<a href="/register.html" class="btn-primary">Register</a>
+</div>
 </header>
 
 <div class="hero">
+<div>
 <div class="badge">Trusted by 12,000+ Kenyan Freelancers</div>
 <h1>Professional Digital Work for Skilled Kenyans</h1>
-<p>Online Works Kenya connects talented individuals with verified digital opportunities. From audio transcription and data management to research, content creation and virtual assistance — build your career working remotely with flexible, skill-based tasks.</p>
-<button class="btn-primary" onclick="document.getElementById('jobs').scrollIntoView()">Explore Available Gigs</button>
+<p>Kenya's leading platform for legitimate online micro-tasks. We provide vetted opportunities in transcription, data entry, research, content writing, proofreading and virtual assistance. Build your career working remotely.</p>
+<div style="display:flex;gap:12px">
+<a href="/register.html" class="btn-primary" style="padding:14px 28px">Get Started Free</a>
+<a href="#jobs" class="btn-outline" style="padding:14px 28px">Browse Tasks</a>
+</div>
+</div>
+<img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800" alt="team working">
 </div>
 
 <div id="jobs" class="grid"></div>
 
 <footer>
 <div class="footer-grid">
-<div>
-<h4>OnlineWorks Kenya</h4>
-<p style="font-size:14px;line-height:1.6;max-width:320px">Kenya's leading platform for legitimate online micro-tasks. We provide vetted opportunities in transcription, data entry, research, content writing, proofreading and virtual assistance. Our mission is to empower Kenyan youth with sustainable digital income.</p>
+<div><h4>OnlineWorks Kenya</h4><p style="font-size:14px;line-height:1.6;max-width:320px">Empowering Kenyan youth with sustainable digital income through verified micro-tasks.</p></div>
+<div><h4>Platform</h4><a href="#">How it Works</a><a href="#">Available Tasks</a><a href="#">Quality Guidelines</a><a href="#">Earnings</a></div>
+<div><h4>Support</h4><a href="#">Help Center</a><a href="#">Contact Us</a><a href="#">Community</a><a href="#">Verification</a></div>
+<div><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a><a href="#">Disclaimer</a></div>
 </div>
-<div>
-<h4>Platform</h4>
-<a href="#">How it Works</a>
-<a href="#">Available Tasks</a>
-<a href="#">Quality Guidelines</a>
-<a href="#">Earnings Structure</a>
-</div>
-<div>
-<h4>Support</h4>
-<a href="#">Help Center</a>
-<a href="#">Contact Us</a>
-<a href="#">Community</a>
-<a href="#">Verification Process</a>
-</div>
-<div>
-<h4>Legal</h4>
-<a href="#">Privacy Policy</a>
-<a href="#">Terms of Service</a>
-<a href="#">Cookie Policy</a>
-<a href="#">Disclaimer</a>
-</div>
-</div>
-<div class="copy">
-<p>© 2026 Online Works Kenya. All rights reserved. | Built for the Kenyan digital economy.</p>
-<p style="margin-top:8px">We do not guarantee fixed income. Earnings depend on task completion and quality review. This platform is not affiliated with M-Pesa or Safaricom.</p>
-</div>
+<div class="copy"><p>© 2026 Online Works Kenya. All rights reserved. | Built for the Kenyan digital economy.</p></div>
 </footer>
 
 <script>
 async function loadJobs(){
-  const r = await fetch('/api/jobs');
-  const jobs = await r.json();
-  document.getElementById('jobs').innerHTML = jobs.map(j=>`
-    <div class="card">
-      <h3>${j.title}</h3>
-      <p>${j.description} - Professional task requiring attention to detail, timely delivery and quality standards. Join now to access full instructions.</p>
-      <div class="pay">KES ${j.pay} per task</div><br>
-      <button class="btn-primary" style="width:100%" onclick="location.href='/register.html?job=${j.id}'">View Details</button>
-    </div>
-  `).join('');
+ const r=await fetch('/api/jobs'); const jobs=await r.json();
+ const imgs=["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400","https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400","https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400","https://images.unsplash.com/photo-1542744173-8e7e53415bb4?w=400","https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400","https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400"];
+ document.getElementById('jobs').innerHTML=jobs.map((j,i)=>`
+  <div class="card">
+   <img src="${imgs[i%imgs.length]}" alt="${j.title}">
+   <div class="card-body">
+    <h3>${j.title}</h3>
+    <p>${j.description} - Professional task requiring attention to detail and quality standards.</p>
+    <div class="pay">KES ${j.pay} per task • ${j.type||'Remote'}</div>
+    <button class="btn-primary" style="width:100%;margin-top:12px" onclick="location.href='/register.html?job=${j.id}'">View & Apply</button>
+   </div>
+  </div>
+ `).join('');
 }
 loadJobs();
 </script>
