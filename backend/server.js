@@ -57,7 +57,7 @@ app.post('/api/stkpush',async(req,res)=>{
     res.json(resp.data);
   }catch(e){res.status(500).json({error:e.response?.data||e.message})}
 });
-app.get('*',(req,res)=>{
+app.get('/{*any}',(req,res)=>{
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 const PORT=process.env.PORT||10000;
