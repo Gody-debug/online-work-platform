@@ -25,7 +25,58 @@
 <div class="header"><div class="logo">OnlineWorks Kenya</div><div class="nav"><a href="login.html">Login</a><a href="register.html" style="background:#111;color:white;padding:8px 18px;border-radius:20px">Register</a></div></div>
 <div class="hero"><div class="hero-overlay"></div><div class="hero-content"><h1>Brighten your future<br>by working <b>remotely</b></h1><p>Earn from anywhere. Simple tasks, real payouts.</p><button class="btn-dark" onclick="location.href='register.html'">Get Started</button></div></div>
 <div id="jobs" class="grid"></div>
-<div class="footer"><div><h4>OnlineWorks Kenya</h4><p>Empowering Kenyan youth with sustainable digital income through verified micro-tasks.</p></div><div><h4>Platform</h4><a>How it Works</a><a>Available Tasks</a><a>Quality Guidelines</a><a>Earnings</a></div><div><h4>Support</h4><a>Help Center</a><a>Contact Us</a><a>Community</a><a>Verification</a></div><div><h4>Legal</h4><a>Privacy</a><a>Terms of Service</a><a>Cookie</a><a>Disclaimer</a></div></div>
+<div class="footer" style="background:#111111;color:#a8a29e;padding:50px 32px 20px;margin-top:50px">
+<div style="max-width:1250px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:32px">
+<div>
+<div style="font-weight:800;font-size:19px;color:white;margin-bottom:12px">OnlineWorks Kenya</div>
+<p style="font-size:13px;line-height:1.6;color:#a8a29e;margin-bottom:16px">Empowering Kenyan youth with sustainable digital income through verified micro-tasks. Trusted by 12,000+ freelancers across Kenya.</p>
+<div style="font-size:12px;line-height:1.8">
+<div>📧 support@onlineworks.co.ke</div>
+<div>📞 +254 700 123 456</div>
+<div>📍 Eldoret, Rift Valley, Kenya</div>
+</div>
+</div>
+<div>
+<h4 style="color:white;font-size:14px;margin-bottom:14px">Platform</h4>
+<a style="color:#a8a29e">How it Works - Create account, activate with KES 150 once, start tasks instantly</a>
+<a style="color:#a8a29e">Available Tasks - 8+ categories, daily payouts</a>
+<a style="color:#a8a29e">Quality Guidelines - 95% accuracy required</a>
+<a style="color:#a8a29e">Earnings - KES 700-1500 per task, M-Pesa withdrawal</a>
+</div>
+<div>
+<h4 style="color:white;font-size:14px;margin-bottom:14px">Support</h4>
+<a style="color:#a8a29e">Help Center - FAQs, tutorials, video guides</a>
+<a style="color:#a8a29e">Contact Us - 24/7 WhatsApp support</a>
+<a style="color:#a8a29e">Community - Join Telegram group of workers</a>
+<a style="color:#a8a29e">Verification - ID & M-Pesa verified accounts only</a>
+</div>
+<div>
+<h4 style="color:white;font-size:14px;margin-bottom:14px">Legal & Safety</h4>
+<a onclick="document.getElementById('privacyModal').style.display='flex'" style="color:#a8a29e;cursor:pointer">Privacy Policy - How we protect your data & M-Pesa info</a>
+<a onclick="document.getElementById('termsModal').style.display='flex'" style="color:#a8a29e;cursor:pointer">Terms of Service - User agreement & payment terms</a>
+<a style="color:#a8a29e">Cookie Policy - We use cookies for security</a>
+<a style="color:#a8a29e">Disclaimer - Tasks are verified but income varies</a>
+<div style="margin-top:16px;background:#1e1e1e;padding:10px;border-radius:8px;font-size:11px;line-height:1.5">🔒 M-Pesa Daraja API secured • 256-bit SSL • Activation fee KES 150 one-time only</div>
+</div>
+</div>
+<div style="max-width:1250px;margin:40px auto 0;border-top:1px solid #222;padding-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#666">
+<span>© 2026 OnlineWorks Kenya. All rights reserved.</span><span>Made for Kenyan freelancers 🇰🇪</span>
+</div>
+</div>
+
+<!-- Privacy Modal -->
+<div id="privacyModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:99;align-items:center;justify-content:center;padding:20px" onclick="this.style.display='none'">
+<div style="background:white;max-width:600px;width:100%;max-height:80vh;overflow:auto;padding:24px;border-radius:16px;color:#111" onclick="event.stopPropagation()">
+<h3>Privacy Policy</h3><p style="font-size:13px;line-height:1.6;margin-top:12px">We collect name, email, phone for account activation. M-Pesa number is used only for STK push via Safaricom Daraja API. We do not store M-Pesa PIN. Your data is encrypted and never shared. You can request deletion via support@onlineworks.co.ke</p><button onclick="document.getElementById('privacyModal').style.display='none'" style="margin-top:16px;background:#111;color:white;padding:10px 20px;border-radius:8px;border:none">Close</button>
+</div>
+</div>
+
+<!-- Terms Modal -->
+<div id="termsModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:99;align-items:center;justify-content:center;padding:20px" onclick="this.style.display='none'">
+<div style="background:white;max-width:600px;width:100%;max-height:80vh;overflow:auto;padding:24px;border-radius:16px;color:#111" onclick="event.stopPropagation()">
+<h3>Terms of Service</h3><p style="font-size:13px;line-height:1.6;margin-top:12px">1. Activation fee KES 150 is one-time, non-refundable and unlocks lifetime access.<br>2. Tasks must be completed with 95% accuracy.<br>3. Payouts via M-Pesa within 24h after review.<br>4. One account per phone number.<br>5. Fraud leads to ban.</p><button onclick="document.getElementById('termsModal').style.display='none'" style="margin-top:16px;background:#111;color:white;padding:10px 20px;border-radius:8px;border:none">Close</button>
+</div>
+</div>
 <script>
 const FALLBACK=["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600","https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600","https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600","https://images.unsplash.com/photo-1542744173-8e7e53415bb4?w=600","https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600","https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600","https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600"];
 const DOC_IMG="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600";
@@ -50,3 +101,4 @@ async function load(){
 load();
 </script>
 </body></html>
+
