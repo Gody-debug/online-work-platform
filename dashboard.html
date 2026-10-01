@@ -1,143 +1,135 @@
- <!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard - WorkRemote</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - OnlineWorks</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#fdfbf6;color:#2b2116;display:flex;min-height:100vh}
+.sidebar{width:300px;background:#fffaf0;border-right:1px solid #efe6d5;padding:24px;position:fixed;left:-300px;top:0;height:100%;z-index:20;transition:.3s;overflow-y:auto}
+.sidebar.open{left:0}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);display:none;z-index:10}.overlay.show{display:block}
+.topbar{position:fixed;top:0;left:0;right:0;background:#fffaf0;border-bottom:1px solid #efe6d5;padding:14px 20px;display:flex;align-items:center;gap:16px;z-index:5}
+.hamburger{width:40px;height:40px;background:#efe6d5;border-radius:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer;border:none}
+.hamburger span{width:18px;height:2px;background:#3e2f1c;border-radius:2px;display:block}
+.main{flex:1;margin-top:68px;padding:24px 5%;max-width:1200px;margin:0 auto;width:100%}
+.profile{text-align:center;padding-bottom:20px;border-bottom:1px solid #efe6d5;margin-bottom:20px}
+.avatar{width:90px;height:90px;border-radius:50%;background:#efe6d5;margin:0 auto 12px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:12px;color:#a4714b;border:3px solid #e0d2b8;font-weight:600}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.upload-btn{position:absolute;bottom:0;right:0;background:#a4714b;color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;border:2px solid white}
+.detail{font-size:13px;color:#7a6652;margin-top:4px}
+.badge-green{display:inline-flex;align-items:center;gap:6px;background:#ecfdf5;color:#065f46;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid #a7f3d0}
+.badge-green::before{content:'';width:6px;height:6px;background:#10b981;border-radius:50%;display:inline-block}
+.menu a{display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;text-decoration:none;color:#5c4a32;font-size:14px;margin-bottom:6px}
+.menu a:hover,.menu a.active{background:#efe6d5;color:#3e2f1c}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0}
+.stat{background:white;border:1px solid #efe6d5;border-radius:16px;padding:20px}
+.training{background:white;border:1px solid #efe6d5;border-radius:16px;padding:20px;margin:20px 0}
+.training-step{display:none}.training-step.active{display:block}
+.progress-bar{height:6px;background:#efe6d5;border-radius:10px;margin:12px 0}.progress-fill{height:6px;background:#a4714b;border-radius:10px;width:0%;transition:.3s}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:20px}
+.card{background:white;border:1px solid #efe6d5;border-radius:16px;overflow:hidden}
+.card img{width:100%;height:140px;object-fit:cover;display:block}
+.card-body{padding:16px}
+.btn{width:100%;background:#a4714b;color:white;border:none;padding:10px;border-radius:8px;font-weight:600;cursor:pointer;margin-top:8px}
+.btn-outline{background:white;color:#a4714b;border:1px solid #a4714b;width:100%;padding:10px;border-radius:8px;font-weight:600;cursor:pointer;margin-top:8px}
+</style>
 </head>
-<body style="font-family:'Segoe UI',Arial; margin:0; background:#FAF8F3;">
-
-<!-- TOP -->
-<div style="background:white; padding:16px 30px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-  <b style="color:#5D4037;"><i class="fa-solid fa-briefcase"></i> WorkRemote</b>
-  <div style="display:flex; gap:12px; align-items:center;">
-    <span id="userPhone" style="font-size:12px; color:#666;"></span>
-    <button onclick="logout()" style="background:#f5f5f5; border:1px solid #ddd; padding:8px 14px; border-radius:20px; font-size:12px; cursor:pointer;">Logout</button>
-  </div>
+<body>
+<div class="overlay" id="overlay" onclick="toggle()"></div>
+<div class="sidebar" id="sidebar">
+<div class="profile">
+<div class="avatar" id="avatar">No Photo<img id="avatarImg" style="display:none"><label class="upload-btn" for="picInput">+</label><input type="file" id="picInput" accept="image/*" onchange="loadPic(event)"></div>
+<h3 id="uName">John Doe</h3><p class="detail" id="uEmail">john@example.com</p><p class="detail">ID: KE-28491</p>
+<div style="margin-top:12px" class="badge-green">Verified Account</div>
+<div style="margin-top:16px;background:#fffaf0;border:1px solid #efe6d5;border-radius:12px;padding:12px;text-align:left">
+<p style="font-size:12px;color:#7a6652">Balance</p><p style="font-weight:800;color:#3e2f1c;font-size:18px">KES 0.00</p><p style="font-size:11px;color:#7a6652;margin-top:6px">Tasks Done: 0 | Pending: 0</p></div>
+</div>
+<div class="menu">
+<a href="#" class="active">Dashboard</a><a href="#">My Tasks</a><a href="#">Earnings and Withdraw</a><a href="#">Training Center</a><a href="#">Leaderboard</a><a href="#">Settings</a><a href="#">Support</a><a href="/" style="margin-top:20px">Logout</a>
+</div>
 </div>
 
-<div style="max-width:1100px; margin:30px auto; padding:0 20px; display:grid; grid-template-columns:320px 1fr; gap:24px;">
+<div class="topbar">
+<button class="hamburger" onclick="toggle()"><span></span><span></span><span></span></button>
+<div style="font-weight:800">Online<span style="color:#a4714b">Works</span>.ke</div>
+<div style="margin-left:auto;display:flex;gap:10px;align-items:center"><div class="badge-green">Available for Work</div><div style="width:36px;height:36px;border-radius:50%;background:#efe6d5;display:flex;align-items:center;justify-content:center;font-size:12px">User</div></div>
+</div>
 
-  <!-- LEFT PANEL -->
-  <div>
-    <div style="background:white; border-radius:14px; padding:22px; box-shadow:0 4px 18px rgba(0,0,0,0.05);">
-      <p style="margin:0 0 6px 0; font-size:12px; color:#999; text-transform:uppercase;">Payment Status</p>
-      <p style="margin:0; color:#2E7D32; font-weight:bold;"><i class="fa-solid fa-circle-check"></i> Activated - Ksh 150 Paid</p>
-      <p id="codeShow" style="margin:8px 0 0 0; font-size:11px; color:#666; background:#F5F1E8; padding:8px; border-radius:6px;"></p>
-      <hr style="border:none; border-top:1px solid #eee; margin:18px 0;">
-      <p style="font-size:13px; margin:0 0 8px 0;"><b>Your Task:</b></p>
-      <div id="taskMini" style="background:#FAF8F3; padding:12px; border-radius:8px; font-size:13px;"></div>
-      <hr style="border:none; border-top:1px solid #eee; margin:18px 0;">
-      <p style="font-size:12px; color:#666; line-height:1.6;"><i class="fa-solid fa-money-bill-wave"></i> Payout: M-Pesa within 24hrs after approval.<br><i class="fa-solid fa-phone"></i> Support: WhatsApp 0791957646</p>
-    </div>
+<div class="main">
+<div class="stats">
+<div class="stat"><p>Todays Earnings</p><h3>KES 0</h3></div><div class="stat"><p>Tasks Completed</p><h3>0</h3></div><div class="stat"><p>Account Level</p><h3>Starter</h3></div><div class="stat"><p>Withdrawable</p><h3>KES 0</h3></div>
+</div>
 
-    <div style="background:#5D4037; color:white; border-radius:14px; padding:18px; margin-top:16px;">
-      <p style="margin:0; font-size:13px;"><i class="fa-solid fa-trophy"></i> Earn More</p>
-      <p style="margin:8px 0 0 0; font-size:12px; opacity:0.8; line-height:1.5;">Complete this task well and you will be invited to 5 more high-paying tasks (Ksh 2000-4000 each) without extra fee.</p>
-    </div>
-  </div>
+<div class="training" id="trainingBox">
+<h3 style="color:#3e2f1c">Task Training - Required Before Starting</h3>
+<p style="color:#7a6652;font-size:13px;margin-top:6px">Complete this short training to unlock tasks. Learn how to do tasks correctly.</p>
+<div class="progress-bar"><div class="progress-fill" id="trainProgress"></div></div>
+<p style="font-size:12px;color:#7a6652"><span id="trainCount">1</span> of 3 steps completed</p>
 
-  <!-- RIGHT - TASK WORKSPACE -->
-  <div style="background:white; border-radius:14px; padding:28px; box-shadow:0 4px 18px rgba(0,0,0,0.05);">
-    <h2 id="jobTitle" style="margin:0 0 8px 0; color:#5D4037;">Loading your task...</h2>
-    <p id="jobMeta" style="margin:0 0 18px 0; color:#888; font-size:13px;"></p>
-    
-    <div style="background:#FFF8E1; border-left:4px solid #C9A227; padding:16px; border-radius:0 8px 8px 0; margin-bottom:22px;">
-      <p style="margin:0; font-size:13px; font-weight:bold; color:#5D4037;"><i class="fa-solid fa-list-check"></i> What to do:</p>
-      <p id="jobDesc" style="margin:8px 0 0 0; font-size:13.5px; line-height:1.7; color:#555;"></p>
-    </div>
+<div id="t1" class="training-step active" style="margin-top:16px;background:#fffaf0;padding:16px;border-radius:12px;border:1px solid #efe6d5">
+<h4>Step 1: Understanding Task Requirements</h4><p style="font-size:13px;color:#5c4a32;margin-top:8px;line-height:1.5">Every task has instructions, deadline and quality score. Read instructions fully before starting. Poor quality leads to rejection. You have 2 chances to redo a rejected task.</p>
+<button class="btn" onclick="nextTrain(2)">I Understand - Next</button>
+</div>
 
-    <label style="font-size:13px; font-weight:bold;">Your Work Submission</label>
-    <textarea id="submission" placeholder="Paste your completed work here in detail... The better your work, the faster approval." style="width:100%; min-height:260px; padding:14px; border:1px solid #ddd; border-radius:10px; margin-top:8px; box-sizing:border-box; font-family:Arial; font-size:13px; line-height:1.6;"></textarea>
+<div id="t2" class="training-step" style="margin-top:16px;background:#fffaf0;padding:16px;border-radius:12px;border:1px solid #efe6d5">
+<h4>Step 2: How to Submit Work</h4><p style="font-size:13px;color:#5c4a32;margin-top:8px;line-height:1.5">After completing, click Submit. Attach files or paste text as required. Ensure no spelling errors. Click Preview before final submit. Once submitted you cannot edit.</p>
+<button class="btn" onclick="nextTrain(3)">Next - Final Step</button>
+</div>
 
-    <div style="display:flex; gap:12px; margin-top:18px;">
-      <button onclick="submitWork()" style="flex:1; background:#2E7D32; color:white; border:none; padding:14px; border-radius:10px; font-weight:bold; cursor:pointer; font-size:14px;">Submit for Review →</button>
-      <button onclick="saveDraft()" style="background:#f5f5f5; border:1px solid #ddd; padding:14px 18px; border-radius:10px; font-size:13px; cursor:pointer;">Save Draft</button>
-    </div>
+<div id="t3" class="training-step" style="margin-top:16px;background:#fffaf0;padding:16px;border-radius:12px;border:1px solid #efe6d5">
+<h4>Step 3: Practice Task</h4><p style="font-size:13px;color:#5c4a32;margin-top:8px;line-height:1.5">Sample: Format this sentence correctly: "kenya is a beautifull country with many resources" - Correct answer: "Kenya is a beautiful country with many resources."</p>
+<label style="font-size:13px;font-weight:600;margin-top:10px;display:block">Type the correct sentence:</label><input id="practice" placeholder="Type corrected sentence" style="width:100%;padding:10px;border:1px solid #efe6d5;border-radius:8px;margin-top:6px;background:white">
+<button class="btn" onclick="finishTrain()">Submit Practice and Unlock Tasks</button>
+</div>
 
-    <p id="submitMsg" style="font-size:13px; margin-top:14px; text-align:center;"></p>
+<div id="trainDone" style="display:none;margin-top:16px;background:#ecfdf5;padding:16px;border-radius:12px;border:1px solid #a7f3d0">
+<p style="color:#065f46;font-weight:600">Training Completed - Tasks Unlocked</p><p style="font-size:13px;color:#065f46;margin-top:4px">You can now start earning. Good luck.</p>
+</div>
+</div>
 
-    <div id="afterSubmit" style="display:none; margin-top:25px; background:#E8F5E9; padding:20px; border-radius:10px; border:1px solid #A5D6A7; text-align:center;">
-      <h3 style="margin:0; color:#2E7D32;"><i class="fa-solid fa-hourglass-half"></i> Under Review</h3>
-      <p style="font-size:13px; color:#555; line-height:1.6; margin:10px 0 0 0;">Your work has been sent to our client. You will receive Ksh <span id="payAmount"></span> via M-Pesa to <span id="payPhone"></span> within 24hrs if approved.<br><br>Keep your phone on.</p>
-      <a href="index.html" style="display:inline-block; margin-top:14px; font-size:12px; color:#5D4037;">← Back to Home</a>
-    </div>
-
-  </div>
+<h2 style="margin-top:10px;color:#3e2f1c">Available Tasks</h2>
+<div class="grid" id="jobs"></div>
 </div>
 
 <script>
-// CHECK IF PAID
-const paid = localStorage.getItem('workremote_paid');
-const user = localStorage.getItem('workremote_user');
-const code = localStorage.getItem('workremote_code');
-const selectedId = localStorage.getItem('selectedJob') || 1;
-
-if(!paid){
-  window.location.href='payment.html';
+function toggle(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show')}
+function loadPic(e){const file=e.target.files[0]; if(!file)return; const url=URL.createObjectURL(file); document.getElementById('avatarImg').src=url; document.getElementById('avatarImg').style.display='block'; document.getElementById('avatar').firstChild.textContent='';}
+function nextTrain(n){
+ document.querySelectorAll('.training-step').forEach(s=>s.classList.remove('active'));
+ document.getElementById('t'+n).classList.add('active');
+ document.getElementById('trainProgress').style.width=(n-1)*33+'%';
+ document.getElementById('trainCount').innerText=n;
 }
-
-document.getElementById('userPhone').innerText = user || '';
-document.getElementById('codeShow').innerHTML = `M-Pesa Code: <b>${code || '---'}</b><br>Paid to: <b>0791957646</b>`;
-
-const jobs = {
-1:{title:"Senior RLHF Annotator", pay:1500, meta:"AI Lab US • 45-60 min • Ksh 1500", desc:"1. You will be given 5 AI answers to same question.<br>2. Rank them 1-5 (best to worst).<br>3. For worst answer, rewrite it in perfect Swahili + English (200 words).<br>4. Explain why best is best (100 words).<br><br><b>Client prompt to use:</b> 'Explain why young people in Kenya should consider remote work.'"},
-2:{title:"Data Protection Researcher", pay:1800, meta:"Fintech UK • 60 min • Ksh 1800", desc:"Research Kenya Data Protection Act 2019. Write 400-word summary covering: 1) Right to be forgotten 2) Consent rules 3) Penalty for breach. Add 2 source links from ODPC website."},
-3:{title:"Vision AI Annotation", pay:1200, meta:"AutoDrive • 40 min • Ksh 1200", desc:"Download sample image set (we will send link after submit). Label: traffic signs, pedestrians, boda-bodas, matatus. Follow format: [object, x, y, w, h]. Example provided in submission."},
-4:{title:"Fact-Checking Specialist", pay:1500, meta:"News AI • 50 min • Ksh 1500", desc:"Verify these 5 claims: 1) M-Pesa launched 2007 2) Kenya has 47 counties 3) Nairobi National Park is inside city 4) Swahili is official language 5) Lake Turkana is largest desert lake. Mark True/False with 2 sources each."},
-5:{title:"Swahili Cultural Expert", pay:1000, meta:"LLM Training • 30 min • Ksh 1000", desc:"Explain in 350+ words: What is Sheng? Give 10 examples with English. Explain Harambee spirit. Explain matatu culture. Write like teaching a foreigner."},
-6:{title:"Chain-of-Thought Math Creator", pay:1000, meta:"Edu AI • 35 min • Ksh 1000", desc:"Create 10 KCSE Form 3 math questions (Algebra, Geometry). For each: Question + Step-by-step solution + Final Answer + Common mistake to avoid."},
-7:{title:"Toxic Content Rewriter", pay:1300, meta:"Trust & Safety • 40 min • Ksh 1300", desc:"Rewrite these 15 toxic comments (we send after submit) into respectful Swahili/English that keeps meaning but removes insult. Show Before/After."},
-8:{title:"Prompt Engineer", pay:1200, meta:"LLM Eval • 35 min • Ksh 1200", desc:"Create 20 prompts that would trick AI about Kenya (e.g. 'Who is current governor of Kaaga?' ). For each: Prompt + Expected Correct Answer + Why it's tricky."}
-};
-
-const job = jobs[selectedId] || jobs[1];
-document.getElementById('jobTitle').innerText = job.title;
-document.getElementById('jobMeta').innerText = job.meta;
-document.getElementById('jobDesc').innerHTML = job.desc;
-document.getElementById('taskMini').innerHTML = `<b>${job.title}</b><br>${job.meta}<br><br><span style="color:#2E7D32; font-weight:bold;">Pay: Ksh ${job.pay}</span>`;
-document.getElementById('payAmount').innerText = job.pay;
-document.getElementById('payPhone').innerText = user;
-
-// Draft load
-document.getElementById('submission').value = localStorage.getItem('draft_'+selectedId) || '';
-
-function saveDraft(){
-  localStorage.setItem('draft_'+selectedId, document.getElementById('submission').value);
-  document.getElementById('submitMsg').innerHTML = "<span style='color:#666;'>✓ Draft saved</span>";
+function finishTrain(){
+ const val=document.getElementById('practice').value.toLowerCase();
+ if(!val.includes('kenya is a beautiful country')){alert('Check spelling. Correct is: Kenya is a beautiful country with many resources.');return}
+ document.querySelectorAll('.training-step').forEach(s=>s.style.display='none');
+ document.getElementById('trainDone').style.display='block';
+ document.getElementById('trainProgress').style.width='100%';
+ document.getElementById('trainCount').innerText='3';
+ localStorage.setItem('trained','yes');
+ document.getElementById('jobs').style.opacity='1';
+ document.getElementById('jobs').style.pointerEvents='auto';
 }
-
-function submitWork(){
-  const work = document.getElementById('submission').value.trim();
-  if(work.length < 100){
-    document.getElementById('submitMsg').innerHTML = "<span style='color:red;'>Please write at least 100 words of quality work for approval</span>";
-    return;
-  }
-  // Save submission for you to check later (in their browser - but you can ask them to WhatsApp you)
-  localStorage.setItem('submission_'+selectedId, work);
-  localStorage.setItem('submitted_time', new Date().toISOString());
-  
-  document.getElementById('submitMsg').innerHTML = "";
-  document.getElementById('afterSubmit').style.display = 'block';
-  document.getElementById('submission').style.display = 'none';
-  
-  // Optional: Open WhatsApp to you with details
-  setTimeout(()=>{
-    if(confirm("Send your submission details to admin WhatsApp (0791957646) for faster review?")){
-      const msg = `New WorkRemote Submission%0APhone: ${user}%0AJob: ${job.title}%0APay: Ksh ${job.pay}%0AM-Pesa Code: ${code}%0A%0AWork:%0A${encodeURIComponent(work.substring(0,500))}...`;
-      window.open(`https://wa.me/254791957646?text=${msg}`, '_blank');
-    }
-  },800);
+async function load(){
+ const r=await fetch('/api/jobs'); let jobs=await r.json();
+ // fallback images - ensures document formatting gets photo
+ const imgs=[
+ "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400",
+ "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400",
+ "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400",
+ "https://images.unsplash.com/photo-1542744173-8e7e53415bb4?w=400",
+ "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
+ "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400"
+ ];
+ document.getElementById('jobs').innerHTML=jobs.map((j,i)=>{
+  const img = j.image || imgs[i % imgs.length];
+  return `<div class="card"><div style="position:relative"><img src="${img}" onerror="this.src='${imgs[0]}'"><div style="position:absolute;top:10px;left:10px" class="badge-green">Available Now</div><div style="position:absolute;top:10px;right:10px;background:white;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:700">KES ${j.pay}</div></div><div class="card-body"><h4 style="font-size:15px">${j.title}</h4><p style="font-size:13px;color:#7a6652;margin:6px 0 10px;line-height:1.4">${j.description}</p><button class="btn">Start Task</button><button class="btn-outline" onclick="document.getElementById('trainingBox').scrollIntoView({behavior:'smooth'})">View Training First</button></div></div>`;
+ }).join('');
+ if(localStorage.getItem('trained')!=='yes'){document.getElementById('jobs').style.opacity='0.4';document.getElementById('jobs').style.pointerEvents='none';}
 }
-
-function logout(){
-  if(confirm("Logout? You can login again with same phone.")){
-    localStorage.removeItem('workremote_user');
-    localStorage.removeItem('workremote_paid');
-    location.href='index.html';
-  }
-}
+load();
 </script>
 </body>
 </html>
