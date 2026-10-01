@@ -1,100 +1,45 @@
 ﻿<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OnlineWorks Kenya</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter, Arial, sans-serif;background:#fdf8f2;color:#2b2117;line-height:1.6}
-.header{background:white;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.logo{font-weight:800;font-size:19px;letter-spacing:-0.5px}.nav a{margin-left:18px;text-decoration:none;color:#111;font-weight:600;font-size:14px}
-.hero{position:relative;height:60vh;min-height:380px;background:url('https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1400') center/cover no-repeat;display:flex;align-items:center;justify-content:center}
-.hero-overlay{position:absolute;inset:0;background:rgba(253,248,242,0.62)}
-.hero-content{position:relative;text-align:center;padding:24px;max-width:640px}
-.hero-content h1{font-size:36px;font-weight:300;line-height:1.15;color:#2b2117;letter-spacing:-0.5px}
-.hero-content h1 b{font-weight:800;color:#111}
-.hero-content p{margin:14px 0 22px;color:#6b5d4f;font-size:15px}
-.btn-dark{background:#111;color:white;padding:12px 30px;border-radius:30px;border:none;font-weight:700;cursor:pointer;font-size:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px;padding:44px 28px;max-width:1280px;margin:0 auto}
-.card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.06);border:1px solid #f0e6d9}
-.card img{width:100%;height:200px;object-fit:cover;display:block}
-.card-body{padding:18px}.card-body h3{font-size:16px;margin-bottom:6px}.card-body p{font-size:13px;color:#7a6652;margin-bottom:10px}
-.btn-brown{background:#8c5a3c;color:white;padding:11px;border-radius:10px;border:none;width:100%;font-weight:700;cursor:pointer}
-/* FOOTER PRO */
-.footer{background:#0f0f0f;color:#aaa;padding:50px 28px 20px}
-.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.4fr 0.8fr 0.8fr 0.8fr;gap:40px}
-.footer h4{color:white;font-size:13px;font-weight:700;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.6px}
-.footer a{color:#9a9590;text-decoration:none;font-size:13.5px;display:block;margin-bottom:10px;line-height:1.4}
-.footer a:hover{color:white}
-.footer p{font-size:13px;color:#9a9590;line-height:1.6}
-.footer-bottom{max-width:1280px;margin:40px auto 0;border-top:1px solid #222;padding-top:18px;display:flex;justify-content:space-between;font-size:12px;color:#666}
-@media(max-width:800px){.footer-inner{grid-template-columns:1fr 1fr;gap:28px}.grid{padding:24px 16px;gap:20px}}
-</style></head>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OnlineWorks Kenya</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#fdf8f2;color:#222}.header{background:white;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px rgba(0,0,0,.06)}.hero{position:relative;height:58vh;min-height:360px;background:url('https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1400') center/cover;display:flex;align-items:center;justify-content:center}.hero::after{content:"";position:absolute;inset:0;background:rgba(253,248,242,.62)}.hero-inner{position:relative;z-index:1;text-align:center;padding:20px}.hero-inner h1{font-size:36px;font-weight:300;line-height:1.2}.hero-inner b{font-weight:800}
+.separator{display:flex;align-items:center;justify-content:center;gap:18px;padding:36px 24px 10px;max-width:1250px;margin:0 auto}.separator .line{height:1px;background:#e8ddd0;flex:1;max-width:320px}.separator .icon{width:44px;height:44px;background:white;border:1px solid #e8ddd0;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.06);font-size:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px;padding:28px 24px 40px;max-width:1250px;margin:0 auto}.card{background:white;border-radius:18px;overflow:hidden;border:1px solid #eee;box-shadow:0 6px 18px rgba(0,0,0,.05)}.card img{width:100%;height:190px;object-fit:cover;display:block;background:#f5f0e8}.card-body{padding:16px}.card-body h3{font-size:16px;margin-bottom:4px}.payout{font-size:13px;color:#8c5a3c;font-weight:700;margin-top:6px}.footer{background:#111;color:#999;padding:48px 24px 18px;margin-top:40px}.footer-inner{max-width:1250px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px}.footer h4{color:white;font-size:12px;letter-spacing:.8px;margin-bottom:14px}.footer a{display:block;color:#999;text-decoration:none;font-size:13px;margin-bottom:9px}.footer-bottom{max-width:1250px;margin:36px auto 0;border-top:1px solid #222;padding-top:14px;display:flex;justify-content:space-between;font-size:11px;color:#666}</style></head>
 <body>
-<div class="header"><div class="logo">OnlineWorks Kenya</div><div class="nav"><a href="login.html">Login</a><a href="register.html" style="background:#111;color:white;padding:8px 18px;border-radius:20px">Register</a></div></div>
-<div class="hero"><div class="hero-overlay"></div><div class="hero-content"><h1>Brighten your future<br>by working <b>remotely</b></h1><p>Earn from anywhere. Simple tasks, real payouts.</p><button class="btn-dark" onclick="location.href='register.html'">Get Started</button></div></div>
+<div class="header"><b>OnlineWorks Kenya</b><div><a href="login.html" style="text-decoration:none;color:#111;margin-right:14px;font-weight:600">Login</a><a href="register.html" style="background:#111;color:white;padding:8px 16px;border-radius:20px;text-decoration:none;font-weight:600">Register</a></div></div>
+
+<div class="hero"><div class="hero-inner"><h1>Brighten your future<br>by working <b>remotely</b></h1><p style="margin:12px 0 18px;color:#5a4a3a">Earn from anywhere. Simple tasks, real payouts.</p><button onclick="location.href='register.html'" style="background:#111;color:white;padding:12px 28px;border-radius:30px;border:none;font-weight:700;cursor:pointer">Get Started</button></div></div>
+
+<!-- SEPARATOR BETWEEN HERO AND TASKS -->
+<div class="separator"><div class="line"></div><div class="icon">◍</div><div class="line"></div></div>
+<div style="text-align:center;padding-bottom:8px"><p style="font-size:12px;letter-spacing:2px;color:#a99b8b;text-transform:uppercase;font-weight:700">Available Tasks</p></div>
+
 <div id="jobs" class="grid"></div>
 
-<div class="footer">
-<div class="footer-inner">
-<div>
-<div style="color:white;font-weight:800;font-size:18px;margin-bottom:12px">OnlineWorks Kenya</div>
-<p>Trusted by 12,000+ freelancers across Kenya. Verified tasks with M-Pesa payouts.</p>
-<div style="margin-top:16px;font-size:12.5px;color:#9a9590">
-<div>Email: support@onlineworks.co.ke</div>
-<div style="margin-top:4px">Phone: +254 700 123 456</div>
-<div style="margin-top:4px">Eldoret, Kenya</div>
-</div>
-</div>
-<div>
-<h4>Platform</h4>
-<a href="#">How it Works</a>
-<a href="#">Available Tasks</a>
-<a href="#">Quality Guidelines</a>
-<a href="#">Earnings</a>
-</div>
-<div>
-<h4>Support</h4>
-<a href="#">Help Center</a>
-<a href="#">Contact Us</a>
-<a href="#">Community</a>
-<a href="#">Verification</a>
-</div>
-<div>
-<h4>Legal</h4>
-<a onclick="document.getElementById('privacyModal').style.display='flex'" style="cursor:pointer">Privacy Policy</a>
-<a onclick="document.getElementById('termsModal').style.display='flex'" style="cursor:pointer">Terms of Service</a>
-<a href="#">Cookie Policy</a>
-<a href="#">Disclaimer</a>
-</div>
-</div>
-<div class="footer-bottom"><span>© 2026 OnlineWorks Kenya. All rights reserved.</span><span>Payouts via M-Pesa</span></div>
-</div>
-
-<div id="privacyModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:99;align-items:center;justify-content:center;padding:20px" onclick="this.style.display='none'"><div style="background:white;max-width:600px;width:100%;padding:26px;border-radius:16px;color:#111" onclick="event.stopPropagation()"><h3>Privacy Policy</h3><p style="font-size:13px;line-height:1.6;margin-top:12px;color:#444">We collect name, email and phone for account activation. M-Pesa number is used only for payment confirmation. We do not store PINs. Data is encrypted and never shared with third parties.</p><button onclick="document.getElementById('privacyModal').style.display='none'" style="margin-top:16px;background:#111;color:white;padding:10px 20px;border-radius:8px;border:none">Close</button></div></div>
-<div id="termsModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:99;align-items:center;justify-content:center;padding:20px" onclick="this.style.display='none'"><div style="background:white;max-width:600px;width:100%;padding:26px;border-radius:16px;color:#111" onclick="event.stopPropagation()"><h3>Terms of Service</h3><p style="font-size:13px;line-height:1.6;margin-top:12px;color:#444">Activation KES 150 is one-time and non-refundable. One account per user. Tasks require 95% accuracy. Payouts within 24 hours via M-Pesa. Minimum withdrawal KES 500.</p><button onclick="document.getElementById('termsModal').style.display='none'" style="margin-top:16px;background:#111;color:white;padding:10px 20px;border-radius:8px;border:none">Close</button></div></div>
+<div class="footer"><div class="footer-inner"><div><div style="color:white;font-weight:800;margin-bottom:10px">OnlineWorks Kenya</div><p style="font-size:13px;line-height:1.6">Trusted by 12,000+ freelancers. Verified tasks with M-Pesa payouts.</p><div style="margin-top:12px;font-size:12px">support@onlineworks.co.ke<br>+254 700 123 456<br>Eldoret, Kenya</div></div><div><h4>PLATFORM</h4><a>How it Works</a><a>Available Tasks</a><a>Quality Guidelines</a><a>Earnings</a></div><div><h4>SUPPORT</h4><a>Help Center</a><a>Contact Us</a><a>Community</a><a>Verification</a></div><div><h4>LEGAL</h4><a>Privacy Policy</a><a>Terms of Service</a><a>Cookie Policy</a><a>Disclaimer</a></div></div><div class="footer-bottom"><span>© 2026 OnlineWorks Kenya</span><span>M-Pesa payouts</span></div></div>
 
 <script>
-const FALLBACK=["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600","https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600","https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600","https://images.unsplash.com/photo-1542744173-8e7e53415bb4?w=600","https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600","https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600","https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600","https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600"];
-const DOC_IMG="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600";
 async function load(){
- const res=await fetch('/api/jobs');
- let jobs=await res.json();
- if(!jobs || jobs.length<6){
-  jobs=[
-   {title:"Audio Transcription", payout:1000},
-   {title:"Data Entry", payout:800},
-   {title:"Online Research", payout:1250},
-   {title:"Document Formatting", payout:950},
-   {title:"Content Writing", payout:1500},
-   {title:"Proofreading", payout:1100},
-   {title:"Social Media Management", payout:1300},
-   {title:"AI Data Labeling", payout:1150}
+ try{
+  const r=await fetch('/api/jobs?v='+Date.now());
+  let jobs=await r.json();
+  if(!jobs || jobs.length==0) throw new Error('empty');
+  document.getElementById('jobs').innerHTML=jobs.map(j=>{
+   let amt=j.payout||j.amount||1000;
+   let img=j.image||'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600';
+   return `<div class="card"><img src="${img}" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600'"><div class="card-body"><h3>${j.title}</h3><p style="font-size:12.5px;color:#7a6652">Professional task requiring attention to detail.</p><div class="payout">KES ${amt} per task • Remote</div><button onclick="location.href='register.html'" style="width:100%;margin-top:12px;background:#8c5a3c;color:white;border:none;padding:11px;border-radius:10px;font-weight:700;cursor:pointer">View & Apply</button></div></div>`;
+  }).join('');
+ }catch(e){
+  const fallback=[
+   {title:"Audio Transcription",payout:1000,img:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600"},
+   {title:"Data Entry",payout:800,img:"https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600"},
+   {title:"Online Research",payout:1250,img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600"},
+   {title:"Document Formatting",payout:950,img:"https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600"},
+   {title:"Content Writing",payout:1500,img:"https://images.unsplash.com/photo-1542744173-8e7e53415bb4?w=600"},
+   {title:"Proofreading",payout:1100,img:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600"},
+   {title:"Social Media Management",payout:1300,img:"https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=600"},
+   {title:"AI Data Labeling",payout:1150,img:"https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600"}
   ];
+  document.getElementById('jobs').innerHTML=fallback.map(j=>`<div class="card"><img src="${j.img}"><div class="card-body"><h3>${j.title}</h3><p style="font-size:12.5px;color:#7a6652">Professional task requiring attention to detail.</p><div class="payout">KES ${j.payout} per task • Remote</div><button onclick="location.href='register.html'" style="width:100%;margin-top:12px;background:#8c5a3c;color:white;border:none;padding:11px;border-radius:10px;font-weight:700;cursor:pointer">View & Apply</button></div></div>`).join('');
  }
- document.getElementById('jobs').innerHTML=jobs.map((j,i)=>{
-  let amount=j.payout||j.amount||1000;
-  let img=j.image;
-  if(!img || img.length<15 || j.title.toLowerCase().includes('document')) img=j.title.toLowerCase().includes('document')?DOC_IMG:FALLBACK[i%FALLBACK.length];
-  return `<div class="card"><img src="${img}" onerror="this.src='${FALLBACK[i%FALLBACK.length]}'"><div class="card-body"><h3>${j.title}</h3><p>Professional task requiring attention to detail and quality standards.</p><p><b>KES ${amount} per task • Remote</b></p><button class="btn-brown" onclick="location.href='register.html'">View & Apply</button></div></div>`;
- }).join('');
 }
 load();
 </script>
