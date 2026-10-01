@@ -1,4 +1,4 @@
- {
+﻿{
   "name": "online-work-platform",
   "main": "backend/server.js",
   "scripts": {

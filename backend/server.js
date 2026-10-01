@@ -1,4 +1,4 @@
- require('dotenv').config();
+﻿ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -9,10 +9,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// SERVE YOUR FRONTEND FILES (index.html, etc) from root folder
+// Serve frontend
 app.use(express.static(path.join(__dirname, '..')));
 
 let latestPaymentStatus = { status: "pending", message: "Waiting..." };
+
 const jobs = [
  {id:1,title:"Audio Transcription",description:"Transcribe",pay:1000},
  {id:2,title:"Data Entry",pay:800,description:"Enter data"},
@@ -68,7 +69,6 @@ app.post('/api/stkpush',async(req,res)=>{
   }catch(e){res.status(500).json({error:e.response?.data||e.message})}
 });
 
-// For any other route, send index.html
 app.get('*',(req,res)=>{
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
