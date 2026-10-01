@@ -3,131 +3,145 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OnlineWorks - Brighten Your Future by Working Remotely</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Online Works Platform - Brighten Your Future by Working Remotely</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,system-ui;background:#fffaf5;color:#18181b}
-nav{display:flex;justify-content:space-between;align-items:center;padding:16px 5%;background:white;position:sticky;top:0;z-index:20;border-bottom:1px solid #f2e8dc}
-.logo{font-weight:900;font-size:22px;letter-spacing:-0.8px}.logo span{color:#8c5a3c}
-.nav-links{display:flex;align-items:center;gap:26px}
-.nav-links a{font-size:14.5px;font-weight:600;color:#18181b;text-decoration:none}
-.btn-black{background:#111;color:#fff!important;padding:10px 22px;border-radius:999px;font-weight:700}
+body{font-family:Inter,system-ui;background:#fffaf6;color:#111}
+nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:18px 5%;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,0.05)}
+.logo{font-weight:900;font-size:19px;letter-spacing:-0.5px;text-transform:uppercase}
+.logo span{color:#8c5a3c}
+.nav-btns{display:flex;gap:12px;align-items:center}
+.nav-btns a{text-decoration:none;font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px}
+.login{background:white;border:1px solid #e9ddd0;color:#111}
+.register{background:#111;color:white}
 
-/* HERO */
-.hero{padding:36px 5% 50px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:30px;align-items:center;max-width:1280px;margin:0 auto}
-@media(max-width:900px){.hero{grid-template-columns:1fr}}
-.hero h1{font-size:54px;line-height:0.95;letter-spacing:-2.5px;font-weight:900}
-.hero h1 span{color:#8c5a3c;display:block}
-.hero p{margin-top:18px;color:#57534e;font-size:16.5px;line-height:1.6;max-width:520px}
-.hero-actions{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
-.btn-lg{padding:15px 26px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn-primary{background:#111;color:white}
-.btn-secondary{background:white;border:1px solid #e7d5c0;color:#111}
-.trust{margin-top:24px;display:flex;gap:18px;align-items:center}
-.avatars{display:flex}.avatars img{width:34px;height:34px;border-radius:50%;border:2px solid white;margin-left:-10px}
-.avatars img:first-child{margin-left:0}
-.trust-text{font-size:13px;color:#57534e}.trust-text b{color:#111}
-
-.hero-card{position:relative;border-radius:28px;overflow:hidden;background:#fff;box-shadow:0 30px 80px rgba(0,0,0,.12);border:1px solid #f2e8dc}
-.hero-card img{width:100%;height:480px;object-fit:cover;display:block}
-.hero-badge{position:absolute;bottom:18px;left:18px;right:18px;background:white;border-radius:16px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.1)}
-.badge-left{display:flex;align-items:center;gap:10px}.dot{width:10px;height:10px;background:#22c55e;border-radius:50%;box-shadow:0 0 0 4px #dcfce7}
-.badge-title{font-weight:700;font-size:13.5px}.badge-sub{font-size:11.5px;color:#78716c}
+/* HERO WITH HANDSHAKE */
+.hero{position:relative;height:520px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#f5e9d8}
+.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.9}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, rgba(245,233,216,0.3), rgba(245,233,216,0.85))}
+.hero-content{position:relative;z-index:2;max-width:780px;padding:20px}
+.hero-content h1{font-size:56px;line-height:0.95;letter-spacing:-2.5px;font-weight:900;color:#111}
+@media(max-width:700px){.hero-content h1{font-size:36px}}
+.hero-content h1 span{color:#8c5a3c}
+.hero-content p{margin-top:18px;font-size:17px;color:#4b3a2a;line-height:1.6;font-weight:500}
+.hero-content .cta{margin-top:28px;display:inline-block;background:#111;color:white;padding:16px 32px;border-radius:999px;text-decoration:none;font-weight:800;font-size:15px}
+.hero-content .sub{margin-top:14px;font-size:13px;color:#6b5a4a}
 
 /* TASKS */
-.tasks{padding:50px 5%;background:#fdf8f2;border-top:1px solid #f2e8dc}
-.tasks-head{max-width:1280px;margin:0 auto 28px;display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:12px}
-.tasks-head h2{font-size:32px;letter-spacing:-1px;font-weight:800}
-.tasks-head p{color:#57534e;font-size:14.5px;margin-top:6px}
-.tasks-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-@media(max-width:1100px){.tasks-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.tasks-grid{grid-template-columns:1fr}}
-.task-card{background:white;border:1px solid #f2e8dc;border-radius:20px;overflow:hidden;transition:.2s}
-.task-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.06)}
-.task-img{height:150px;overflow:hidden}.task-img img{width:100%;height:100%;object-fit:cover}
-.task-body{padding:16px}
-.task-body h3{font-size:15.5px;font-weight:700}.task-body .desc{font-size:12.8px;color:#78716c;margin-top:6px;line-height:1.5;min-height:38px}
-.task-meta{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
-.pay{font-weight:800;color:#8c5a3c;font-size:14px}.level{font-size:11px;background:#fdf0e6;color:#8c5a3c;padding:4px 8px;border-radius:999px;font-weight:700}
+.section{padding:60px 5%;max-width:1320px;margin:0 auto}
+.section-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:26px}
+.section-head h2{font-size:32px;font-weight:900;letter-spacing:-1px}
+.section-head p{color:#78716c;font-size:14px;margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.grid{grid-template-columns:1fr}}
 
-/* FOOTER PRO */
-footer{background:#111;color:#e7e5e4;padding:48px 5% 24px;margin-top:0}
-.footer-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
-@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}@media(max-width:500px){.footer-grid{grid-template-columns:1fr}}
-.footer-logo{font-weight:900;font-size:22px;color:white}.footer-logo span{color:#d6b99f}
-.footer-desc{color:#a8a29e;font-size:13.5px;margin-top:12px;line-height:1.6;max-width:320px}
-.footer-col h4{font-size:13px;text-transform:uppercase;letter-spacing:0.8px;color:#a8a29e;margin-bottom:14px}
-.footer-col a{display:block;color:#e7e5e4;text-decoration:none;font-size:14px;margin-top:10px}.footer-col a:hover{color:white}
-.footer-bottom{max-width:1280px;margin:36px auto 0;padding-top:20px;border-top:1px solid #27272a;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#a8a29e;font-size:12.5px}
+.card{background:white;border:1px solid #f0e6d9;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:.25s;box-shadow:0 4px 20px rgba(0,0,0,0.03)}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.08)}
+.img-wrap{position:relative;height:190px;overflow:hidden}
+.img-wrap img{width:100%;height:100%;object-fit:cover}
+.badge-available{position:absolute;top:12px;left:12px;background:#22c55e;color:white;font-size:11px;font-weight:800;padding:5px 10px;border-radius:999px;letter-spacing:0.5px;box-shadow:0 4px 10px rgba(0,0,0,0.15)}
+.badge-pay{position:absolute;top:12px;right:12px;background:rgba(17,17,17,0.9);color:white;font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px}
+.body{padding:16px 16px 18px;flex:1;display:flex;flex-direction:column}
+.body h3{font-size:16px;font-weight:800;letter-spacing:-0.2px}
+.body .desc{font-size:13px;color:#6b7280;margin-top:8px;line-height:1.5;flex:1}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px dashed #f0e6d9}
+.meta .amount{font-weight:900;color:#8c5a3c;font-size:15px}
+.meta .time{font-size:11.5px;color:#a8a29e}
+.apply{margin-top:14px;width:100%;background:#111;color:white;border:none;padding:12px;border-radius:999px;font-weight:800;font-size:13.5px;cursor:pointer;text-decoration:none;text-align:center;display:block}
+.apply:hover{background:#8c5a3c}
+
+/* FOOTER */
+footer{background:#0f0f0f;color:#d6d3d1;margin-top:40px}
+.footer-top{padding:50px 5%;max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px}
+@media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr}}@media(max-width:520px){.footer-top{grid-template-columns:1fr}}
+.footer-logo{font-weight:900;font-size:20px;color:white;letter-spacing:-0.5px}.footer-logo span{color:#d6b99f}
+.footer-desc{margin-top:12px;color:#a8a29e;font-size:13.5px;line-height:1.6}
+.fcol h4{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#a8a29e;margin-bottom:14px}
+.fcol a{color:#e7e5e4;text-decoration:none;font-size:14px;display:block;margin-top:10px}
+.fcol a:hover{color:white}
+.footer-bottom{border-top:1px solid #27272a;padding:18px 5%;max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#a8a29e;font-size:12px}
 </style>
 </head>
 <body>
+
 <nav>
-<div class="logo">Online<span>Works</span></div>
-<div class="nav-links"><a href="#jobs">Jobs</a><a href="login.html">Login</a><a href="register.html" class="btn-black">Get Started</a></div>
+<div class="logo">Online Works Platform</div>
+<div class="nav-btns">
+<a href="login.html" class="login">Login</a>
+<a href="register.html" class="register">Register</a>
+</div>
 </nav>
 
 <section class="hero">
-<div>
+<img class="bg" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80" alt="handshake">
+<div class="hero-content">
 <h1>Brighten Your Future <span>by Working Remotely.</span></h1>
-<p>We connect talented Kenyans with global micro-tasks. Transcription, data entry, writing & research. Earn daily directly to M-Pesa - no experience needed.</p>
-<div class="hero-actions">
-<a href="register.html" class="btn-lg btn-primary">Start Earning →</a>
-<a href="#jobs" class="btn-lg btn-secondary">Explore 2,400+ Tasks</a>
-</div>
-<div class="trust">
-<div class="avatars"><img src="https://i.pravatar.cc/100?img=32"><img src="https://i.pravatar.cc/100?img=33"><img src="https://i.pravatar.cc/100?img=47"><img src="https://i.pravatar.cc/100?img=12"></div>
-<div class="trust-text"><b>12,842</b> active earners <br>Trusted by 4.8★ rating</div>
-</div>
-</div>
-<div class="hero-card">
-<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=80" alt="Remote work">
-<div class="hero-badge">
-<div class="badge-left"><div class="dot"></div><div><div class="badge-title">KES 1,240,580 paid today</div><div class="badge-sub">Live M-Pesa payouts • 1,204 tasks completed</div></div></div>
-<div style="font-size:18px">💸</div>
-</div>
+<p>Join 12,842 verified Kenyans earning from simple online tasks. Transcription, research, writing & data entry - get paid daily via M-Pesa.</p>
+<a href="register.html" class="cta">Get Started - It's Free →</a>
+<div class="sub">✓ No experience needed • ✓ KES 150 activation only • ✓ Daily M-Pesa payouts</div>
 </div>
 </section>
 
-<section class="tasks" id="jobs">
-<div class="tasks-head">
-<div><h2>Available Tasks</h2><p>Activate with KES 150 to unlock and start earning instantly. New tasks every hour.</p></div>
-<div style="font-size:13px;font-weight:600;background:white;border:1px solid #f2e8dc;padding:8px 14px;border-radius:999px">🔒 Activate to view full details</div>
+<div class="section">
+<div class="section-head">
+<div><h2>Available Tasks Today</h2><p>8 new high-paying tasks • Updated 2 mins ago • Apply now, start today</p></div>
+<div style="background:#fff;border:1px solid #f0e6d9;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:700">🟢 2,412 people working now</div>
 </div>
-<div class="tasks-grid" id="jobGrid"></div>
-</section>
+
+<div class="grid">
+<!-- 1 -->
+<div class="card">
+<div class="img-wrap"><img src="https://images.unsplash.com/photo-1590600166449-45a3e4f2f3a0?w=500&q=80"><span class="badge-available">● AVAILABLE</span><span class="badge-pay">KES 1,250</span></div>
+<div class="body"><h3>Audio Transcription Pro</h3><div class="desc">Transcribe 8-min podcast audios to clean text. English speakers, verbatim format. 3 audios per task.</div><div class="meta"><span class="amount">KES 1,250 / task</span><span class="time">⏱ 25 mins</span></div><a href="register.html" class="apply">Apply Now →</a></div>
+</div>
+<!-- 2 -->
+<div class="card">
+<div class="img-wrap"><img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=500&q=80"><span class="badge-available">● AVAILABLE</span><span class="badge-pay">KES 850</span></div>
+<div class="body"><h3>Data Entry - E-commerce</h3><div class="desc">Copy product names, prices & descriptions from images into our Excel template. Accuracy is key.</div><div class="meta"><span class="amount">KES 850 / task</span><span class="time">⏱ 20 mins</span></div><a href="register.html" class="apply">Apply Now →</a></div>
+</div>
+<!-- 3 -->
+<div class="card">
+<div class="img-wrap"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&q=80"><span class="badge-available">● AVAILABLE</span><span class="badge-pay">KES 1,400</span></div>
+<div class="body"><h3>Online Market Research</h3><div class="desc">Find 20 business emails, Instagram pages & phone numbers for US restaurants. Guide provided.</div><div class="meta"><span class="amount">KES 1,400 / task</span><span class="time">⏱ 35 mins</span></div><a href="register.html" class="apply">Apply Now →</a></div>
+</div>
+<!-- 4 -->
+<div class="card">
+<div class="img-wrap"><img src="https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?w=500&q=80"><span class="badge-available">● AVAILABLE</span><span class="badge-pay">KES 950</span></div>
+<div class="body"><h3>CV & Document Formatting</h3><div class="desc">Format messy Word docs into professional CVs, add tables, headers & consistent styling.</div><div class="meta"><span class="amount">KES 950 / task</span><span class="time">⏱ 30 mins</span></div><a href="register.html" class="apply">Apply Now →</a></div>
+</div>
+<!-- 5 -->
+<div class="card">
+<div class="img-wrap"><img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=500&q=80"><span class="badge-available">● AVAILABLE</span><span class="badge-pay">KES 1,800</span></div>
+<div class="body"><h3>Article Writing - Simple</h3><div class="desc">Write 350-word blog posts on topics like 'Benefits of Working From Home'. Plagiarism free.</div><div class="meta"><span class="amount">KES 1,800 / task</span><span class="time">⏱ 45 mins</span></div><a href="register.html" class="apply">Apply Now →</a></div>
+</div>
+<!-- 6 -->
+<div class="card">
+<div class="img-wrap"><img src="https://images.unsplash.com/photo-1451226427425-cf261d56c097?w=500&q=80"><span class="badge-available">● AVAILABLE</span><span class="badge-pay">KES 1,100</span></div>
+<div class="body"><h3>Proofreading & Editing</h3><div class="desc">Fix grammar, spelling & punctuation errors in 500-word articles. Track changes required.</div><div class="meta"><span class="amount">KES 1,100 / task</span><span class="time">⏱ 25 mins</span></div><a href="register.html" class="apply">Apply Now →</a></div>
+</div>
+<!-- 7 -->
+<div class="card">
+<div class="img-wrap"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80"><span class="badge-available">● AVAILABLE</span><span class="badge-pay">KES 1,300</span></div>
+<div class="body"><h3>Social Media Data Collection</h3><div class="desc">Collect TikTok & Facebook links, likes & comments for 30 Kenyan brands. Sheet provided.</div><div class="meta"><span class="amount">KES 1,300 / task</span><span class="time">⏱ 40 mins</span></div><a href="register.html" class="apply">Apply Now →</a></div>
+</div>
+<!-- 8 -->
+<div class="card">
+<div class="img-wrap"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=80"><span class="badge-available">● AVAILABLE</span><span class="badge-pay">KES 1,650</span></div>
+<div class="body"><h3>Virtual Assistant Support</h3><div class="desc">Reply to 15 customer WhatsApp chats using templates, schedule Instagram posts.</div><div class="meta"><span class="amount">KES 1,650 / task</span><span class="time">⏱ 50 mins</span></div><a href="register.html" class="apply">Apply Now →</a></div>
+</div>
+</div>
+</div>
 
 <footer>
-<div class="footer-grid">
-<div><div class="footer-logo">Online<span>Works</span></div><div class="footer-desc">Kenya's most trusted micro-job platform. We help you earn from home with simple tasks. Fast M-Pesa payments, 24/7 support, and zero experience required.</div></div>
-<div class="footer-col"><h4>Platform</h4><a href="#jobs">Browse Jobs</a><a href="register.html">How it Works</a><a href="#">Success Stories</a><a href="#">Payout Proof</a></div>
-<div class="footer-col"><h4>Support</h4><a href="#">Help Center</a><a href="#">Contact Us</a><a href="#">FAQs</a><a href="#">WhatsApp: 0791 957 646</a></div>
-<div class="footer-col"><h4>Legal</h4><a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a><a href="#">Refund Policy</a><a href="#">Activation Fee: KES 150</a></div>
+<div class="footer-top">
+<div><div class="footer-logo">Online Works Platform</div><div class="footer-desc">Kenya's #1 trusted remote work platform since 2023. Over KES 45M paid to 12,000+ workers via M-Pesa. We verify all tasks daily.</div><div style="margin-top:16px;font-size:13px;color:#e7e5e4">📍 Nairobi, Kenya • WhatsApp: 0791 957 646</div></div>
+<div class="fcol"><h4>Jobs</h4><a href="#">Transcription Jobs</a><a href="#">Data Entry Jobs</a><a href="#">Writing Jobs</a><a href="#">Research Tasks</a><a href="#">Virtual Assistant</a></div>
+<div class="fcol"><h4>Company</h4><a href="#">About Us</a><a href="#">How It Works</a><a href="#">Success Stories</a><a href="#">M-Pesa Proof</a><a href="register.html">Join Now</a></div>
+<div class="fcol"><h4>Legal & Fees</h4><a href="#">Activation: KES 150 (One-time)</a><a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a><a href="#">Refund Policy</a><a href="login.html">Login to Dashboard</a></div>
 </div>
-<div class="footer-bottom"><div>© 2026 OnlineWorks Kenya Ltd. All rights reserved. Made for Kenyan youth.</div><div>M-Pesa • Airtel Money • Bank • PayPal</div></div>
+<div class="footer-bottom"><div>© 2026 Online Works Platform Kenya Ltd. All rights reserved.</div><div>Payments: M-Pesa • Airtel Money • Bank Transfer • PayPal</div></div>
 </footer>
 
-<script>
-const jobData = [
-{title:"Audio Transcription",desc:"Convert 5-10 min audio files to text. Clear English, simple formatting.",pay:1000,img:"https://images.unsplash.com/photo-1590600166449-45a3e4f2f3a0?w=400&q=80",level:"Beginner"},
-{title:"Data Entry & Typing",desc:"Type product details from images to Excel sheet. Fast typing needed.",pay:800,img:"https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&q=80",level:"Beginner"},
-{title:"Online Research",desc:"Find emails, contacts & prices for businesses as per given guide.",pay:1200,img:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=80",level:"Intermediate"},
-{title:"Document Formatting",desc:"Format Word documents, add headings, tables & clean layout.",pay:900,img:"https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?w=400&q=80",level:"Beginner"},
-{title:"Content Writing",desc:"Write 300-word articles on simple topics like business & health.",pay:1500,img:"https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&q=80",level:"Intermediate"},
-{title:"Proofreading",desc:"Check grammar & spelling errors in short articles and blogs.",pay:1000,img:"https://images.unsplash.com/photo-1451226427425-cf261d56c097?w=400&q=80",level:"Beginner"},
-{title:"Data Collection",desc:"Collect social media links and reviews for local businesses.",pay:1100,img:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80",level:"Beginner"},
-{title:"Virtual Assistant",desc:"Reply to simple customer chats, schedule posts & manage emails.",pay:1300,img:"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",level:"Advanced"},
-];
-const grid=document.getElementById('jobGrid');
-grid.innerHTML = jobData.map(j=>`
-<div class="task-card">
-<div class="task-img"><img src="${j.img}" alt="${j.title}"></div>
-<div class="task-body">
-<h3>${j.title}</h3>
-<div class="desc">${j.desc}</div>
-<div class="task-meta"><span class="pay">KES ${j.pay} / task</span><span class="level">${j.level}</span></div>
-</div>
-</div>`).join('');
-</script>
 </body>
 </html>
