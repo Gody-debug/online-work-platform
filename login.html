@@ -1,49 +1,133 @@
-﻿<!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login</title>
-<style>*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5ebe0;min-height:100vh;display:flex} .box{background:white;width:100%;min-height:100vh;padding:40px 24px;display:flex;flex-direction:column;justify-content:center;max-width:480px;margin:0 auto} @media(min-width:600px){body{justify-content:center;align-items:center;padding:20px} .box{min-height:auto;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.1)}} input{width:100%;padding:14px;margin:10px 0;border:1px solid #e8ddd0;border-radius:12px;font-size:16px} .btn{width:100%;padding:14px;background:#ff7a00;color:white;border:none;border-radius:12px;font-weight:700;margin-top:12px;font-size:16px;cursor:pointer}.field-error{color:#d93025;font-size:11.5px;margin-top:4px;display:none}
-.input-error{border:1px solid #d93025 !important}
-</style></head>
-<body><div class="box"><h2 style="margin:0 0 6px;font-size:26px">Login</h2><p style="color:#7a6652;margin:0 0 24px">Welcome Back<br>Login to access your tasks</p><input id="email" required oninvalid="this.setCustomValidity('This field is required')" oninput="this.setCustomValidity('')" placeholder="you@example.com" type="email"><input id="password" required oninvalid="this.setCustomValidity('This field is required')" oninput="this.setCustomValidity('')" placeholder="Password" type="password"><button class="btn" onclick="login()">Login</button><p style="text-align:center;margin-top:20px"><a href="register.html" style="color:#ff7a00;text-decoration:none;font-weight:600">No account? Register</a></p></div>
-<script>async function login(){const email=document.getElementById('email').value;const password=document.getElementById('password').value;if(!email||!password)return alert('fill all');const res=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});const data=await res.json();if(data.token){localStorage.setItem('token',data.token);location.href='dashboard.html';}else alert(data.message||'failed');}</script><script>
-(function(){
-  const forms = document.querySelectorAll('form');
-  forms.forEach(form=>{
-    const inputs = form.querySelectorAll('input');
-    inputs.forEach(inp=>{
-      // create error span after each input if not exists
-      if(!inp.nextElementSibling || !inp.nextElementSibling.classList?.contains('field-error')){
-        const err = document.createElement('div');
-        err.className='field-error';
-        err.textContent='This field is required';
-        inp.insertAdjacentElement('afterend', err);
-      }
-      inp.addEventListener('input', ()=>{
-        if(inp.value.trim()!==''){
-          inp.classList.remove('input-error');
-          inp.nextElementSibling.style.display='none';
-        }
-      });
-      inp.addEventListener('blur', ()=>{
-        if(inp.value.trim()===''){
-          inp.classList.add('input-error');
-          inp.nextElementSibling.style.display='block';
-        }
-      });
-    });
-    form.addEventListener('submit', (e)=>{
-      let hasError=false;
-      inputs.forEach(inp=>{
-        if(inp.type!=='hidden' && inp.value.trim()===''){
-          inp.classList.add('input-error');
-          inp.nextElementSibling.style.display='block';
-          hasError=true;
-        }
-      });
-      if(hasError) e.preventDefault();
-    });
-  });
-})();
+﻿ <!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login - Online Works</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui;background:#fdf8f2;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.box{background:white;padding:32px;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.08);width:100%;max-width:420px;border:1px solid #f0e6d9}
+h2{font-size:24px;font-weight:900;letter-spacing:-0.5px}.sub{color:#78716c;font-size:13.5px;margin-top:6px;margin-bottom:22px}
+label{font-size:13px;font-weight:700;margin-top:14px;display:block}
+input{width:100%;padding:13px 14px;border:1px solid #e9ddd0;border-radius:12px;margin-top:6px;font-size:14px}
+.btn{width:100%;background:#111;color:white;padding:14px;border:none;border-radius:999px;font-weight:800;margin-top:20px;cursor:pointer;font-size:14.5px}
+.link{margin-top:14px;text-align:center;font-size:13.5px}.link a{color:#8c5a3c;font-weight:700;text-decoration:none;cursor:pointer}
+#msg{margin-top:14px;font-size:13px;text-align:center;min-height:18px}
+.forgot{text-align:right;margin-top:8px}.forgot a{font-size:12.5px;color:#8c5a3c;font-weight:600;text-decoration:none;cursor:pointer}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:50;align-items:center;justify-content:center;padding:20px}
+.modal.active{display:flex}
+.modal-box{background:white;padding:28px;border-radius:20px;width:100%;max-width:380px}
+.steps{display:flex;gap:8px;margin:16px 0}.step{flex:1;height:4px;background:#f0e6d9;border-radius:999px}.step.active{background:#111}
+</style></head><body>
+<div class="box">
+<h2>Welcome back</h2><div class="sub">Login to access your tasks</div>
+<form id="loginForm">
+<label>Email</label><input id="email" type="email" required>
+<label>Password</label><input id="password" type="password" required>
+<div class="forgot"><a onclick="openForgot()">Forgot password?</a></div>
+<button class="btn" type="submit" id="btn">Login</button>
+</form>
+<div class="link">No account? <a href="register.html">Create account</a></div>
+<div id="msg"></div>
+</div>
+
+<!-- FORGOT MODAL -->
+<div class="modal" id="forgotModal">
+<div class="modal-box">
+<h3 style="font-weight:800">Reset Password</h3>
+<p style="font-size:13px;color:#78716c;margin-top:6px">We'll send a 6-digit OTP to your registered phone/email</p>
+<div class="steps"><div class="step active" id="s1"></div><div class="step" id="s2"></div><div class="step" id="s3"></div></div>
+
+<div id="step1">
+<label>Email</label><input id="f_email" type="email" placeholder="your@email.com">
+<button class="btn" onclick="sendOtp()" id="btnOtp">Send OTP Code</button>
+</div>
+
+<div id="step2" style="display:none">
+<label>Enter OTP (6 digits)</label><input id="f_otp" type="text" maxlength="6" placeholder="123456">
+<button class="btn" onclick="verifyOtp()" id="btnVerify">Verify OTP</button>
+</div>
+
+<div id="step3" style="display:none">
+<label>New Password (8+ chars, letter + number)</label><input id="f_new" type="password" placeholder="New password">
+<button class="btn" onclick="resetPw()" id="btnReset">Reset Password</button>
+</div>
+
+<div id="f_msg" style="margin-top:12px;font-size:13px;text-align:center"></div>
+<div style="text-align:center;margin-top:12px"><a style="font-size:12px;cursor:pointer" onclick="closeForgot()">Back to login</a></div>
+</div>
+</div>
+
+<script>
+let tempEmail='', tempOtp='';
+function openForgot(){document.getElementById('forgotModal').classList.add('active')}
+function closeForgot(){document.getElementById('forgotModal').classList.remove('active')}
+
+async function sendOtp(){
+ const email=document.getElementById('f_email').value.trim();
+ if(!email) return alert('Enter email');
+ const btn=document.getElementById('btnOtp'); btn.textContent='Sending...'; btn.disabled=true;
+ try{
+  const r=await fetch('/api/forgot-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
+  const d=await r.json();
+  document.getElementById('f_msg').style.color= r.ok?'green':'#d93025';
+  document.getElementById('f_msg').textContent=d.message;
+  if(r.ok){
+    tempEmail=email;
+    document.getElementById('step1').style.display='none';
+    document.getElementById('step2').style.display='block';
+    document.getElementById('s1').classList.remove('active');
+    document.getElementById('s2').classList.add('active');
+    if(d.demoCode) document.getElementById('f_otp').value=d.demoCode; // remove later
+  }
+ }catch(e){document.getElementById('f_msg').textContent='Network error'}
+ btn.textContent='Send OTP Code'; btn.disabled=false;
+}
+
+async function verifyOtp(){
+ const otp=document.getElementById('f_otp').value.trim();
+ const r=await fetch('/api/verify-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:tempEmail, otp})});
+ const d=await r.json();
+ document.getElementById('f_msg').style.color= r.ok?'green':'#d93025';
+ document.getElementById('f_msg').textContent=d.message;
+ if(r.ok){
+  tempOtp=otp;
+  document.getElementById('step2').style.display='none';
+  document.getElementById('step3').style.display='block';
+  document.getElementById('s2').classList.remove('active');
+  document.getElementById('s3').classList.add('active');
+ }
+}
+
+async function resetPw(){
+ const np=document.getElementById('f_new').value;
+ if(np.length<8 || !/[A-Za-z]/.test(np) || !/[0-9]/.test(np)){
+  document.getElementById('f_msg').style.color='#d93025';
+  document.getElementById('f_msg').textContent='Password must be 8+ chars with letter and number';
+  return;
+ }
+ const r=await fetch('/api/reset-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:tempEmail, otp:tempOtp, newPassword:np})});
+ const d=await r.json();
+ document.getElementById('f_msg').style.color= r.ok?'green':'#d93025';
+ document.getElementById('f_msg').textContent=d.message;
+ if(r.ok){ setTimeout(()=>closeForgot(),1500); }
+}
+
+// LOGIN
+document.getElementById('loginForm').addEventListener('submit', async (e)=>{
+ e.preventDefault();
+ const email=document.getElementById('email').value.trim(), password=document.getElementById('password').value.trim();
+ const btn=document.getElementById('btn'); btn.textContent='Checking...'; btn.disabled=true;
+ try{
+  const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
+  const data=await r.json();
+  const msg=document.getElementById('msg');
+  msg.style.color= r.ok?'green':'#d93025';
+  msg.textContent=data.message;
+  if(r.ok){
+   localStorage.setItem('user', JSON.stringify(data.user));
+   setTimeout(()=>location.href='dashboard.html',800);
+  } else if(data.redirect){
+   localStorage.setItem('user', JSON.stringify({email}));
+   setTimeout(()=>location.href=data.redirect+'?email='+encodeURIComponent(email),1500);
+  }
+ }catch{ document.getElementById('msg').textContent='Network error'; }
+ btn.textContent='Login'; btn.disabled=false;
+});
 </script>
 </body></html>
-
-
