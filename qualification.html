@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Qualification</title>
+<style>body{font-family:Inter;background:#fdf8f2;display:flex;justify-content:center;padding:24px} .box{background:white;max-width:500px;width:100%;padding:28px;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.07)}h2{font-size:20px} .q{margin-top:18px} label{font-size:13px;font-weight:600} select, input{width:100%;padding:12px;border:1px solid #e9ddd0;border-radius:10px;margin-top:6px} .btn{width:100%;background:#111;color:white;padding:13px;border:none;border-radius:10px;font-weight:700;margin-top:20px;cursor:pointer}</style>
+</head><body><div class="box">
+<h2>Quick Qualification Check</h2><p style="font-size:13px;color:#7a6652;margin-top:6px">Answer honestly to see if you qualify for tasks</p>
+<form id="qf">
+<div class="q"><label>Can you read & write English fluently?</label><select id="q1" required><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+<div class="q"><label>Do you have M-Pesa for payments?</label><select id="q2" required><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+<div class="q"><label>Are you 18+ years?</label><select id="q3" required><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+<div class="q"><label>How many hours can you work per day?</label><select id="q4" required><option value="">Select</option><option value="1-2">1-2 hours</option><option value="3+">3+ hours</option></select></div>
+<button class="btn" type="submit">Check Qualification</button>
+<div id="msg" style="margin-top:12px;font-size:13px;text-align:center"></div>
+</form></div>
+<script>
+document.getElementById('qf').addEventListener('submit',(e)=>{
+ e.preventDefault();
+ const q1=document.getElementById('q1').value, q2=document.getElementById('q2').value, q3=document.getElementById('q3').value;
+ if(q1!=='yes' || q2!=='yes' || q3!=='yes'){
+   document.getElementById('msg').style.color='#d93025';
+   document.getElementById('msg').textContent='Sorry, you do not qualify at this time.';
+   return;
+ }
+ let user=JSON.parse(localStorage.getItem('user')||'{}');
+ user.qualified=true;
+ localStorage.setItem('user', JSON.stringify(user));
+ // also save to server
+ fetch('/api/qualify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:user.email, qualified:true})});
+ document.getElementById('msg').style.color='green';
+ document.getElementById('msg').textContent='Congratulations! You qualify. Redirecting to activation...';
+ setTimeout(()=>location.href='payment.html', 1200);
+});
+</script></body></html>
