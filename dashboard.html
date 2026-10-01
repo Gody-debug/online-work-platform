@@ -1,23 +1,38 @@
 ﻿<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard</title>
-<style>body{margin:0;font-family:Arial;background:#fdf8f2} .header{background:white;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.05);position:sticky;top:0;z-index:10} .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:32px;padding:40px 32px;max-width:1250px;margin:0 auto} .card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.06);border:1px solid #f0e6d9} .card img{width:100%;height:200px;object-fit:cover;display:block} .card-body{padding:18px} .btn{background:#111;color:white;padding:11px 16px;border-radius:10px;border:none;font-weight:700;cursor:pointer;width:100%;margin-top:10px} .btn-outline{background:white;border:1px solid #e8ddd0;padding:11px 16px;border-radius:10px;width:100%;margin-top:10px;cursor:pointer;font-weight:600}</style></head>
+<style>body{margin:0;font-family:Arial;background:#fdf8f2} .header{background:white;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.05);position:sticky;top:0;z-index:10} .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px;padding:32px;max-width:1280px;margin:0 auto} .card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.06);border:1px solid #f0e6d9} .card img{width:100%;height:190px;object-fit:cover} .card-body{padding:18px} .btn{background:#111;color:white;padding:11px;border-radius:10px;border:none;width:100%;font-weight:700;cursor:pointer;margin-top:8px} .btn-outline{background:white;border:1px solid #e8ddd0;padding:11px;border-radius:10px;width:100%;font-weight:600;cursor:pointer;margin-top:8px} .training{background:white;margin:20px auto;max-width:1280px;padding:22px;border-radius:16px;border:1px solid #f0e6d9}</style></head>
 <body>
-<div class="header"><b>Work Platform</b><div><a href="payment.html" style="margin-right:12px;color:#ff7a00;text-decoration:none">Activate</a><button onclick="localStorage.clear();location.href='login.html'">Logout</button></div></div>
+<div class="header"><b>Work Platform</b><div><span id="userEmail" style="font-size:12px;margin-right:12px;color:#666"></span><a href="payment.html" style="margin-right:12px;color:#ff7a00;text-decoration:none;font-weight:700">Activate Account</a><button onclick="localStorage.clear();location.href='login.html'" style="border:none;background:#eee;padding:6px 12px;border-radius:20px;cursor:pointer">Logout</button></div></div>
+
+<div class="training" id="trainingBox">
+<h3 style="margin:0 0 8px">Training Center - Complete before starting</h3>
+<p style="font-size:13px;color:#7a6652;margin:0 0 14px">Watch short guides to learn how to complete tasks with 95% accuracy and get paid faster.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px">
+<div style="background:#fdf8f2;padding:14px;border-radius:12px"><b style="font-size:13px">1. Transcription Training</b><p style="font-size:12px;color:#7a6652;margin-top:4px">Learn audio typing rules and formatting.</p><button class="btn-outline" onclick="alert('Training video: Focus on accuracy and timestamps')">Start Training</button></div>
+<div style="background:#fdf8f2;padding:14px;border-radius:12px"><b style="font-size:13px">2. Data Entry Guide</b><p style="font-size:12px;color:#7a6652;margin-top:4px">Avoid errors and increase speed.</p><button class="btn-outline" onclick="alert('Training video: Double-check entries')">Start Training</button></div>
+<div style="background:#fdf8f2;padding:14px;border-radius:12px"><b style="font-size:13px">3. M-Pesa Withdrawal</b><p style="font-size:12px;color:#7a6652;margin-top:4px">How to receive payments instantly.</p><button class="btn-outline" onclick="alert('Withdrawal is automatic after approval')">View Guide</button></div>
+</div>
+</div>
+
 <div id="jobs" class="grid"></div>
 <script>
 const FALLBACK=["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600","https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600","https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600","https://images.unsplash.com/photo-1542744173-8e7e53415bb4?w=600","https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600","https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600"];
 const DOC_IMG="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600";
-const varied=[1000,800,1250,950,1500,1100,1350,700,1200,850];
+const varied=[1000,800,1250,950,1500,1100,1300,1150];
 async function load(){
- const res=await fetch('/api/jobs');
+ const token=localStorage.getItem('token');
+ if(!token) location.href='login.html';
+ document.getElementById('userEmail').textContent=localStorage.getItem('phone')||'';
+ const res=await fetch('/api/jobs',{headers:{Authorization:'Bearer '+token}});
  let jobs=await res.json();
+ if(!jobs || jobs.length==0){
+  jobs=[{title:"Audio Transcription"},{title:"Data Entry"},{title:"Online Research"},{title:"Document Formatting"},{title:"Content Writing"},{title:"Proofreading"},{title:"Social Media Management"},{title:"AI Data Labeling"}]
+ }
  document.getElementById('jobs').innerHTML=jobs.map((j,i)=>{
   let amount=j.payout||j.amount||varied[i%varied.length];
-  if(amount==900 && !j.title.toLowerCase().includes('document')) amount=varied[i%varied.length];
-  if(j.title.toLowerCase().includes('document')) amount=950;
   let img=j.image;
   if(!img || img.length<10 || j.title.toLowerCase().includes('document')) img=j.title.toLowerCase().includes('document')?DOC_IMG:FALLBACK[i%FALLBACK.length];
-  return `<div class="card"><img src="${img}" onerror="this.src='${FALLBACK[i%FALLBACK.length]}'"><div class="card-body"><h3 style="margin:0 0 6px;font-size:16px">${j.title}</h3><p style="margin:0;color:#7a6652;font-size:13px">KES ${amount} per task • Remote</p><button class="btn" onclick="location.href='payment.html'">Start Task</button><button class="btn-outline" onclick="location.href='payment.html'">View Training First</button></div></div>`;
+  return `<div class="card"><img src="${img}" onerror="this.src='${FALLBACK[i%FALLBACK.length]}'"><div class="card-body"><h3 style="margin:0 0 6px;font-size:16px">${j.title}</h3><p style="margin:0 0 4px;color:#7a6652;font-size:13px">KES ${amount} per task • Remote</p><button class="btn" onclick="location.href='payment.html'">Start Task</button><button class="btn-outline" onclick="document.getElementById('trainingBox').scrollIntoView({behavior:'smooth'})">View Training First</button></div></div>`;
  }).join('');
 }
 load();
