@@ -1,11 +1,11 @@
- <!DOCTYPE html>
+﻿ <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Activate - WorkRemote</title>
 </head>
-<body style="font-family:Arial; background:#FAF8F3; display:flex; justify-content:center; padding:30px;">
+<body style="background:#f5ebe0">
 <div style="background:white; max-width:420px; width:100%; padding:30px; border-radius:14px; box-shadow:0 8px 30px rgba(0,0,0,0.08);">
 <h2 style="margin:0;">Activate Workspace</h2>
 <p style="color:#666; font-size:14px;">One-time fee Ksh 150 to unlock task.</p>
@@ -20,7 +20,7 @@
 <button onclick="pay()" id="payBtn" style="background:#00b050; color:white; border:none; padding:15px; border-radius:10px; font-weight:bold; width:100%; font-size:16px; cursor:pointer;">Pay KES 150 - Get M-Pesa Prompt</button>
 
 <p style="font-size:12px; color:#888; margin-top:12px; text-align:center;">You will receive STK prompt - enter M-Pesa PIN to complete. Money goes to 0791957646</p>
-<a href="index.html" style="display:block; text-align:center; margin-top:15px; font-size:13px; color:#5D4037;">← Back to Home</a>
+<a href="index.html" style="display:block; text-align:center; margin-top:15px; font-size:13px; color:#5D4037;">â† Back to Home</a>
 </div>
 
 <script>
@@ -41,7 +41,7 @@ async function pay(){
   });
   let data = await res.json();
   console.log(data);
-  alert("✅ Check your phone "+phone+" - Enter M-Pesa PIN now to pay 150");
+  alert("âœ… Check your phone "+phone+" - Enter M-Pesa PIN now to pay 150");
   document.getElementById('payBtn').innerText = "Prompt Sent - Check Phone";
  }catch(e){
   alert("Backend waking up... Wait 40 sec and tap again. "+e.message);
