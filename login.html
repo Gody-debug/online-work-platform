@@ -1,16 +1,23 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Login - OnlineWorks</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}body{background:#fdfbf6;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:16px}.box{background:white;max-width:400px;width:100%;border-radius:20px;padding:32px;border:1px solid #efe6d5}label{font-size:13px;font-weight:600;display:block;margin:12px 0 6px}input{width:100%;padding:12px;border:1px solid #efe6d5;border-radius:10px;background:#fffaf0}.btn{width:100%;background:#a4714b;color:white;padding:14px;border:none;border-radius:10px;font-weight:700;margin-top:20px;cursor:pointer}img{width:100%;border-radius:12px;height:160px;object-fit:cover;margin-bottom:16px}</style>
-</head>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login</title>
+<style>body{margin:0;font-family:Arial;background:#f8f5f0;display:flex;justify-content:center;align-items:center;min-height:100vh} .box{background:white;padding:30px;border-radius:16px;width:100%;max-width:380px;box-shadow:0 4px 20px rgba(0,0,0,0.08)} input{width:100%;padding:12px;margin:8px 0;border:1px solid #e8ddd0;border-radius:10px;box-sizing:border-box} .btn{width:100%;padding:12px;background:#ff7a00;color:white;border:none;border-radius:10px;font-weight:700;margin-top:10px;cursor:pointer}</style></head>
 <body>
 <div class="box">
-<img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600" alt="login">
-<h2>Welcome Back</h2><p style="color:#7a6652;font-size:14px;margin:8px 0 20px">Login to access your tasks</p>
-<label>Email</label><input id="email" type="email" placeholder="you@example.com">
-<label>Password</label><input id="pass" type="password" placeholder="Password">
-<button class="btn" onclick="location.href='/dashboard.html'">Login</button>
-<p style="text-align:center;font-size:13px;margin-top:14px">No account? <a href="/register.html" style="color:#a4714b;font-weight:600">Register</a></p>
+<h2 style="margin:0 0 5px">Login</h2>
+<p style="color:#7a6652;margin:0 0 20px;font-size:14px">Welcome Back<br>Login to access your tasks</p>
+<input id="email" placeholder="you@example.com" type="email">
+<input id="password" placeholder="Password" type="password">
+<button class="btn" onclick="login()">Login</button>
+<p style="text-align:center;margin-top:15px;font-size:14px"><a href="register.html" style="color:#ff7a00;text-decoration:none">No account? Register</a></p>
 </div>
-</body>
-</html>
+<script>
+async function login(){
+ const email=document.getElementById('email').value;
+ const password=document.getElementById('password').value;
+ if(!email||!password) return alert('fill all');
+ const res=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
+ const data=await res.json();
+ if(data.token){localStorage.setItem('token',data.token);location.href='dashboard.html';} else alert(data.message||'failed');
+}
+</script>
+</body></html>
