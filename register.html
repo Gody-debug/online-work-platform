@@ -1,79 +1,129 @@
 ﻿<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Create Account - OnlineWorks</title>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Create Account - Online Works Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui;background:#fdf8f2;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
-.box{background:white;padding:32px;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.08);width:100%;max-width:400px;border:1px solid #f0e6d9}
-h2{font-size:22px;margin-bottom:6px}.sub{color:#7a6652;font-size:13.5px;margin-bottom:20px}
-input{width:100%;padding:12px 14px;border:1px solid #e9ddd0;border-radius:10px;margin-top:8px;font-size:14px}
-input:focus{outline:none;border-color:#8c5a3c}
-label{font-size:13px;font-weight:600;margin-top:14px;display:block}
-.field-error{color:#d93025;font-size:11.5px;margin-top:4px;display:none}
-.input-error{border:1px solid #d93025!important}
-.btn{width:100%;background:#111;color:white;padding:13px;border:none;border-radius:10px;font-weight:700;margin-top:20px;cursor:pointer}
-.btn:disabled{opacity:.6}
-.link{margin-top:16px;text-align:center;font-size:13px}a{color:#8c5a3c;font-weight:600;text-decoration:none}
-</style></head>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui;background:#fdf8f2;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.box{background:white;padding:32px;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,.08);width:100%;max-width:440px;border:1px solid #f0e6d9}
+h2{font-size:24px;font-weight:900;letter-spacing:-0.6px}.sub{color:#78716c;font-size:13.5px;margin:6px 0 20px}
+label{font-size:13px;font-weight:700;margin-top:14px;display:block}
+input{width:100%;padding:13px 14px;border:1px solid #e9ddd0;border-radius:12px;margin-top:6px;font-size:14px;outline:none;transition:.2s}
+input:focus{border-color:#111;box-shadow:0 0 0 3px rgba(0,0,0,0.06)}
+.input-error{border-color:#d93025!important}
+.field-error{color:#d93025;font-size:11.5px;margin-top:5px;display:none}
+.strength{margin-top:8px;height:4px;background:#f0e6d9;border-radius:999px;overflow:hidden;display:none}
+.strength-bar{height:100%;width:0%;transition:.3s}
+.hint{font-size:11.5px;color:#a8a29e;margin-top:6px;line-height:1.4}
+.btn{width:100%;background:#111;color:white;padding:14px;border:none;border-radius:999px;font-weight:800;margin-top:22px;cursor:pointer;font-size:14.5px;transition:.2s}
+.btn:disabled{opacity:0.6;cursor:not-allowed}
+.btn:hover:not(:disabled){background:#8c5a3c}
+.link{text-align:center;margin-top:16px;font-size:13.5px}.link a{color:#8c5a3c;font-weight:700;text-decoration:none}
+#msg{margin-top:14px;font-size:13px;text-align:center;min-height:18px}
+.req{color:#d93025}
+</style>
+</head>
 <body>
 <div class="box">
-<h2>Create account</h2><div class="sub">Join 12,000+ freelancers</div>
-<form id="regForm">
-<label>Full Name</label><input id="name" type="text" placeholder="John Doe"><div class="field-error">This field is required</div>
-<label>Email</label><input id="email" type="email" placeholder="john@gmail.com"><div class="field-error">This field is required</div>
-<label>Phone (M-Pesa)</label><input id="phone" type="tel" placeholder="07XXXXXXXX"><div class="field-error">This field is required</div>
-<label>Password</label><input id="password" type="password" placeholder="••••••••"><div class="field-error">This field is required</div>
-<button type="submit" class="btn" id="btn">Create Account</button>
+<h2>Create account</h2><div class="sub">Start earning in 3 minutes - KES 150 activation after qualification</div>
+<form id="regForm" novalidate>
+<label>Full Name <span class="req">*</span></label>
+<input id="name" type="text" placeholder="John Doe"><div class="field-error">Full name is required</div>
+
+<label>Email <span class="req">*</span></label>
+<input id="email" type="email" placeholder="you@gmail.com"><div class="field-error">Valid email is required</div>
+
+<label>Phone (M-Pesa) <span class="req">*</span></label>
+<input id="phone" type="tel" placeholder="0712345678"><div class="field-error">Phone number is required</div>
+
+<label>Password <span class="req">*</span></label>
+<input id="password" type="password" placeholder="Min 8 chars, letter + number" oninput="checkStrength(this.value)">
+<div class="strength" id="strengthWrap"><div class="strength-bar" id="strengthBar"></div></div>
+<div class="hint" id="pwHint">Must be at least 8 characters and include a letter and a number.</div>
+<div class="field-error" id="pwError">Password must be 8+ chars with a letter and a number</div>
+
+<button class="btn" type="submit" id="btn">Create Account</button>
 </form>
 <div class="link">Already have account? <a href="login.html">Login</a></div>
-<div id="msg" style="margin-top:12px;font-size:13px;text-align:center"></div>
+<div id="msg"></div>
 </div>
+
 <script>
+function isStrong(pw){
+  return pw.length>=8 && /[A-Za-z]/.test(pw) && /[0-9]/.test(pw);
+}
+function checkStrength(v){
+  const wrap=document.getElementById('strengthWrap');
+  const bar=document.getElementById('strengthBar');
+  const hint=document.getElementById('pwHint');
+  const err=document.getElementById('pwError');
+  if(!v){ wrap.style.display='none'; hint.style.color='#a8a29e'; return; }
+  wrap.style.display='block';
+  let score=0;
+  if(v.length>=8) score++;
+  if(/[A-Za-z]/.test(v)) score++;
+  if(/[0-9]/.test(v)) score++;
+  if(/[^A-Za-z0-9]/.test(v)) score++;
+  
+  if(score<=1){ bar.style.width='25%'; bar.style.background='#d93025'; hint.style.color='#d93025'; hint.textContent='Weak - add letter + number, 8+ chars'; }
+  else if(score==2){ bar.style.width='50%'; bar.style.background='#f59e0b'; hint.style.color='#b45309'; hint.textContent='Fair - make it 8+ chars with letter and number'; }
+  else if(score==3){ bar.style.width='85%'; bar.style.background='#22c55e'; hint.style.color='#15803d'; hint.textContent='Strong password - good!'; err.style.display='none'; document.getElementById('password').classList.remove('input-error'); }
+  else { bar.style.width='100%'; bar.style.background='#111'; hint.style.color='#15803d'; hint.textContent='Very strong - perfect!'; err.style.display='none'; }
+}
+
 document.getElementById('regForm').addEventListener('submit', async (e)=>{
  e.preventDefault();
- const fields = [
-  document.getElementById('name'),
-  document.getElementById('email'),
-  document.getElementById('phone'),
-  document.getElementById('password')
- ];
+ const name=document.getElementById('name');
+ const email=document.getElementById('email');
+ const phone=document.getElementById('phone');
+ const pw=document.getElementById('password');
  let ok=true;
- fields.forEach(inp=>{
-   const err = inp.nextElementSibling;
-   if(inp.value.trim()===''){
-     inp.classList.add('input-error');
-     err.style.display='block';
-     ok=false;
-   } else {
-     inp.classList.remove('input-error');
-     err.style.display='none';
-   }
+
+ [name,email,phone].forEach(inp=>{
+  const err=inp.nextElementSibling;
+  if(!inp.value.trim()){ inp.classList.add('input-error'); err.style.display='block'; ok=false; }
+  else { inp.classList.remove('input-error'); err.style.display='none'; }
  });
+
+ // Email format
+ if(email.value && !/^\S+@\S+\.\S+$/.test(email.value.trim())){
+  email.classList.add('input-error'); email.nextElementSibling.textContent='Enter valid email'; email.nextElementSibling.style.display='block'; ok=false;
+ }
+
+ // PASSWORD STRONG CHECK - THIS IS THE LOCK
+ const pwError=document.getElementById('pwError');
+ if(!isStrong(pw.value)){
+  pw.classList.add('input-error'); pwError.style.display='block'; ok=false;
+  document.getElementById('msg').style.color='#d93025';
+  document.getElementById('msg').textContent='Password must be at least 8 characters with a letter and a number';
+ } else {
+  pw.classList.remove('input-error'); pwError.style.display='none';
+ }
+
  if(!ok) return;
 
- const btn=document.getElementById('btn');
- btn.disabled=true; btn.textContent='Creating...';
+ const btn=document.getElementById('btn'); btn.disabled=true; btn.textContent='Creating...';
+ const msg=document.getElementById('msg');
  try{
-   const r=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-     name:fields[0].value.trim(),
-     email:fields[1].value.trim(),
-     phone:fields[2].value.trim(),
-     password:fields[3].value.trim()
-   })});
-   const data=await r.json();
-   if(r.ok){
-     document.getElementById('msg').style.color='green';
-     document.getElementById('msg').textContent='Account created! Redirecting to payment...';
-     localStorage.setItem('user', JSON.stringify(data.user || {email:fields[1].value}));
-     setTimeout(()=>location.href='qualification.html', 1000);
-   } else {
-     document.getElementById('msg').style.color='#d93025';
-     document.getElementById('msg').textContent=data.message || 'Failed to create account';
-   }
- } catch(err){
-   document.getElementById('msg').style.color='#d93025';
-   document.getElementById('msg').textContent='Network error';
+  const r=await fetch('/api/register',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name:name.value.trim(), email:email.value.trim(), phone:phone.value.trim(), password:pw.value})
+  });
+  const data=await r.json();
+  msg.style.color = r.ok ? 'green' : '#d93025';
+  msg.textContent = data.message || (r.ok ? 'Account created!' : 'Failed');
+  if(r.ok){
+    localStorage.setItem('user', JSON.stringify({email:email.value.trim(), name:name.value.trim(), phone:phone.value.trim()}));
+    setTimeout(()=>location.href='qualification.html?email='+encodeURIComponent(email.value.trim()), 800);
+  }
+ }catch{
+  msg.style.color='#d93025'; msg.textContent='Network error, try again';
  }
  btn.disabled=false; btn.textContent='Create Account';
 });
 </script>
-</body></html>
-
+</body>
+</html>
