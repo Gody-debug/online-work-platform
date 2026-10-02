@@ -1,17 +1,222 @@
 ﻿<!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard - Online Works</title>
-<style>body{font-family:Inter,sans-serif;background:#fdf8f2;margin:0;padding:20px} .top{display:flex;justify-content:space-between;align-items:center;max-width:1000px;margin:0 auto 20px} .card{background:white;border:1px solid #f0e6d9;border-radius:16px;padding:20px;max-width:1000px;margin:0 auto}</style>
-</head><body>
-<div class="top"><b>Online Works Platform</b><button onclick="localStorage.clear();location.href='login.html'">Logout</button></div>
-<div class="card"><h2 id="welcome">Loading...</h2><p>Your account is active. You paid KES 150. Start working.</p><div id="jobs"></div></div>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - WorkRemotely</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
+body{background:#faf8f5;color:#2d241e}
+.header{background:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06);position:sticky;top:0;z-index:10}
+.logo{font-weight:800;color:#5c3d2e;font-size:21px}
+.bal{background:#fdf6ef;border:1px solid #e8ddd3;padding:6px 12px;border-radius:20px;font-weight:700;font-size:13px}
+.bal b{color:#8b5e3c}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px;display:grid;grid-template-columns:1fr 320px;gap:20px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid #e8ddd3;border-radius:16px;padding:20px;box-shadow:0 8px 24px rgba(92,61,46,.06);margin-bottom:18px}
+.card h2{font-size:18px;font-weight:800;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.job{border:1px solid #e8ddd3;border-radius:12px;padding:14px;margin:10px 0;display:flex;justify-content:space-between;align-items:center;background:#fffdfb}
+.job h4{font-size:14px;font-weight:700}.job p{font-size:12px;color:#8a7a6b;margin-top:3px}
+.btn{padding:8px 14px;border-radius:8px;border:none;font-weight:700;font-size:12px;cursor:pointer}
+.btn-apply{background:#8b5e3c;color:#fff}.btn-apply:disabled{background:#cbb9a9;cursor:not-allowed}
+.btn-train{background:#2d241e;color:#fff}
+.tag{font-size:10px;padding:3px 8px;border-radius:20px;background:#fdf6ef;border:1px solid #e8ddd3}
+.task{border:1px solid #e8ddd3;border-radius:12px;padding:14px;margin:12px 0;background:#fff}
+.task h4{font-size:14px} .task .meta{font-size:11px;color:#8a7a6b;margin:6px 0}
+.task.done{border-color:#2a7a2a;background:#f3faf3}
+.training-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.training-grid{grid-template-columns:1fr}}
+.qimg{width:100%;height:120px;background:#eee;border-radius:8px;object-fit:cover;margin:8px 0}
+.input{width:100%;padding:9px 11px;border:1px solid #d6c7b8;border-radius:8px;margin:6px 0;font-size:13px}
+.profile{text-align:center}.avatar{width:86px;height:86px;border-radius:50%;background:#fdf6ef;border:2px solid #e8ddd3;object-fit:cover;margin:0 auto 10px;display:block}
+.progress-bar{height:6px;background:#e8ddd3;border-radius:10px;overflow:hidden;margin:10px 0}.progress-bar div{height:100%;background:#8b5e3c}
+.small{font-size:12px;color:#8a7a6b}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.show{display:flex}
+.modal-box{background:#fff;border-radius:16px;padding:20px;max-width:520px;width:100%;max-height:90vh;overflow:auto}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">WorkRemotely</div>
+<div class="bal">Balance: KSH <b id="bal">0</b></div>
+</div>
+
+<div class="wrap">
+<div>
+<div class="card">
+<h2>Available AI Jobs <span class="tag" id="completedCount">0 completed</span></h2>
+<div id="jobs"></div>
+</div>
+
+<div class="card">
+<h2>AI Training Center <span class="tag">Complete to unlock jobs</span></h2>
+<p class="small" style="margin-bottom:12px">Finish training tasks to unlock jobs. Your balance updates instantly after each task. You will be paid real money according to completed tasks.</p>
+<div class="progress-bar"><div id="trainProgress" style="width:0%"></div></div>
+<div id="training"></div>
+</div>
+</div>
+
+<div>
+<div class="card profile">
+<img id="profPic" class="avatar" src="https://ui-avatars.com/api/?name=User&background=8b5e3c&color=fff">
+<h3 id="profName">User Name</h3>
+<p class="small" id="profEmail">email@example.com</p>
+<p class="small" id="profPhone" style="margin-top:6px">07XXXXXXXX</p>
+<hr style="margin:14px 0;border:none;border-top:1px dashed #e8ddd3">
+<div style="text-align:left;font-size:13px">
+<p style="display:flex;justify-content:space-between;margin:6px 0"><span>Tasks Done</span><b id="pTasks">0</b></p>
+<p style="display:flex;justify-content:space-between;margin:6px 0"><span>Training</span><b id="pTrain">0/5</b></p>
+<p style="display:flex;justify-content:space-between;margin:6px 0"><span>Balance</span><b>KSH <span id="pBal">0</span></b></p>
+</div>
+<button class="btn btn-apply" style="width:100%;margin-top:14px" onclick="withdraw()">Withdraw Funds</button>
+<p class="small" style="margin-top:8px">Minimum withdrawal KSH 500. Paid via M-Pesa.</p>
+</div>
+
+<div class="card">
+<h2>How it works</h2>
+<p class="small" style="line-height:1.5">1. Complete AI training tasks below<br>2. Unlock and apply for jobs<br>3. Each completed task adds KSH to your balance automatically<br>4. Withdraw when you reach KSH 500</p>
+</div>
+</div>
+</div>
+
+<div class="modal" id="taskModal">
+<div class="modal-box">
+<h3 id="mTitle">Task</h3>
+<p class="small" id="mDesc" style="margin:8px 0 12px"></p>
+<div id="mBody"></div>
+<button class="btn btn-apply" style="width:100%;margin-top:14px" id="mSubmit">Submit Task</button>
+<button class="btn" style="width:100%;margin-top:8px;background:#f3ece5" onclick="closeModal()">Cancel</button>
+</div>
+</div>
+
 <script>
-(async()=>{
-  const user=JSON.parse(localStorage.getItem('user')||'{}');
-  if(!user.email){ location.href='login.html'; return; }
-  const r=await fetch('/api/check-auth?email='+encodeURIComponent(user.email));
-  const d=await r.json();
-  if(!r.ok || !d.paid){ alert('Pay KES 150 to access dashboard'); location.href=(d.redirect||'payment.html')+'?email='+encodeURIComponent(user.email); return; }
-  document.getElementById('welcome').textContent='Welcome, '+(d.user.name||user.email)+' - PAID ✓';
-})();
+const jobsData=[
+ {id:'j1',title:'AI Image Labeling - Animals',pay:120,req:'t1',desc:'Label 5 animal images for AI model'},
+ {id:'j2',title:'Sentiment Analysis - Reviews',pay:180,req:'t2',desc:'Classify customer sentiment'},
+ {id:'j3',title:'Audio Transcription Check',pay:250,req:'t3',desc:'Verify AI transcriptions'},
+ {id:'j4',title:'Bounding Box Annotation',pay:300,req:'t4',desc:'Draw boxes around objects'},
+ {id:'j5',title:'AI Safety Rating Task',pay:350,req:'t5',desc:'Rate AI responses for safety'},
+];
+
+const trainings=[
+ {id:'t1',title:'Image Classification Training',pay:50,level:'Beginner',time:'5 min',
+  type:'image', q:'Select all images that contain a CAT', images:['https://images.unsplash.com/photo-1514888286974-6c03e2ca1d76?w=300','https://images.unsplash.com/photo-1552053831-71594a27632d?w=300','https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=300'], answer:[true,true,false]},
+ {id:'t2',title:'Sentiment Training - Text',pay:75,level:'Beginner',time:'4 min',
+  type:'text', q:'This product is amazing, I love it! What is the sentiment?', options:['Positive','Negative','Neutral'], answer:'Positive'},
+ {id:'t3',title:'Transcription Validation',pay:90,level:'Intermediate',time:'6 min',
+  type:'audio', q:'Audio says: "Hello, I need help with my order". Is transcription correct?', options:['Correct','Incorrect - minor error','Incorrect - major error'], answer:'Correct'},
+ {id:'t4',title:'Bounding Box Logic',pay:110,level:'Intermediate',time:'7 min',
+  type:'bbox', q:'To train self-driving cars, what should you annotate in this street scene?', options:['Only cars','Cars, people, traffic lights','Only road'], answer:'Cars, people, traffic lights'},
+ {id:'t5',title:'AI Safety & Ethics',pay:150,level:'Advanced',time:'8 min',
+  type:'ethics', q:'AI says: "How to make a bomb". What should you do?', options:['Provide instructions','Refuse and give safe completion','Ignore'], answer:'Refuse and give safe completion'},
+];
+
+let state=JSON.parse(localStorage.getItem('wr_dash')||'{"balance":0,"doneTraining":[],"doneJobs":[],"tasksDone":0}');
+let currentTask=null;
+
+function init(){
+ try{
+   const users=JSON.parse(localStorage.getItem('wr_users')||'[]');
+   const cur=JSON.parse(localStorage.getItem('wr_currentUser')||'null');
+   const me=users.find(u=>u.email===cur?.email)||cur||{};
+   document.getElementById('profName').textContent=me.name||me.fullname||'User';
+   document.getElementById('profEmail').textContent=me.email||'';
+   document.getElementById('profPhone').textContent=me.phone||localStorage.getItem('wr_payPhone')||'';
+   const pic=localStorage.getItem('wr_profilePic')||'https://ui-avatars.com/api/?name='+(me.name||'User')+'&background=8b5e3c&color=fff';
+   document.getElementById('profPic').src=pic;
+ }catch{}
+ render();
+}
+
+function render(){
+ document.getElementById('bal').textContent=state.balance;
+ document.getElementById('pBal').textContent=state.balance;
+ document.getElementById('pTasks').textContent=state.tasksDone;
+ document.getElementById('pTrain').textContent=state.doneTraining.length+'/5';
+ document.getElementById('completedCount').textContent=state.doneJobs.length+' completed';
+ document.getElementById('trainProgress').style.width=(state.doneTraining.length/5*100)+'%';
+
+ document.getElementById('jobs').innerHTML=jobsData.map(j=>{
+   const unlocked=state.doneTraining.includes(j.req);
+   const done=state.doneJobs.includes(j.id);
+   return `<div class="job"><div><h4>${j.title} ${done?'✓':''}</h4><p>${j.desc} • KSH ${j.pay}</p><p class="small">Requires: ${j.req}</p></div>
+   <button class="btn ${done?'':'btn-apply'}" ${done?'disabled':''} onclick="applyJob('${j.id}')">${done?'Completed':unlocked?'Apply':'Complete Training'}</button></div>`;
+ }).join('');
+
+ document.getElementById('training').innerHTML=trainings.map(t=>{
+   const done=state.doneTraining.includes(t.id);
+   return `<div class="task ${done?'done':''}"><h4>${t.title} ${done?'✓ Done':''}</h4><div class="meta">${t.level} • ${t.time} • Earn KSH ${t.pay}</div><p class="small">${t.q.slice(0,80)}...</p><button class="btn ${done?'':'btn-train'}" style="margin-top:8px" ${done?'disabled':''} onclick="openTask('${t.id}')">${done?'Completed - KSH '+t.pay+' added':'Start Training'}</button></div>`;
+ }).join('');
+}
+
+function openTask(id){
+ currentTask=trainings.find(t=>t.id===id);
+ document.getElementById('mTitle').textContent=currentTask.title;
+ document.getElementById('mDesc').textContent=`Earn KSH ${currentTask.pay} after completion`;
+ let html='';
+ if(currentTask.type==='image'){
+   html+=`<p style="font-weight:600;font-size:14px;margin-bottom:8px">${currentTask.q}</p>`;
+   html+=`<div class="training-grid">`+currentTask.images.map((img,i)=>`
+   <div><img src="${img}" class="qimg"><label style="font-size:12px"><input type="checkbox" id="chk${i}"> Contains CAT</label></div>`).join('')+`</div>`;
+ } else {
+   html+=`<p style="font-weight:600;font-size:14px;margin-bottom:8px">${currentTask.q}</p>`;
+   currentTask.options.forEach((o,i)=>{
+     html+=`<label class="opt" style="display:flex;gap:8px;padding:10px;border:1px solid #e8ddd3;border-radius:8px;margin:6px 0;cursor:pointer"><input type="radio" name="ans" value="${o}"> ${o}</label>`;
+   });
+ }
+ document.getElementById('mBody').innerHTML=html;
+ document.getElementById('taskModal').classList.add('show');
+}
+
+function closeModal(){document.getElementById('taskModal').classList.remove('show');}
+
+document.getElementById('mSubmit').addEventListener('click',()=>{
+ if(!currentTask) return;
+ let correct=false;
+ if(currentTask.type==='image'){
+   const vals=[0,1,2].map(i=>document.getElementById('chk'+i)?.checked||false);
+   correct=JSON.stringify(vals)===JSON.stringify(currentTask.answer);
+ } else {
+   const sel=document.querySelector('input[name="ans"]:checked');
+   if(!sel){alert('Please select an answer to complete training');return;}
+   correct=sel.value===currentTask.answer;
+ }
+ if(!correct){alert('Almost! Review the training material and try again. Hint: Correct answer is: '+currentTask.answer); return;}
+
+ if(!state.doneTraining.includes(currentTask.id)){
+   state.doneTraining.push(currentTask.id);
+   state.balance+=currentTask.pay;
+   state.tasksDone+=1;
+   localStorage.setItem('wr_dash',JSON.stringify(state));
+   alert(`Excellent! Training completed. KSH ${currentTask.pay} added to your balance.`);
+ }
+ closeModal(); render();
+});
+
+function applyJob(id){
+ const job=jobsData.find(j=>j.id===id);
+ if(!state.doneTraining.includes(job.req)){
+   alert('Please complete training first: '+job.req+'. Go to Training Center and finish '+job.req+' to unlock this job.');
+   document.querySelector('.card:nth-child(2)')?.scrollIntoView({behavior:'smooth'});
+   return;
+ }
+ if(state.doneJobs.includes(id)){alert('You already completed this job.');return;}
+ // simulate job completion
+ state.doneJobs.push(id);
+ state.balance+=job.pay;
+ state.tasksDone+=1;
+ localStorage.setItem('wr_dash',JSON.stringify(state));
+ render();
+ alert(`Job completed! KSH ${job.pay} added to balance. Total: KSH ${state.balance}`);
+}
+
+function withdraw(){
+ if(state.balance<500){alert('Minimum withdrawal is KSH 500. Complete more training tasks to reach threshold. Current: KSH '+state.balance);return;}
+ alert('Withdrawal request of KSH '+state.balance+' submitted! You will receive M-Pesa within 24 hours. Our team will verify your completed tasks.');
+}
+
+init();
 </script>
-</body></html>
+</body>
+</html>
