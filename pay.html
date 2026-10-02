@@ -16,7 +16,6 @@ h1{font-size:22px;font-weight:800;margin-bottom:6px}
 .sub{font-size:13.5px;color:#8a7a6b;margin-bottom:18px;line-height:1.5}
 .box{background:#fdf6ef;border:1px solid #e8ddd3;border-radius:12px;padding:16px;margin:16px 0}
 .row{display:flex;justify-content:space-between;font-size:14px;margin:8px 0}.row.total{font-weight:800;font-size:16px;border-top:1px dashed #d6c7b8;padding-top:10px;margin-top:10px}
-.badge{display:inline-block;background:#e9f5e9;color:#2a7a2a;font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;margin-left:8px}
 label{font-size:13px;font-weight:600;color:#5c3d2e;display:block;margin:16px 0 6px}
 input{width:100%;padding:12px 13px;border:1px solid #d6c7b8;border-radius:10px;font-size:14px;outline:none;background:#fffdfb}
 input:focus{border-color:#8b5e3c;box-shadow:0 0 0 3px rgba(139,94,60,.12)}
@@ -28,6 +27,7 @@ input.error-border{border-color:#b91c1c;background:#fef2f2}
 .note{font-size:11.5px;color:#8a7a6b;text-align:center;margin-top:14px;line-height:1.4}
 .trust{display:flex;gap:12px;justify-content:center;margin-top:16px;font-size:11px;color:#8a7a6b}
 .trust span{background:#faf8f5;border:1px solid #e8ddd3;padding:4px 8px;border-radius:20px}
+.counter{font-size:11px;color:#8a7a6b;margin-top:4px;text-align:right}
 </style>
 </head>
 <body>
@@ -37,72 +37,95 @@ input.error-border{border-color:#b91c1c;background:#fef2f2}
 <div class="progress"><div class="active"></div><div class="active"></div><div class="active"></div><div></div></div>
 
 <h1>Complete Your Registration</h1>
-<p class="sub">You are one step away from unlocking your WorkRemotely account. Pay <b>KES 150 activation fee</b> - paid once to verify your M-Pesa and activate tasks.</p>
+<p class="sub">Complete your registration by paying <b>KES 150 activation fee</b>. Your account will be activated immediately after payment.</p>
 
 <div class="box">
 <div class="row"><span>Account Verification</span><span>KES 50</span></div>
 <div class="row"><span>Activation Fee</span><span>KES 100</span></div>
-<div class="row total"><span>Total to Pay <span class="badge">ONCE</span></span><span>KES 150</span></div>
+<div class="row total"><span>Total to Pay</span><span>KES 150</span></div>
 </div>
 
 <form id="payForm" novalidate>
-<label>M-Pesa Phone Number (to receive STK prompt)</label>
-<input id="mpesaPhone" placeholder="07XXXXXXXX or 2547XXXXXXXX" inputmode="numeric" autocomplete="tel">
+<label>M-Pesa Phone Number</label>
+<input id="mpesaPhone" placeholder="07XXXXXXXX" inputmode="numeric" maxlength="10" autocomplete="tel">
+<div class="counter" id="charCounter">0 / 10 digits</div>
 <div class="err" id="errPhone">This field is required</div>
-<div class="err" id="errPhoneInvalid">Enter a valid Safaricom M-Pesa number</div>
+<div class="err" id="errPhoneInvalid">Enter a valid M-Pesa number (10 digits)</div>
 
 <button type="submit" id="payBtn" class="btn-main">Pay KES 150 & Activate Account</button>
-<p class="note">This is a one-time activation fee. No monthly charges. You will receive an M-Pesa STK pop-up on your phone to enter PIN. Automatic processing via Daraja will be enabled later.</p>
-<div class="trust"><span>🔒 Secured by M-Pesa</span><span>✓ Instant Activation</span><span>✓ Paid Once</span></div>
+<p class="note">You will receive an M-Pesa STK pop-up on your phone to enter your PIN. Automatic processing will be handled securely.</p>
+<div class="trust"><span>🔒 Secured by M-Pesa</span><span>✓ Instant Activation</span></div>
 </form>
 
 </div>
 </div>
 <script>
-// Load phone from register if exists
+const input=document.getElementById('mpesaPhone');
+const counter=document.getElementById('charCounter');
+
+// Load saved phone
 try{
- const u=JSON.parse(localStorage.getItem('wr_currentUser')||'null');
  const users=JSON.parse(localStorage.getItem('wr_users')||'[]');
- const me=users.find(x=>x.email===u?.email);
- if(me?.phone) document.getElementById('mpesaPhone').value=me.phone;
+ const cur=JSON.parse(localStorage.getItem('wr_currentUser')||'null');
+ const me=users.find(x=>x.email===cur?.email);
+ if(me?.phone) {input.value=me.phone.replace(/\D/g,'').slice(0,10); updateCounter();}
 }catch{}
 
-document.getElementById('mpesaPhone').addEventListener('input',e=>{
+function updateCounter(){
+ const len=input.value.replace(/\D/g,'').length;
+ counter.textContent=len+' / 10 digits';
+ counter.style.color=len===10?'#2a7a2a':'#8a7a6b';
+}
+
+// Strictly 10 digits max, only numbers, keyboard stops after 10
+input.addEventListener('beforeinput',e=>{
+ const digits=input.value.replace(/\D/g,'');
+ if(digits.length>=10 && e.inputType.startsWith('insert') && !(e.inputType.includes('Replace') )){
+   // allow if selection will replace
+   if(input.selectionStart===input.selectionEnd) e.preventDefault();
+ }
+});
+
+input.addEventListener('input',e=>{
+ let val=e.target.value.replace(/\D/g,'').slice(0,10); // cut to 10 max
+ e.target.value=val;
+ updateCounter();
  e.target.classList.remove('error-border');
  document.getElementById('errPhone').classList.remove('show');
  document.getElementById('errPhoneInvalid').classList.remove('show');
 });
 
+input.addEventListener('keydown',e=>{
+ const digits=input.value.replace(/\D/g,'');
+ // block typing if already 10 digits and not control keys
+ if(digits.length>=10 && !['Backspace','Delete','ArrowLeft','ArrowRight','Tab'].includes(e.key) && !(e.ctrlKey||e.metaKey)){
+   if(input.selectionStart===input.selectionEnd) e.preventDefault();
+ }
+});
+
 document.getElementById('payForm').addEventListener('submit',e=>{
  e.preventDefault();
- const input=document.getElementById('mpesaPhone');
- const raw=input.value.trim().replace(/\s+/g,'');
+ const raw=input.value.trim().replace(/\D/g,'');
  const errReq=document.getElementById('errPhone');
  const errInv=document.getElementById('errPhoneInvalid');
  errReq.classList.remove('show'); errInv.classList.remove('show'); input.classList.remove('error-border');
 
  if(!raw){errReq.classList.add('show');input.classList.add('error-border');return;}
-
- // Normalize: 07... -> 2547...
- let phone=raw;
- if(/^0?7\d{8}$/.test(phone)){ phone = phone.replace(/^0/,'254'); }
- if(!/^2547\d{8}$/.test(phone)){
+ if(!/^0?7\d{8}$/.test(raw) && raw.length!==10){ // expect 10 digits starting 07
+   errInv.classList.add('show');input.classList.add('error-border');return;
+ }
+ if(raw.length!==10){
    errInv.classList.add('show');input.classList.add('error-border');return;
  }
 
- // Save real phone for Daraja later
+ let phone='254'+raw.slice(1); // 07... -> 2547...
  localStorage.setItem('wr_payPhone', phone);
  localStorage.setItem('wr_payAmount','150');
  localStorage.setItem('wr_payStatus','pending');
 
- // Disable button to simulate automatic trigger later
  const btn=document.getElementById('payBtn');
  btn.disabled=true; btn.textContent='Processing... Please wait';
-
- // For now go to dashboard with pending status (Daraja STK will be added here later)
- setTimeout(()=>{
-   location.href='dashboard.html';
- }, 1200);
+ setTimeout(()=>{ location.href='dashboard.html'; }, 1000);
 });
 </script>
 </body>
