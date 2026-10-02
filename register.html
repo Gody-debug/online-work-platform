@@ -1,159 +1,129 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Register - WorkRemotely</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
 body{background:#faf8f5;color:#2d241e;min-height:100vh;display:flex;flex-direction:column}
-.header{background:#ffffff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.header{background:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .logo{font-weight:800;color:#5c3d2e;font-size:21px;text-decoration:none}
-.nav a{font-size:13.5px;color:#6b5a4f;text-decoration:none;font-weight:600;margin-left:18px}
 .wrapper{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 16px}
-.card{background:#ffffff;border:1px solid #e8ddd3;border-radius:16px;width:100%;max-width:440px;padding:28px;box-shadow:0 12px 32px rgba(92,61,46,.08)}
-.card h1{font-size:22px;font-weight:800;color:#2d241e;margin-bottom:4px}
-.card p.sub{font-size:13.5px;color:#8a7a6b;margin-bottom:22px}
+.card{background:#fff;border:1px solid #e8ddd3;border-radius:16px;width:100%;max-width:440px;padding:28px;box-shadow:0 12px 32px rgba(92,61,46,.08)}
+.card h1{font-size:22px;font-weight:800;margin-bottom:4px}
+.sub{font-size:13.5px;color:#8a7a6b;margin-bottom:22px}
 label{font-size:13px;font-weight:600;color:#5c3d2e;display:block;margin:14px 0 6px}
 input{width:100%;padding:11px 13px;border:1px solid #d6c7b8;border-radius:10px;font-size:14px;outline:none;background:#fffdfb;transition:.15s}
 input:focus{border-color:#8b5e3c;box-shadow:0 0 0 3px rgba(139,94,60,.12)}
 input.error-border{border-color:#b91c1c;background:#fef2f2}
-.err{font-size:12px;color:#b91c1c;margin-top:5px;display:none}
-.err.show{display:block}
-.btn-main{width:100%;background:#8b5e3c;color:#ffffff;border:none;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;margin-top:20px;font-size:14px;transition:.15s}
+.err{font-size:12px;color:#b91c1c;margin-top:5px;display:none}.err.show{display:block}
+.btn-main{width:100%;background:#8b5e3c;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;margin-top:20px}
 .btn-main:hover{background:#6f4b30}
-.btn-main:disabled{opacity:.6;cursor:not-allowed}
-.bottom-text{font-size:13px;text-align:center;margin-top:18px;color:#8a7a6b}
-.bottom-text a{color:#8b5e3c;font-weight:700;text-decoration:none}
-.strength{font-size:11px;margin-top:6px;color:#8a7a6b}
-.strength.ok{color:#166534}
-.strength.bad{color:#b91c1c}
+.bottom-text{font-size:13px;text-align:center;margin-top:18px;color:#8a7a6b}.bottom-text a{color:#8b5e3c;font-weight:700;text-decoration:none}
 </style>
 </head>
 <body>
-<div class="header">
-<a href="index.html" class="logo">WorkRemotely</a>
-<div class="nav"><a href="index.html">Home</a><a href="login.html">Login</a></div>
-</div>
+<div class="header"><a href="index.html" class="logo">WorkRemotely</a></div>
 <div class="wrapper">
 <div class="card">
-<h1>Create Account</h1>
-<p class="sub">Join 2,400+ workers earning daily via M-Pesa</p>
-
+<h1>Create Account</h1><p class="sub">Join 2,400+ workers earning daily via M-Pesa</p>
 <form id="regForm" novalidate>
 <label>Full Name</label>
-<input id="fullName" type="text" placeholder="Liam Mitchell" autocomplete="name">
+<input id="fullName" placeholder="Liam Mitchell" autocomplete="name">
 <div class="err" id="errName">This field is required</div>
 
 <label>Email Address</label>
-<input id="email" type="email" placeholder="liam.mitchell@gmail.com" autocomplete="email">
+<input id="email" placeholder="liam.mitchell@gmail.com" autocomplete="email">
 <div class="err" id="errEmail">This field is required</div>
 <div class="err" id="errEmailUsed">This email already has an account</div>
+<div class="err" id="errEmailInvalid">Enter a valid email address</div>
 
 <label>Phone Number (M-Pesa)</label>
-<input id="phone" type="tel" placeholder="07... or +254..." autocomplete="tel">
+<input id="phone" placeholder="07..." autocomplete="tel">
 <div class="err" id="errPhone">This field is required</div>
 
 <label>Password</label>
-<input id="password" type="password" placeholder="8 characters minimum !" autocomplete="new-password">
-<div class="strength" id="passStrength"></div>
+<input id="password" type="password" placeholder="8 characters minimum !">
 <div class="err" id="errPass">This field is required</div>
 <div class="err" id="errPassWeak">8 characters minimum !</div>
 
-<button type="submit" class="btn-main" id="btnReg">Create Account</button>
+<button type="submit" class="btn-main">Create Account</button>
 </form>
-
 <div class="bottom-text">Already have account? <a href="login.html">Login</a></div>
 </div>
 </div>
-
 <script>
-// detect used email - checks localStorage users
-function getUsers(){ try{return JSON.parse(localStorage.getItem('wr_users')||'[]')}catch{return[]} }
-
-const form = document.getElementById('regForm');
-const nameI = document.getElementById('fullName');
-const emailI = document.getElementById('email');
-const phoneI = document.getElementById('phone');
-const passI = document.getElementById('password');
-
-function showErr(id, show, borderEl){
- document.getElementById(id).classList.toggle('show', show);
- if(borderEl) borderEl.classList.toggle('error-border', show);
-}
-function clearAll(){
- ['errName','errEmail','errEmailUsed','errPhone','errPass','errPassWeak'].forEach(id=>{
-   document.getElementById(id).classList.remove('show');
+function getUsers(){try{return JSON.parse(localStorage.getItem('wr_users')||'[]')}catch{return[]}}
+// Clear error when typing - but NEVER clear value
+['fullName','email','phone','password'].forEach(id=>{
+ const el=document.getElementById(id);
+ el.addEventListener('input',()=>{
+   el.classList.remove('error-border');
+   document.querySelectorAll('.err').forEach(e=>{if(e.id.startsWith('err'+el.id.charAt(0).toUpperCase()+el.id.slice(1,3)) || e.id==='err'+el.id.charAt(0).toUpperCase()+el.id.slice(1)) e.classList.remove('show')});
+   if(id==='password') document.getElementById('errPassWeak').classList.remove('show');
+   if(id==='email'){document.getElementById('errEmail').classList.remove('show');document.getElementById('errEmailUsed').classList.remove('show');document.getElementById('errEmailInvalid').classList.remove('show');}
+   if(id==='fullName') document.getElementById('errName').classList.remove('show');
+   if(id==='phone') document.getElementById('errPhone').classList.remove('show');
  });
- [nameI,emailI,phoneI,passI].forEach(el=>el.classList.remove('error-border'));
-}
-
-// password validation: 8 chars + at least letter + number
-function isStrongPass(p){
- return p.length>=8 && /[A-Za-z]/.test(p) && /[0-9]/.test(p);
-}
-passI.addEventListener('input', ()=>{
- const v=passI.value;
- const s=document.getElementById('passStrength');
- if(!v){s.textContent='8 characters minimum !';s.className='strength bad';return
- if(v.length<8){s.textContent='8 characters minimum !';s.className='strength bad';return
- if(!/[A-Za-z]/.test(v)){s.textContent='8 characters minimum !';s.className='strength bad';return
- if(!/[0-9]/.test(v)){s.textContent='8 characters minimum !';s.className='strength bad';return
- s.textContent='8 characters minimum !';s.className='strength bad';return
 });
 
-form.addEventListener('submit', (e)=>{
+document.getElementById('regForm').addEventListener('submit',e=>{
  e.preventDefault();
- clearAll();
- let ok=true;
- const nameVal=nameI.value.trim();
- const emailVal=emailI.value.trim().toLowerCase();
- const phoneVal=phoneI.value.trim();
- const passVal=passI.value;
+ let hasError=false;
+ const n=document.getElementById('fullName');
+ const em=document.getElementById('email');
+ const ph=document.getElementById('phone');
+ const pw=document.getElementById('password');
 
- if(!nameVal){ showErr('errName', true, nameI); ok=false; }
- if(!emailVal){ showErr('errEmail', true, emailI); ok=false; }
- if(!phoneVal){ showErr('errPhone', true, phoneI); ok=false; }
- if(!passVal){ showErr('errPass', true, passI); ok=false; }
+ // reset only errors, NOT values
+ document.querySelectorAll('.err').forEach(el=>el.classList.remove('show'));
+ [n,em,ph,pw].forEach(el=>el.classList.remove('error-border'));
 
- if(ok && !isStrongPass(passVal)){ showErr('errPassWeak', true, passI); ok=false; }
-
- if(ok && emailVal){
-   const users=getUsers();
-   if(users.find(u=>u.email===emailVal)){
-     showErr('errEmailUsed', true, emailI); ok=false;
-   }
+ if(!n.value.trim()){
+   document.getElementById('errName').classList.add('show');
+   n.classList.add('error-border');
+   hasError=true;
  }
- if(!ok) return;
+ if(!em.value.trim()){
+   document.getElementById('errEmail').classList.add('show');
+   em.classList.add('error-border');
+   hasError=true;
+ } else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())){
+   document.getElementById('errEmailInvalid').classList.add('show');
+   em.classList.add('error-border');
+   hasError=true;
+ }
+ if(!ph.value.trim()){
+   document.getElementById('errPhone').classList.add('show');
+   ph.classList.add('error-border');
+   hasError=true;
+ }
+ if(!pw.value){
+   document.getElementById('errPass').classList.add('show');
+   pw.classList.add('error-border');
+   hasError=true;
+ } else if(pw.value.length<8 || !/[A-Za-z]/.test(pw.value) || !/[0-9]/.test(pw.value)){
+   document.getElementById('errPassWeak').classList.add('show');
+   pw.classList.add('error-border');
+   hasError=true;
+ }
 
- // save user
+ if(hasError) return; // KEEP all typed values - do not clear
+
+ // check duplicate email but keep values
+ if(getUsers().find(u=>u.email===em.value.trim().toLowerCase())){
+   document.getElementById('errEmailUsed').classList.add('show');
+   em.classList.add('error-border');
+   return;
+ }
+
  const users=getUsers();
- users.push({fullName:nameVal,email:emailVal,phone:phoneVal,password:passVal,created:Date.now()});
- localStorage.setItem('wr_users', JSON.stringify(users));
- localStorage.setItem('wr_currentUser', JSON.stringify({fullName:nameVal,email:emailVal,phone:phoneVal}));
- 
- document.getElementById('btnReg').textContent='Account Created! Redirecting...';
- setTimeout(()=>{ window.location.href='survey.html';
-});
-
-// live clear on typing
-[nameI,emailI,phoneI,passI].forEach(el=>{
- el.addEventListener('input', ()=>{ el.classList.remove('error-border'); })
+ users.push({fullName:n.value.trim(),email:em.value.trim().toLowerCase(),phone:ph.value.trim(),password:pw.value});
+ localStorage.setItem('wr_users',JSON.stringify(users));
+ localStorage.setItem('wr_currentUser',JSON.stringify({fullName:n.value.trim(),email:em.value.trim().toLowerCase()}));
+ location.href='survey.html';
 });
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
