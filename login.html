@@ -1,133 +1,161 @@
-﻿ <!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login - Online Works</title>
-<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui;background:#fdf8f2;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
-.box{background:white;padding:32px;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.08);width:100%;max-width:420px;border:1px solid #f0e6d9}
-h2{font-size:24px;font-weight:900;letter-spacing:-0.5px}.sub{color:#78716c;font-size:13.5px;margin-top:6px;margin-bottom:22px}
-label{font-size:13px;font-weight:700;margin-top:14px;display:block}
-input{width:100%;padding:13px 14px;border:1px solid #e9ddd0;border-radius:12px;margin-top:6px;font-size:14px}
-.btn{width:100%;background:#111;color:white;padding:14px;border:none;border-radius:999px;font-weight:800;margin-top:20px;cursor:pointer;font-size:14.5px}
-.link{margin-top:14px;text-align:center;font-size:13.5px}.link a{color:#8c5a3c;font-weight:700;text-decoration:none;cursor:pointer}
-#msg{margin-top:14px;font-size:13px;text-align:center;min-height:18px}
-.forgot{text-align:right;margin-top:8px}.forgot a{font-size:12.5px;color:#8c5a3c;font-weight:600;text-decoration:none;cursor:pointer}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:50;align-items:center;justify-content:center;padding:20px}
-.modal.active{display:flex}
-.modal-box{background:white;padding:28px;border-radius:20px;width:100%;max-width:380px}
-.steps{display:flex;gap:8px;margin:16px 0}.step{flex:1;height:4px;background:#f0e6d9;border-radius:999px}.step.active{background:#111}
-</style></head><body>
-<div class="box">
-<h2>Welcome back</h2><div class="sub">Login to access your tasks</div>
-<form id="loginForm">
-<label>Email</label><input id="email" type="email" required>
-<label>Password</label><input id="password" type="password" required>
-<div class="forgot"><a onclick="openForgot()">Forgot password?</a></div>
-<button class="btn" type="submit" id="btn">Login</button>
-</form>
-<div class="link">No account? <a href="register.html">Create account</a></div>
-<div id="msg"></div>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - WorkRemotely</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
+body{background:#faf8f5;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:16px}
+.card{background:#fff;border:1px solid #e8ddd3;border-radius:18px;padding:28px;max-width:400px;width:100%;box-shadow:0 12px 32px rgba(92,61,46,.1)}
+.card h2{font-size:22px;font-weight:800;color:#2d241e;text-align:center}
+.card p.small{font-size:12px;color:#8a7a6b;text-align:center;margin:6px 0 18px}
+.input{width:100%;padding:12px;border:1px solid #d6c7b8;border-radius:10px;margin:8px 0;font-size:14px}
+.btn{width:100%;background:#8b5e3c;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;margin-top:10px}
+.btn:disabled{background:#cbb9a9}
+.error{font-size:12px;color:#b91c1c;background:#fef2f2;border:1px solid #fecaca;padding:8px;border-radius:8px;margin:8px 0;display:none}
+.success{font-size:12px;color:#166534;background:#f0fdf4;border:1px solid #bbf7d0;padding:8px;border-radius:8px;margin:8px 0;display:none}
+.link{font-size:13px;color:#8b5e3c;text-decoration:none;font-weight:600;cursor:pointer}
+.links{display:flex;justify-content:space-between;margin-top:12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal.show{display:flex}
+.modalBox{background:#fff;border-radius:16px;padding:22px;max-width:400px;width:100%}
+.otpBox{display:flex;gap:8px;justify-content:center;margin:12px 0}
+.otpBox input{width:42px;height:48px;text-align:center;font-size:18px;font-weight:700;border:1px solid #d6c7b8;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>Welcome Back</h2>
+<p class="small">Login with your Gmail and password</p>
+<div class="error" id="err"></div>
+<div class="success" id="suc"></div>
+<input type="email" id="email" class="input" placeholder="Enter your Gmail (e.g. user@gmail.com)">
+<input type="password" id="password" class="input" placeholder="Enter your password">
+<button class="btn" onclick="login()">Login</button>
+<div class="links">
+<a class="link" onclick="openForgot()">Forgot Password?</a>
+<a class="link" href="register.html">Create Account</a>
+</div>
 </div>
 
-<!-- FORGOT MODAL -->
+<!-- Forgot Password Modal -->
 <div class="modal" id="forgotModal">
-<div class="modal-box">
-<h3 style="font-weight:800">Reset Password</h3>
-<p style="font-size:13px;color:#78716c;margin-top:6px">We'll send a 6-digit OTP to your registered phone/email</p>
-<div class="steps"><div class="step active" id="s1"></div><div class="step" id="s2"></div><div class="step" id="s3"></div></div>
-
+<div class="modalBox">
+<h3 style="font-weight:800;margin-bottom:6px">Forgot Password</h3>
+<p style="font-size:12px;color:#8a7a6b;margin-bottom:12px">Enter your Gmail to receive OTP</p>
+<div class="error" id="fErr"></div>
+<div class="success" id="fSuc"></div>
 <div id="step1">
-<label>Email</label><input id="f_email" type="email" placeholder="your@email.com">
-<button class="btn" onclick="sendOtp()" id="btnOtp">Send OTP Code</button>
+<input type="email" id="fEmail" class="input" placeholder="Enter your Gmail">
+<button class="btn" onclick="sendOTP()">Send OTP to Gmail</button>
 </div>
-
 <div id="step2" style="display:none">
-<label>Enter OTP (6 digits)</label><input id="f_otp" type="text" maxlength="6" placeholder="123456">
-<button class="btn" onclick="verifyOtp()" id="btnVerify">Verify OTP</button>
+<p style="font-size:12px;color:#8a7a6b;text-align:center;margin:8px 0">OTP sent to <b id="otpEmailLabel"></b> (demo shows OTP in alert)</p>
+<div class="otpBox">
+<input maxlength="1" id="o1"><input maxlength="1" id="o2"><input maxlength="1" id="o3"><input maxlength="1" id="o4"><input maxlength="1" id="o5"><input maxlength="1" id="o6">
 </div>
-
+<button class="btn" onclick="verifyOTP()">Verify OTP</button>
+</div>
 <div id="step3" style="display:none">
-<label>New Password (8+ chars, letter + number)</label><input id="f_new" type="password" placeholder="New password">
-<button class="btn" onclick="resetPw()" id="btnReset">Reset Password</button>
+<input type="password" id="newPass" class="input" placeholder="Create new password (min 6 chars)">
+<input type="password" id="confirmPass" class="input" placeholder="Confirm new password">
+<button class="btn" onclick="resetPass()">Create New Password</button>
 </div>
-
-<div id="f_msg" style="margin-top:12px;font-size:13px;text-align:center"></div>
-<div style="text-align:center;margin-top:12px"><a style="font-size:12px;cursor:pointer" onclick="closeForgot()">Back to login</a></div>
+<button style="width:100%;margin-top:10px;background:none;border:none;color:#8a7a6b;font-size:13px;cursor:pointer" onclick="closeForgot()">Cancel</button>
 </div>
 </div>
 
 <script>
-let tempEmail='', tempOtp='';
-function openForgot(){document.getElementById('forgotModal').classList.add('active')}
-function closeForgot(){document.getElementById('forgotModal').classList.remove('active')}
+function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display='block';}
+function hideErr(id){document.getElementById(id).style.display='none';}
+function showSuc(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display='block';}
 
-async function sendOtp(){
- const email=document.getElementById('f_email').value.trim();
- if(!email) return alert('Enter email');
- const btn=document.getElementById('btnOtp'); btn.textContent='Sending...'; btn.disabled=true;
- try{
-  const r=await fetch('/api/forgot-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
-  const d=await r.json();
-  document.getElementById('f_msg').style.color= r.ok?'green':'#d93025';
-  document.getElementById('f_msg').textContent=d.message;
-  if(r.ok){
-    tempEmail=email;
-    document.getElementById('step1').style.display='none';
-    document.getElementById('step2').style.display='block';
-    document.getElementById('s1').classList.remove('active');
-    document.getElementById('s2').classList.add('active');
-    if(d.demoCode) document.getElementById('f_otp').value=d.demoCode; // remove later
-  }
- }catch(e){document.getElementById('f_msg').textContent='Network error'}
- btn.textContent='Send OTP Code'; btn.disabled=false;
-}
-
-async function verifyOtp(){
- const otp=document.getElementById('f_otp').value.trim();
- const r=await fetch('/api/verify-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:tempEmail, otp})});
- const d=await r.json();
- document.getElementById('f_msg').style.color= r.ok?'green':'#d93025';
- document.getElementById('f_msg').textContent=d.message;
- if(r.ok){
-  tempOtp=otp;
-  document.getElementById('step2').style.display='none';
-  document.getElementById('step3').style.display='block';
-  document.getElementById('s2').classList.remove('active');
-  document.getElementById('s3').classList.add('active');
+function login(){
+ hideErr('err');hideErr('suc');
+ const email=document.getElementById('email').value.trim().toLowerCase();
+ const pass=document.getElementById('password').value;
+ if(!email||!pass){showErr('err','Please enter Gmail and password to continue');return;}
+ if(!email.includes('@gmail.com')){showErr('err','Please enter a valid Gmail address');return;}
+ const users=JSON.parse(localStorage.getItem('wr_users')||'[]');
+ const user=users.find(u=>u.email.toLowerCase()===email);
+ if(!user){
+   showErr('err','Enter the correct Gmail or password to continue - no account found with this Gmail');
+   return;
  }
-}
-
-async function resetPw(){
- const np=document.getElementById('f_new').value;
- if(np.length<8 || !/[A-Za-z]/.test(np) || !/[0-9]/.test(np)){
-  document.getElementById('f_msg').style.color='#d93025';
-  document.getElementById('f_msg').textContent='Password must be 8+ chars with letter and number';
-  return;
+ if(user.password!==pass){
+   showErr('err','Enter the correct Gmail or password to continue - wrong password');
+   return;
  }
- const r=await fetch('/api/reset-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:tempEmail, otp:tempOtp, newPassword:np})});
- const d=await r.json();
- document.getElementById('f_msg').style.color= r.ok?'green':'#d93025';
- document.getElementById('f_msg').textContent=d.message;
- if(r.ok){ setTimeout(()=>closeForgot(),1500); }
+ localStorage.setItem('wr_currentUser',JSON.stringify(user));
+ showSuc('suc','Login successful! Redirecting to dashboard...');
+ setTimeout(()=>{window.location.href='dashboard.html';},800);
 }
 
-// LOGIN
-document.getElementById('loginForm').addEventListener('submit', async (e)=>{
- e.preventDefault();
- const email=document.getElementById('email').value.trim(), password=document.getElementById('password').value.trim();
- const btn=document.getElementById('btn'); btn.textContent='Checking...'; btn.disabled=true;
- try{
-  const r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
-  const data=await r.json();
-  const msg=document.getElementById('msg');
-  msg.style.color= r.ok?'green':'#d93025';
-  msg.textContent=data.message;
-  if(r.ok){
-   localStorage.setItem('user', JSON.stringify(data.user));
-   setTimeout(()=>location.href='dashboard.html',800);
-  } else if(data.redirect){
-   localStorage.setItem('user', JSON.stringify({email}));
-   setTimeout(()=>location.href=data.redirect+'?email='+encodeURIComponent(email),1500);
-  }
- }catch{ document.getElementById('msg').textContent='Network error'; }
- btn.textContent='Login'; btn.disabled=false;
+function openForgot(){document.getElementById('forgotModal').classList.add('show'); resetForgot();}
+function closeForgot(){document.getElementById('forgotModal').classList.remove('show');}
+function resetForgot(){
+ hideErr('fErr');hideErr('fSuc');
+ document.getElementById('step1').style.display='block';
+ document.getElementById('step2').style.display='none';
+ document.getElementById('step3').style.display='none';
+ document.getElementById('fEmail').value='';
+ ['o1','o2','o3','o4','o5','o6'].forEach(id=>document.getElementById(id).value='');
+}
+
+function sendOTP(){
+ hideErr('fErr');
+ const email=document.getElementById('fEmail').value.trim().toLowerCase();
+ if(!email.includes('@gmail.com')){showErr('fErr','Enter valid Gmail');return;}
+ const users=JSON.parse(localStorage.getItem('wr_users')||'[]');
+ const user=users.find(u=>u.email.toLowerCase()===email);
+ if(!user){showErr('fErr','No account found with this Gmail - enter the correct Gmail');return;}
+ const otp=Math.floor(100000+Math.random()*900000).toString();
+ localStorage.setItem('wr_otp_'+email,otp);
+ localStorage.setItem('wr_otp_email',email);
+ document.getElementById('otpEmailLabel').textContent=email;
+ document.getElementById('step1').style.display='none';
+ document.getElementById('step2').style.display='block';
+ showSuc('fSuc','OTP sent to '+email);
+ alert('DEMO: Your OTP for '+email+' is: '+otp+'\nIn production this would be sent to your Gmail via email service');
+}
+
+function verifyOTP(){
+ hideErr('fErr');
+ const email=localStorage.getItem('wr_otp_email');
+ const realOtp=localStorage.getItem('wr_otp_'+email);
+ const entered=['o1','o2','o3','o4','o5','o6'].map(id=>document.getElementById(id).value).join('');
+ if(entered.length!==6){showErr('fErr','Enter full 6-digit OTP');return;}
+ if(entered!==realOtp){showErr('fErr','Invalid OTP - enter the correct OTP sent to your Gmail');return;}
+ document.getElementById('step2').style.display='none';
+ document.getElementById('step3').style.display='block';
+ showSuc('fSuc','OTP verified! Create new password');
+}
+
+function resetPass(){
+ hideErr('fErr');
+ const email=localStorage.getItem('wr_otp_email');
+ const np=document.getElementById('newPass').value;
+ const cp=document.getElementById('confirmPass').value;
+ if(np.length<6){showErr('fErr','Password must be at least 6 characters');return;}
+ if(np!==cp){showErr('fErr','Passwords do not match');return;}
+ let users=JSON.parse(localStorage.getItem('wr_users')||'[]');
+ const idx=users.findIndex(u=>u.email.toLowerCase()===email);
+ if(idx===-1){showErr('fErr','Account not found');return;}
+ users[idx].password=np;
+ localStorage.setItem('wr_users',JSON.stringify(users));
+ localStorage.removeItem('wr_otp_'+email);
+ localStorage.removeItem('wr_otp_email');
+ showSuc('fSuc','Password reset successful! You can now login with new password');
+ setTimeout(()=>{closeForgot(); document.getElementById('email').value=email;},1200);
+}
+
+// auto move otp inputs
+['o1','o2','o3','o4','o5','o6'].forEach((id,i)=>{
+ document.getElementById(id).addEventListener('input',function(){
+   if(this.value && i<5) document.getElementById('o'+(i+2)).focus();
+ });
 });
 </script>
-</body></html>
+</body>
+</html>
