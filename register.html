@@ -1,128 +1,144 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Create Account - Online Works Platform</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - WorkRemotely</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,system-ui;background:#fdf8f2;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
-.box{background:white;padding:32px;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,.08);width:100%;max-width:440px;border:1px solid #f0e6d9}
-h2{font-size:24px;font-weight:900;letter-spacing:-0.6px}.sub{color:#78716c;font-size:13.5px;margin:6px 0 20px}
-label{font-size:13px;font-weight:700;margin-top:14px;display:block}
-input{width:100%;padding:13px 14px;border:1px solid #e9ddd0;border-radius:12px;margin-top:6px;font-size:14px;outline:none;transition:.2s}
-input:focus{border-color:#111;box-shadow:0 0 0 3px rgba(0,0,0,0.06)}
-.input-error{border-color:#d93025!important}
-.field-error{color:#d93025;font-size:11.5px;margin-top:5px;display:none}
-.strength{margin-top:8px;height:4px;background:#f0e6d9;border-radius:999px;overflow:hidden;display:none}
-.strength-bar{height:100%;width:0%;transition:.3s}
-.hint{font-size:11.5px;color:#a8a29e;margin-top:6px;line-height:1.4}
-.btn{width:100%;background:#111;color:white;padding:14px;border:none;border-radius:999px;font-weight:800;margin-top:22px;cursor:pointer;font-size:14.5px;transition:.2s}
-.btn:disabled{opacity:0.6;cursor:not-allowed}
-.btn:hover:not(:disabled){background:#8c5a3c}
-.link{text-align:center;margin-top:16px;font-size:13.5px}.link a{color:#8c5a3c;font-weight:700;text-decoration:none}
-#msg{margin-top:14px;font-size:13px;text-align:center;min-height:18px}
-.req{color:#d93025}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',system-ui,sans-serif}
+body{background:#faf8f5;color:#2d241e;min-height:100vh;display:flex;flex-direction:column}
+.header{background:#ffffff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.logo{font-weight:800;color:#5c3d2e;font-size:21px;text-decoration:none}
+.nav a{font-size:13.5px;color:#6b5a4f;text-decoration:none;font-weight:600;margin-left:18px}
+.wrapper{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 16px}
+.card{background:#ffffff;border:1px solid #e8ddd3;border-radius:16px;width:100%;max-width:440px;padding:28px;box-shadow:0 12px 32px rgba(92,61,46,.08)}
+.card h1{font-size:22px;font-weight:800;color:#2d241e;margin-bottom:4px}
+.card p.sub{font-size:13.5px;color:#8a7a6b;margin-bottom:22px}
+label{font-size:13px;font-weight:600;color:#5c3d2e;display:block;margin:14px 0 6px}
+input{width:100%;padding:11px 13px;border:1px solid #d6c7b8;border-radius:10px;font-size:14px;outline:none;background:#fffdfb;transition:.15s}
+input:focus{border-color:#8b5e3c;box-shadow:0 0 0 3px rgba(139,94,60,.12)}
+input.error-border{border-color:#b91c1c;background:#fef2f2}
+.err{font-size:12px;color:#b91c1c;margin-top:5px;display:none}
+.err.show{display:block}
+.btn-main{width:100%;background:#8b5e3c;color:#ffffff;border:none;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;margin-top:20px;font-size:14px;transition:.15s}
+.btn-main:hover{background:#6f4b30}
+.btn-main:disabled{opacity:.6;cursor:not-allowed}
+.bottom-text{font-size:13px;text-align:center;margin-top:18px;color:#8a7a6b}
+.bottom-text a{color:#8b5e3c;font-weight:700;text-decoration:none}
+.strength{font-size:11px;margin-top:6px;color:#8a7a6b}
+.strength.ok{color:#166534}
+.strength.bad{color:#b91c1c}
 </style>
 </head>
 <body>
-<div class="box">
-<h2>Create account</h2><div class="sub">Start earning in 3 minutes - KES 150 activation after qualification</div>
+<div class="header">
+<a href="index.html" class="logo">WorkRemotely</a>
+<div class="nav"><a href="index.html">Home</a><a href="login.html">Login</a></div>
+</div>
+<div class="wrapper">
+<div class="card">
+<h1>Create Account</h1>
+<p class="sub">Join 2,400+ workers earning daily via M-Pesa</p>
+
 <form id="regForm" novalidate>
-<label>Full Name <span class="req">*</span></label>
-<input id="name" type="text" placeholder="John Doe"><div class="field-error">Full name is required</div>
+<label>Full Name</label>
+<input id="fullName" type="text" placeholder="John Kipchoge" autocomplete="name">
+<div class="err" id="errName">This field is required</div>
 
-<label>Email <span class="req">*</span></label>
-<input id="email" type="email" placeholder="you@gmail.com"><div class="field-error">Valid email is required</div>
+<label>Email Address</label>
+<input id="email" type="email" placeholder="john@gmail.com" autocomplete="email">
+<div class="err" id="errEmail">This field is required</div>
+<div class="err" id="errEmailUsed">This email already has an account</div>
 
-<label>Phone (M-Pesa) <span class="req">*</span></label>
-<input id="phone" type="tel" placeholder="0712345678"><div class="field-error">Phone number is required</div>
+<label>Phone Number (M-Pesa)</label>
+<input id="phone" type="tel" placeholder="07... or +254..." autocomplete="tel">
+<div class="err" id="errPhone">This field is required</div>
 
-<label>Password <span class="req">*</span></label>
-<input id="password" type="password" placeholder="Min 8 chars, letter + number" oninput="checkStrength(this.value)">
-<div class="strength" id="strengthWrap"><div class="strength-bar" id="strengthBar"></div></div>
-<div class="hint" id="pwHint">Must be at least 8 characters and include a letter and a number.</div>
-<div class="field-error" id="pwError">Password must be 8+ chars with a letter and a number</div>
+<label>Password</label>
+<input id="password" type="password" placeholder="Min 8 chars with letter + number" autocomplete="new-password">
+<div class="strength" id="passStrength"></div>
+<div class="err" id="errPass">This field is required</div>
+<div class="err" id="errPassWeak">Password must be 8 characters with at least a letter and a number</div>
 
-<button class="btn" type="submit" id="btn">Create Account</button>
+<button type="submit" class="btn-main" id="btnReg">Create Account</button>
 </form>
-<div class="link">Already have account? <a href="login.html">Login</a></div>
-<div id="msg"></div>
+
+<div class="bottom-text">Already have account? <a href="login.html">Login</a></div>
+</div>
 </div>
 
 <script>
-function isStrong(pw){
-  return pw.length>=8 && /[A-Za-z]/.test(pw) && /[0-9]/.test(pw);
-}
-function checkStrength(v){
-  const wrap=document.getElementById('strengthWrap');
-  const bar=document.getElementById('strengthBar');
-  const hint=document.getElementById('pwHint');
-  const err=document.getElementById('pwError');
-  if(!v){ wrap.style.display='none'; hint.style.color='#a8a29e'; return; }
-  wrap.style.display='block';
-  let score=0;
-  if(v.length>=8) score++;
-  if(/[A-Za-z]/.test(v)) score++;
-  if(/[0-9]/.test(v)) score++;
-  if(/[^A-Za-z0-9]/.test(v)) score++;
-  
-  if(score<=1){ bar.style.width='25%'; bar.style.background='#d93025'; hint.style.color='#d93025'; hint.textContent='Weak - add letter + number, 8+ chars'; }
-  else if(score==2){ bar.style.width='50%'; bar.style.background='#f59e0b'; hint.style.color='#b45309'; hint.textContent='Fair - make it 8+ chars with letter and number'; }
-  else if(score==3){ bar.style.width='85%'; bar.style.background='#22c55e'; hint.style.color='#15803d'; hint.textContent='Strong password - good!'; err.style.display='none'; document.getElementById('password').classList.remove('input-error'); }
-  else { bar.style.width='100%'; bar.style.background='#111'; hint.style.color='#15803d'; hint.textContent='Very strong - perfect!'; err.style.display='none'; }
-}
+// detect used email - checks localStorage users
+function getUsers(){ try{return JSON.parse(localStorage.getItem('wr_users')||'[]')}catch{return[]} }
 
-document.getElementById('regForm').addEventListener('submit', async (e)=>{
- e.preventDefault();
- const name=document.getElementById('name');
- const email=document.getElementById('email');
- const phone=document.getElementById('phone');
- const pw=document.getElementById('password');
- let ok=true;
+const form = document.getElementById('regForm');
+const nameI = document.getElementById('fullName');
+const emailI = document.getElementById('email');
+const phoneI = document.getElementById('phone');
+const passI = document.getElementById('password');
 
- [name,email,phone].forEach(inp=>{
-  const err=inp.nextElementSibling;
-  if(!inp.value.trim()){ inp.classList.add('input-error'); err.style.display='block'; ok=false; }
-  else { inp.classList.remove('input-error'); err.style.display='none'; }
+function showErr(id, show, borderEl){
+ document.getElementById(id).classList.toggle('show', show);
+ if(borderEl) borderEl.classList.toggle('error-border', show);
+}
+function clearAll(){
+ ['errName','errEmail','errEmailUsed','errPhone','errPass','errPassWeak'].forEach(id=>{
+   document.getElementById(id).classList.remove('show');
  });
+ [nameI,emailI,phoneI,passI].forEach(el=>el.classList.remove('error-border'));
+}
 
- // Email format
- if(email.value && !/^\S+@\S+\.\S+$/.test(email.value.trim())){
-  email.classList.add('input-error'); email.nextElementSibling.textContent='Enter valid email'; email.nextElementSibling.style.display='block'; ok=false;
+// password validation: 8 chars + at least letter + number
+function isStrongPass(p){
+ return p.length>=8 && /[A-Za-z]/.test(p) && /[0-9]/.test(p);
+}
+passI.addEventListener('input', ()=>{
+ const v=passI.value;
+ const s=document.getElementById('passStrength');
+ if(!v){s.textContent='';s.className='strength';return}
+ if(v.length<8){s.textContent='Too short - minimum 8 characters';s.className='strength bad';return}
+ if(!/[A-Za-z]/.test(v)){s.textContent='Add at least one letter';s.className='strength bad';return}
+ if(!/[0-9]/.test(v)){s.textContent='Add at least one number';s.className='strength bad';return}
+ s.textContent='Password strength: Strong';s.className='strength ok';
+});
+
+form.addEventListener('submit', (e)=>{
+ e.preventDefault();
+ clearAll();
+ let ok=true;
+ const nameVal=nameI.value.trim();
+ const emailVal=emailI.value.trim().toLowerCase();
+ const phoneVal=phoneI.value.trim();
+ const passVal=passI.value;
+
+ if(!nameVal){ showErr('errName', true, nameI); ok=false; }
+ if(!emailVal){ showErr('errEmail', true, emailI); ok=false; }
+ if(!phoneVal){ showErr('errPhone', true, phoneI); ok=false; }
+ if(!passVal){ showErr('errPass', true, passI); ok=false; }
+
+ if(ok && !isStrongPass(passVal)){ showErr('errPassWeak', true, passI); ok=false; }
+
+ if(ok && emailVal){
+   const users=getUsers();
+   if(users.find(u=>u.email===emailVal)){
+     showErr('errEmailUsed', true, emailI); ok=false;
+   }
  }
-
- // PASSWORD STRONG CHECK - THIS IS THE LOCK
- const pwError=document.getElementById('pwError');
- if(!isStrong(pw.value)){
-  pw.classList.add('input-error'); pwError.style.display='block'; ok=false;
-  document.getElementById('msg').style.color='#d93025';
-  document.getElementById('msg').textContent='Password must be at least 8 characters with a letter and a number';
- } else {
-  pw.classList.remove('input-error'); pwError.style.display='none';
- }
-
  if(!ok) return;
 
- const btn=document.getElementById('btn'); btn.disabled=true; btn.textContent='Creating...';
- const msg=document.getElementById('msg');
- try{
-  const r=await fetch('/api/register',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({name:name.value.trim(), email:email.value.trim(), phone:phone.value.trim(), password:pw.value})
-  });
-  const data=await r.json();
-  msg.style.color = r.ok ? 'green' : '#d93025';
-  msg.textContent = data.message || (r.ok ? 'Account created!' : 'Failed');
-  if(r.ok){
-    localStorage.setItem('user', JSON.stringify({email:email.value.trim(), name:name.value.trim(), phone:phone.value.trim()}));
-    setTimeout(()=>location.href='qualification.html?email='+encodeURIComponent(email.value.trim()), 800);
-  }
- }catch{
-  msg.style.color='#d93025'; msg.textContent='Network error, try again';
- }
- btn.disabled=false; btn.textContent='Create Account';
+ // save user
+ const users=getUsers();
+ users.push({fullName:nameVal,email:emailVal,phone:phoneVal,password:passVal,created:Date.now()});
+ localStorage.setItem('wr_users', JSON.stringify(users));
+ localStorage.setItem('wr_currentUser', JSON.stringify({fullName:nameVal,email:emailVal,phone:phoneVal}));
+ 
+ document.getElementById('btnReg').textContent='Account Created! Redirecting...';
+ setTimeout(()=>{ window.location.href='survey.html'; }, 800);
+});
+
+// live clear on typing
+[nameI,emailI,phoneI,passI].forEach(el=>{
+ el.addEventListener('input', ()=>{ el.classList.remove('error-border'); })
 });
 </script>
 </body>
