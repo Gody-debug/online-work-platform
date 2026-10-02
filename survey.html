@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survey - WorkRemotely</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
+body{background:#faf8f5;color:#2d241e;min-height:100vh;display:flex;flex-direction:column}
+.header{background:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.logo{font-weight:800;color:#5c3d2e;font-size:21px;text-decoration:none}
+.wrapper{flex:1;display:flex;justify-content:center;padding:32px 16px}
+.card{background:#fff;border:1px solid #e8ddd3;border-radius:16px;width:100%;max-width:620px;padding:28px;box-shadow:0 12px 32px rgba(92,61,46,.08)}
+.card h1{font-size:22px;font-weight:800;margin-bottom:4px}
+.sub{font-size:13.5px;color:#8a7a6b;margin-bottom:22px}
+.progress{display:flex;gap:6px;margin-bottom:20px}.progress div{flex:1;height:4px;background:#e8ddd3;border-radius:10px}.progress div.active{background:#8b5e3c}
+.q{margin:18px 0}
+.q label.main{font-size:14px;font-weight:700;color:#2d241e;display:block;margin-bottom:10px}
+.options{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid #d6c7b8;border-radius:10px;cursor:pointer;background:#fffdfb;transition:.15s}
+.opt:hover{border-color:#8b5e3c;background:#fdf6ef}
+.opt input{accent-color:#8b5e3c}
+.opt.selected{border-color:#8b5e3c;background:#fdf6ef;box-shadow:0 0 0 2px rgba(139,94,60,.1)}
+.err{font-size:12px;color:#b91c1c;margin-top:6px;display:none}.err.show{display:block}
+.btn-main{width:100%;background:#8b5e3c;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;margin-top:22px}
+.btn-main:hover{background:#6f4b30}
+</style>
+</head>
+<body>
+<div class="header"><a href="index.html" class="logo">WorkRemotely</a><span style="font-size:12px;color:#8a7a6b">Step 2 of 4</span></div>
+<div class="wrapper">
+<div class="card">
+<div class="progress"><div class="active"></div><div class="active"></div><div></div><div></div></div>
+<h1>Quick Survey</h1><p class="sub">Help us match you with best tasks - 60 seconds</p>
+
+<form id="surveyForm" novalidate>
+
+<div class="q" id="q1">
+<label class="main">1. What is your age range?</label>
+<div class="options">
+<label class="opt"><input type="radio" name="age" value="18-24"> 18 - 24 years</label>
+<label class="opt"><input type="radio" name="age" value="25-34"> 25 - 34 years</label>
+<label class="opt"><input type="radio" name="age" value="35-44"> 35 - 44 years</label>
+<label class="opt"><input type="radio" name="age" value="45+"> 45+ years</label>
+</div><div class="err" id="e1">This field is required</div>
+</div>
+
+<div class="q" id="q2">
+<label class="main">2. What device will you use for work?</label>
+<div class="options">
+<label class="opt"><input type="radio" name="device" value="Smartphone"> Smartphone</label>
+<label class="opt"><input type="radio" name="device" value="Laptop"> Laptop / Computer</label>
+<label class="opt"><input type="radio" name="device" value="Both"> Both Smartphone & Laptop</label>
+</div><div class="err" id="e2">This field is required</div>
+</div>
+
+<div class="q" id="q3">
+<label class="main">3. How many hours can you work daily?</label>
+<div class="options">
+<label class="opt"><input type="radio" name="hours" value="1-2"> 1 - 2 hours</label>
+<label class="opt"><input type="radio" name="hours" value="3-5"> 3 - 5 hours</label>
+<label class="opt"><input type="radio" name="hours" value="6-8"> 6 - 8 hours</label>
+<label class="opt"><input type="radio" name="hours" value="8+"> 8+ hours</label>
+</div><div class="err" id="e3">This field is required</div>
+</div>
+
+<div class="q" id="q4">
+<label class="main">4. Previous experience with online work?</label>
+<div class="options">
+<label class="opt"><input type="radio" name="exp" value="None"> No experience - beginner</label>
+<label class="opt"><input type="radio" name="exp" value="Some"> Some experience (less than 1 year)</label>
+<label class="opt"><input type="radio" name="exp" value="Experienced"> Experienced (1+ years)</label>
+</div><div class="err" id="e4">This field is required</div>
+</div>
+
+<div class="q" id="q5">
+<label class="main">5. Which tasks interest you most? (Choose one)</label>
+<div class="options">
+<label class="opt"><input type="radio" name="interest" value="Data Entry & Typing"> Data Entry & Typing</label>
+<label class="opt"><input type="radio" name="interest" value="Writing & Transcription"> Writing & Transcription</label>
+<label class="opt"><input type="radio" name="interest" value="Customer Support"> Customer Support & Surveys</label>
+<label class="opt"><input type="radio" name="interest" value="All"> All tasks - I am flexible</label>
+</div><div class="err" id="e5">This field is required</div>
+</div>
+
+<div class="q" id="q6">
+<label class="main">6. How did you hear about WorkRemotely?</label>
+<div class="options">
+<label class="opt"><input type="radio" name="source" value="WhatsApp"> WhatsApp</label>
+<label class="opt"><input type="radio" name="source" value="Facebook"> Facebook</label>
+<label class="opt"><input type="radio" name="source" value="Friend"> Friend / Referral</label>
+<label class="opt"><input type="radio" name="source" value="Google"> Google Search</label>
+</div><div class="err" id="e6">This field is required</div>
+</div>
+
+<button type="submit" class="btn-main">Continue to Activation</button>
+</form>
+</div>
+</div>
+<script>
+// highlight selected
+document.querySelectorAll('.opt').forEach(opt=>{
+ opt.addEventListener('click',()=>{
+   const name=opt.querySelector('input').name;
+   document.querySelectorAll(`input[name="${name}"]`).forEach(i=>i.closest('.opt').classList.remove('selected'));
+   opt.classList.add('selected');
+   opt.querySelector('input').checked=true;
+ });
+});
+document.getElementById('surveyForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ let ok=true;
+ const checks=[{name:'age',err:'e1'},{name:'device',err:'e2'},{name:'hours',err:'e3'},{name:'exp',err:'e4'},{name:'interest',err:'e5'},{name:'source',err:'e6'}];
+ checks.forEach(c=>{
+   const val=document.querySelector(`input[name="${c.name}"]:checked`);
+   const err=document.getElementById(c.err);
+   if(!val){err.classList.add('show');ok=false}else{err.classList.remove('show')}
+ });
+ if(!ok) return;
+ const data={};
+ checks.forEach(c=>{data[c.name]=document.querySelector(`input[name="${c.name}"]:checked`).value});
+ localStorage.setItem('wr_survey',JSON.stringify(data));
+ localStorage.setItem('surveyDone','1');
+ location.href='pay.html';
+});
+</script>
+</body>
+</html>
