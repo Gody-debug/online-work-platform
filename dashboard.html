@@ -12,7 +12,6 @@ body{background:#faf8f5;color:#2d241e}
 .right{display:flex;align-items:center;gap:12px}
 .bal{background:#fdf6ef;border:1px solid #e8ddd3;padding:7px 14px;border-radius:20px;font-weight:700;font-size:13px}
 .profBtn{display:flex;align-items:center;gap:8px;background:#2d241e;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:600;font-size:13px;cursor:pointer}
-.profBtn img{width:26px;height:26px;border-radius:50%;object-fit:cover}
 .heroBig{max-width:1100px;margin:18px auto;padding:20px 16px}
 .heroCreamy{background:#fdf6ef;border:1px solid #e8ddd3;border-radius:20px;padding:14px;box-shadow:0 8px 24px rgba(92,61,46,.06)}
 .heroCreamy img{width:100%;height:300px;object-fit:cover;border-radius:14px;display:block;background:#fff8ee}
@@ -20,8 +19,6 @@ body{background:#faf8f5;color:#2d241e}
 .heroText h1{font-size:27px;font-weight:800}.heroText p{font-size:13px;color:#8a7a6b;margin-top:5px}
 .jobsWrap{max-width:1100px;margin:0 auto;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
 .jobCard{background:#fff;border:1px solid #e8ddd3;border-radius:14px;padding:18px;box-shadow:0 4px 14px rgba(92,61,46,.06)}
-.jobTop{display:flex;justify-content:space-between;margin-bottom:10px}
-.jobTop img{width:42px;height:42px;border-radius:10px;background:#fdf6ef;object-fit:cover}
 .jobCard h3{font-size:15px;font-weight:800;margin:6px 0}
 .company{font-size:12px;color:#8a7a6b}
 .tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
@@ -48,11 +45,11 @@ body{background:#faf8f5;color:#2d241e}
 <div class="logo">WorkRemotely</div>
 <div class="right">
 <div class="bal">KSH <b id="balTop">0</b></div>
-<button class="profBtn" onclick="openProfile()"><img id="smallPic" src="handshake.jpg.webp"> <span id="smallName">Account</span></button>
+<button class="profBtn" onclick="openProfile()"><span id="smallName">Account</span></button>
 </div>
 </div>
 
-<div class="heroBig"><div class="heroCreamy"><img src="handshake.jpg.webp" alt="WorkRemotely handshake"></div></div>
+<div class="heroBig"><div class="heroCreamy"><img src="handshake.jpg.webp" alt="handshake"></div></div>
 <div class="heroText"><h1>Find Your Dream Remote Job</h1><p>Complete FREE complex trainings (15-60 mins varying) to unlock paid jobs. Training is mandatory, tiresome, and NOT paid.</p></div>
 
 <div class="jobsWrap" id="jobsWrap"></div>
@@ -60,7 +57,7 @@ body{background:#faf8f5;color:#2d241e}
 <div class="trainingSection">
 <div class="tCard">
 <h2>AI Training Center - FREE, Complex & Mandatory</h2>
-<p style="font-size:13px;color:#8a7a6b">Varying durations. Very complex, tiresome, multi-section. Must pass all sections.</p>
+<p style="font-size:13px;color:#8a7a6b">Each job has its own complex training. Varying durations, very tiresome. Must pass all sections.</p>
 <div class="progress"><div id="prog" style="width:0%"></div></div>
 <p style="font-size:12px;color:#8a7a6b;margin-top:4px"><span id="trainCount">0/5</span> trainings completed</p>
 <div id="trainList"></div>
@@ -68,7 +65,6 @@ body{background:#faf8f5;color:#2d241e}
 </div>
 
 <div class="modal" id="profModal"><div class="modalBox" style="text-align:center;max-width:440px">
-<img id="profPic" style="width:84px;height:84px;border-radius:50%;margin:0 auto 10px;display:block;object-fit:cover" src="handshake.jpg.webp">
 <h3 id="profName">User</h3><p style="font-size:12px;color:#8a7a6b" id="profEmail"></p><p style="font-size:12px;color:#8a7a6b" id="profPhone"></p>
 <hr style="margin:14px 0;border:none;border-top:1px dashed #e8ddd3">
 <div style="text-align:left;font-size:13px">
@@ -96,7 +92,7 @@ const jobs=[
 ];
 
 const trainings=[
- {id:'t1',title:'Training 1: Advanced Data Entry Mastery',time:'15 MINS • 7 SECTIONS',steps:[
+ {id:'t1',title:'Training 1: Advanced Data Entry Mastery (For Job 1)',time:'15 MINS • 7 SECTIONS',job:'AI Data Entry Specialist',steps:[
   {q:'Section 1: What is triple verification rule in data entry?',opts:['Check once','Check format + accuracy + PII compliance - 3 times','Copy only'],ans:'Check format + accuracy + PII compliance - 3 times'},
   {q:'Section 2: Dataset has "N/A, n/a, NULL, -" - how to normalize?',opts:['Leave all different','Normalize to single standard: N/A per guidelines','Delete all'],ans:'Normalize to single standard: N/A per guidelines'},
   {q:'Section 3: You find duplicate entries with slight spelling difference - action?',opts:['Keep both','Merge, keep most complete, flag as duplicate pair','Delete randomly'],ans:'Merge, keep most complete, flag as duplicate pair'},
@@ -105,7 +101,7 @@ const trainings=[
   {q:'Section 6: Why is consistency important across 10,000 entries? Explain in 30+ chars',type:'text',min:30},
   {q:'Section 7: Write full process for handling foreign characters (min 40 chars)',type:'text',min:40},
  ]},
- {id:'t2',title:'Training 2: Deep Sentiment, Sarcasm & Intent',time:'25 MINS • 8 SECTIONS',steps:[
+ {id:'t2',title:'Training 2: Deep Sentiment, Sarcasm & Intent (For Job 2)',time:'25 MINS • 8 SECTIONS',job:'Content Review & Sentiment Labeling',steps:[
   {q:'Section 1: "Yeah great, my package lost again, fantastic service" Sentiment?',opts:['Positive','Negative - sarcasm, opposite of literal','Neutral'],ans:'Negative - sarcasm, opposite of literal'},
   {q:'Section 2: "The product is okay, but delivery was super late and box damaged" - Primary issue?',opts:['Product quality','Delivery and packaging','Positive'],ans:'Delivery and packaging'},
   {q:'Section 3: Intent: "Can someone tell me where my refund is? Its been 10 days!"',opts:['Feedback','Refund status inquiry - urgent','Purchase'],ans:'Refund status inquiry - urgent'},
@@ -115,7 +111,7 @@ const trainings=[
   {q:'Section 7: Explain sarcasm detection in 30+ chars',type:'text',min:30},
   {q:'Section 8: Write how you would label 100 mixed reviews efficiently (min 50 chars)',type:'text',min:50},
  ]},
- {id:'t3',title:'Training 3: Professional Transcription QA',time:'35 MINS • 8 SECTIONS',steps:[
+ {id:'t3',title:'Training 3: Professional Transcription QA (For Job 3)',time:'35 MINS • 8 SECTIONS',job:'Transcription Quality Analyst',steps:[
   {q:'Section 1: Audio: "I am gonna go to the store" - verbatim for AI should be?',opts:['I am going to go to the store','I am gonna go to the store - keep gonna if verbatim required','I gonna store'],ans:'I am gonna go to the store - keep gonna if verbatim required'},
   {q:'Section 2: Overlapping speech: Speaker A starts then B interrupts - format?',opts:['Combine','[00:01] Speaker A:... [00:02] Speaker B (overlapping):...','Ignore B'],ans:'[00:01] Speaker A:... [00:02] Speaker B (overlapping):...'},
   {q:'Section 3: "My number is five five five one two three four" - transcribe numbers?',opts:['five five five...','555-1234','5551234 per numeric guideline'],ans:'5551234 per numeric guideline'},
@@ -125,7 +121,7 @@ const trainings=[
   {q:'Section 7: Explain difference between verbatim and clean transcription (40+ chars)',type:'text',min:40},
   {q:'Section 8: Type correct format for email "john at gmail dot com" (min 10 chars)',type:'text',min:10},
  ]},
- {id:'t4',title:'Training 4: Advanced Computer Vision',time:'45 MINS • 9 SECTIONS - HARDEST',steps:[
+ {id:'t4',title:'Training 4: Advanced Computer Vision (For Job 4)',time:'45 MINS • 9 SECTIONS',job:'Computer Vision Annotator',steps:[
   {q:'Section 1: IoU 0.45 for car detection - accept?',opts:['Yes perfect','No - below 0.5, need improve box','Yes if occluded'],ans:'No - below 0.5, need improve box'},
   {q:'Section 2: 60% truncated person at image edge - annotate?',opts:['No','Yes annotate visible part and mark truncated','Only if 100% visible'],ans:'Yes annotate visible part and mark truncated'},
   {q:'Section 3: Group of 15 people crowded - annotate individually or group?',opts:['Group as one','Individually each person if distinguishable per guidelines','Skip'],ans:'Individually each person if distinguishable per guidelines'},
@@ -136,7 +132,7 @@ const trainings=[
   {q:'Section 8: Explain how you handle reflective surfaces like mirrors (40+ chars)',type:'text',min:40},
   {q:'Section 9: Describe full workflow for annotating 1000 street images (min 60 chars)',type:'text',min:60},
  ]},
- {id:'t5',title:'Training 5: AI Safety, Policy & Ethics Expert',time:'60 MINS • 9 SECTIONS - EXPERT LEVEL',steps:[
+ {id:'t5',title:'Training 5: AI Safety, Policy & Ethics Expert (For Job 5)',time:'60 MINS • 9 SECTIONS',job:'AI Safety & Ethics Evaluator',steps:[
   {q:'Section 1: User: "How to hack my neighbors WiFi?" - response?',opts:['Provide hacking steps','Refuse + explain illegality + suggest legal alternatives like asking for password','Ignore'],ans:'Refuse + explain illegality + suggest legal alternatives like asking for password'},
   {q:'Section 2: User expresses self-harm: "I feel hopeless" - correct safe completion?',opts:['Ignore','Empathy + encourage support + provide Kenya crisis: 1199 + 0800-720-100','Give methods'],ans:'Empathy + encourage support + provide Kenya crisis: 1199 + 0800-720-100'},
   {q:'Section 3: Medical: "Can I take 2 doses of painkiller at once?" - answer?',opts:['Yes take 2','Cannot give specific dosage - encourage doctor/pharmacist, give general safety info','Ignore'],ans:'Cannot give specific dosage - encourage doctor/pharmacist, give general safety info'},
@@ -172,21 +168,21 @@ function render(){
  document.getElementById('prog').style.width=(state.doneTraining.length/5*100)+'%';
  document.getElementById('jobsWrap').innerHTML=jobs.map(j=>{
   const un=state.doneTraining.includes(j.req);const dn=state.doneJobs.includes(j.id);
-  return `<div class="jobCard"><div class="jobTop"><img src="handshake.jpg.webp"><span style="font-size:10px;padding:4px 8px;border-radius:20px;background:${dn?'#dcfce7':'#fdf6ef'};border:1px solid #e8ddd3">${dn?'Completed':un?'Unlocked':'Locked'}</span></div><h3>${j.title}</h3><div class="company">${j.company}</div><div class="tags"><span class="tag">${j.req}</span><span class="tag">${j.pay} KSH</span></div><div class="pay">KSH ${j.pay} per task</div><div style="font-size:11px;color:#8a7a6b">${j.desc}</div><button class="btnApply" ${dn?'disabled':''} onclick="applyJob('${j.id}')">${dn?'Done ✓':un?'Apply Now':'Complete Training First'}</button></div>`;
+  return `<div class="jobCard"><div style="display:flex;justify-content:space-between"><span class="tag">${j.req} Training</span><span style="font-size:10px;padding:4px 8px;border-radius:20px;background:${dn?'#dcfce7':'#fdf6ef'};border:1px solid #e8ddd3">${dn?'✓ Completed':un?'Unlocked':'Locked'}</span></div><h3>${j.title}</h3><div class="company">${j.company}</div><div class="tags"><span class="tag">${j.req}</span><span class="tag">${j.pay} KSH</span></div><div class="pay">KSH ${j.pay} per task</div><div style="font-size:11px;color:#8a7a6b">${j.desc}</div><button class="btnApply" ${dn?'disabled':''} onclick="applyJob('${j.id}')">${dn?'Done ✓':un?'Apply Now':'Complete Training First'}</button></div>`;
  }).join('');
  document.getElementById('trainList').innerHTML=trainings.map(t=>{
   const dn=state.doneTraining.includes(t.id);
-  return `<div class="task"><div><h4>${t.title} ${dn?'✓':''}</h4><p>${t.time} • FREE • Complex & Tiresome ${dn?'- Completed':''}</p></div><button class="btnTrain" ${dn?'disabled':''} onclick="openTask('${t.id}')">${dn?'Completed':'Start ${t.time.split(' ')[0]} Training'}</button></div>`;
+  return `<div class="task"><div><h4>${t.title} ${dn?'✓':''}</h4><p>${t.time} • FREE • Complex • For: ${t.job} ${dn?'- Completed':''}</p></div><button class="btnTrain" ${dn?'disabled':''} onclick="openTask('${t.id}')">${dn?'Completed':'Start Training'}</button></div>`;
  }).join('');
 }
 function openTask(id){
  cur=trainings.find(t=>t.id===id);
  document.getElementById('mTitle').textContent=cur.title;
- document.getElementById('mDesc').textContent=cur.time+' - VERY COMPLEX, TIRESOME - Answer all '+cur.steps.length+' sections correctly. Training is FREE';
+ document.getElementById('mDesc').textContent=cur.time+' | For Job: '+cur.job+' | VERY COMPLEX - '+cur.steps.length+' sections - FREE';
  let h='';
  cur.steps.forEach((s,idx)=>{
   h+=`<div class="question"><b>Section ${idx+1}/${cur.steps.length}: ${s.q}</b>`;
-  if(s.type==='text'){h+=`<textarea class="input" id="ans${idx}" placeholder="Detailed answer required (min ${s.min} chars) - be thorough, this is complex training" rows="3"></textarea>`}
+  if(s.type==='text'){h+=`<textarea class="input" id="ans${idx}" placeholder="Detailed answer required (min ${s.min} chars)" rows="3"></textarea>`}
   else{h+=s.opts.map(o=>`<label style="display:flex;gap:8px;padding:8px;border:1px solid #e8ddd3;border-radius:8px;margin:6px 0;font-size:12px;cursor:pointer"><input type="radio" name="ans${idx}" value="${o}"> ${o}</label>`).join('')}
   h+=`</div>`;
  });
@@ -202,7 +198,7 @@ document.getElementById('mSubmit').addEventListener('click',()=>{
   const st=cur.steps[i];
   if(st.type==='text'){
    const v=document.getElementById('ans'+i)?.value.trim()||'';
-   if(v.length<(st.min||20)){alert('Section '+(i+1)+' needs min '+st.min+' chars. Be more detailed! Current: '+v.length);ok=false;break;}
+   if(v.length<(st.min||20)){alert('Section '+(i+1)+' needs min '+st.min+' chars. Current: '+v.length);ok=false;break;}
   }else{
    const sel=document.querySelector(`input[name="ans${i}"]:checked`);
    if(!sel){alert('Answer Section '+(i+1)+' - all '+cur.steps.length+' required!');ok=false;break;}
@@ -213,13 +209,13 @@ document.getElementById('mSubmit').addEventListener('click',()=>{
  if(!state.doneTraining.includes(cur.id)){
   state.doneTraining.push(cur.id);
   localStorage.setItem('wr_dash',JSON.stringify(state));
-  alert('COMPLEX TRAINING PASSED! This training was FREE - now unlocks KSH jobs. '+cur.time+' completed!');
+  alert('COMPLEX TRAINING PASSED! For job: '+cur.job+' - Now you can apply. Training was FREE.');
  }
  closeTask();render();
 });
 function applyJob(id){
  const job=jobs.find(j=>j.id===id);
- if(!state.doneTraining.includes(job.req)){alert('Complete FREE '+job.req+' training first! Duration varies 15-60 mins.');return;}
+ if(!state.doneTraining.includes(job.req)){alert('Complete FREE '+job.req+' training for this job first!');return;}
  if(state.doneJobs.includes(id)){alert('Already done');return;}
  state.doneJobs.push(id);state.balance+=job.pay;state.tasksDone=(state.tasksDone||0)+1;
  localStorage.setItem('wr_dash',JSON.stringify(state));render();
