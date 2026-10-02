@@ -55,10 +55,10 @@ input.error-border{border-color:#b91c1c;background:#fef2f2}
 <div class="err" id="errPhone">This field is required</div>
 
 <label>Password</label>
-<input id="password" type="password" placeholder="8 char minimum" autocomplete="new-password">
+<input id="password" type="password" placeholder="8 characters minimum !" autocomplete="new-password">
 <div class="strength" id="passStrength"></div>
 <div class="err" id="errPass">This field is required</div>
-<div class="err" id="errPassWeak">8 char minimum with letters and numbers</div>
+<div class="err" id="errPassWeak">8 characters minimum !</div>
 
 <button type="submit" class="btn-main" id="btnReg">Create Account</button>
 </form>
@@ -95,11 +95,11 @@ function isStrongPass(p){
 passI.addEventListener('input', ()=>{
  const v=passI.value;
  const s=document.getElementById('passStrength');
- if(!v){s.textContent='';s.className='strength';return}
- if(v.length<8){s.textContent='8 char minimum required';s.className='strength bad';return}
- if(!/[A-Za-z]/.test(v)){s.textContent='8 char minimum, letters + numbers';s.className='strength bad';return}
- if(!/[0-9]/.test(v)){s.textContent='8 char minimum, letters + numbers';s.className='strength bad';return}
- s.textContent='Password strength: Strong';s.className='strength ok';
+ if(!v){s.textContent='8 characters minimum !';s.className='strength bad';return
+ if(v.length<8){s.textContent='8 characters minimum !';s.className='strength bad';return
+ if(!/[A-Za-z]/.test(v)){s.textContent='8 characters minimum !';s.className='strength bad';return
+ if(!/[0-9]/.test(v)){s.textContent='8 characters minimum !';s.className='strength bad';return
+ s.textContent='8 characters minimum !';s.className='strength bad';return
 });
 
 form.addEventListener('submit', (e)=>{
@@ -143,6 +143,11 @@ form.addEventListener('submit', (e)=>{
 </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
