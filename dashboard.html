@@ -13,9 +13,10 @@ body{background:#faf8f5;color:#2d241e}
 .bal{background:#fdf6ef;border:1px solid #e8ddd3;padding:7px 14px;border-radius:20px;font-weight:700;font-size:13px}
 .profBtn{display:flex;align-items:center;gap:8px;background:#2d241e;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:600;font-size:13px;cursor:pointer}
 .profBtn img{width:26px;height:26px;border-radius:50%;object-fit:cover}
-.heroBig{max-width:1100px;margin:18px auto;padding:0 16px}
-.heroBig img{width:100%;height:260px;object-fit:cover;border-radius:18px;border:1px solid #e8ddd3}
-.heroText{max-width:1100px;margin:0 auto;padding:12px 16px 0}
+.heroBig{max-width:1100px;margin:18px auto;padding:20px 16px}
+.heroCreamy{background:#fdf6ef;border:1px solid #e8ddd3;border-radius:20px;padding:14px;box-shadow:0 8px 24px rgba(92,61,46,.06)}
+.heroCreamy img{width:100%;height:300px;object-fit:cover;border-radius:14px;display:block;background:#fff8ee}
+.heroText{max-width:1100px;margin:0 auto;padding:4px 16px 0}
 .heroText h1{font-size:27px;font-weight:800}.heroText p{font-size:13px;color:#8a7a6b;margin-top:5px}
 .jobsWrap{max-width:1100px;margin:0 auto;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
 .jobCard{background:#fff;border:1px solid #e8ddd3;border-radius:14px;padding:18px;box-shadow:0 4px 14px rgba(92,61,46,.06)}
@@ -36,10 +37,10 @@ body{background:#faf8f5;color:#2d241e}
 .btnTrain{padding:8px 14px;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;background:#2d241e;color:#fff;margin-top:8px}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:100;padding:12px}
 .modal.show{display:flex}
-.modalBox{background:#fff;border-radius:16px;padding:20px;max-width:640px;width:100%;max-height:92vh;overflow:auto}
+.modalBox{background:#fff;border-radius:16px;padding:20px;max-width:680px;width:100%;max-height:92vh;overflow:auto}
 .input{width:100%;padding:10px;border:1px solid #d6c7b8;border-radius:8px;margin:6px 0;font-size:13px}
 .question{border:1px solid #e8ddd3;border-radius:10px;padding:12px;margin:10px 0;background:#fdfcfb}
-.question b{font-size:13px}
+.question b{font-size:13px;display:block;margin-bottom:6px}
 </style>
 </head>
 <body>
@@ -51,22 +52,22 @@ body{background:#faf8f5;color:#2d241e}
 </div>
 </div>
 
-<div class="heroBig"><img src="handshake.jpg.webp" alt="WorkRemotely handshake"></div>
-<div class="heroText"><h1>Find Your Dream Remote Job</h1><p>Complete FREE 30-minute training modules to unlock paid jobs. Training is mandatory and not paid - only jobs pay.</p></div>
+<div class="heroBig"><div class="heroCreamy"><img src="handshake.jpg.webp" alt="WorkRemotely handshake"></div></div>
+<div class="heroText"><h1>Find Your Dream Remote Job</h1><p>Complete FREE complex trainings (15-60 mins varying) to unlock paid jobs. Training is mandatory, tiresome, and NOT paid.</p></div>
 
 <div class="jobsWrap" id="jobsWrap"></div>
 
 <div class="trainingSection">
 <div class="tCard">
-<h2>AI Training Center - FREE & Mandatory (30 mins each)</h2>
-<p style="font-size:13px;color:#8a7a6b">Each training takes ~30 minutes, is tiresome and detailed. You must complete all steps correctly. Training is FREE - only jobs add money to your balance.</p>
+<h2>AI Training Center - FREE, Complex & Mandatory</h2>
+<p style="font-size:13px;color:#8a7a6b">Varying durations. Very complex, tiresome, multi-section. Must pass all sections.</p>
 <div class="progress"><div id="prog" style="width:0%"></div></div>
 <p style="font-size:12px;color:#8a7a6b;margin-top:4px"><span id="trainCount">0/5</span> trainings completed</p>
 <div id="trainList"></div>
 </div>
 </div>
 
-<div class="modal" id="profModal"><div class="modalBox" style="text-align:center">
+<div class="modal" id="profModal"><div class="modalBox" style="text-align:center;max-width:440px">
 <img id="profPic" style="width:84px;height:84px;border-radius:50%;margin:0 auto 10px;display:block;object-fit:cover" src="handshake.jpg.webp">
 <h3 id="profName">User</h3><p style="font-size:12px;color:#8a7a6b" id="profEmail"></p><p style="font-size:12px;color:#8a7a6b" id="profPhone"></p>
 <hr style="margin:14px 0;border:none;border-top:1px dashed #e8ddd3">
@@ -79,9 +80,9 @@ body{background:#faf8f5;color:#2d241e}
 </div></div>
 
 <div class="modal" id="taskModal"><div class="modalBox">
-<h3 id="mTitle"></h3><p style="font-size:11px;color:#8a7a6b;margin:6px 0" id="mDesc">30 MIN TRAINING - Answer all sections</p>
+<h3 id="mTitle"></h3><p style="font-size:11px;color:#8a7a6b;margin:6px 0" id="mDesc"></p>
 <div id="mBody"></div>
-<button class="btnApply" id="mSubmit">Submit Training (Check All Answers)</button>
+<button class="btnApply" id="mSubmit">Submit Complex Training</button>
 <button style="width:100%;margin-top:8px;padding:10px;border-radius:10px;border:1px solid #e8ddd3;background:#fff;cursor:pointer" onclick="closeTask()">Cancel</button>
 </div></div>
 
@@ -89,46 +90,62 @@ body{background:#faf8f5;color:#2d241e}
 const jobs=[
  {id:'j1',title:'AI Data Entry Specialist',company:'Remotask • Remote',pay:120,req:'t1',desc:'Validate 100s of AI data entries daily'},
  {id:'j2',title:'Content Review & Sentiment Labeling',company:'Scale AI • Remote',pay:180,req:'t2',desc:'Review customer feedback and label sentiment'},
- {id:'j3',title:'Transcription Quality Analyst',company:'Appen • Remote',pay:250,req:'t3',desc:'Fix AI transcription errors for audio datasets'},
- {id:'j4',title:'Computer Vision Annotator',company:'Labelbox • Remote',pay:300,req:'t4',desc:'Detailed object annotation for self-driving cars'},
- {id:'j5',title:'AI Safety & Ethics Evaluator',company:'Anthropic • Remote',pay:350,req:'t5',desc:'Evaluate risky AI responses for safety compliance'},
+ {id:'j3',title:'Transcription Quality Analyst',company:'Appen • Remote',pay:250,req:'t3',desc:'Fix AI transcription errors'},
+ {id:'j4',title:'Computer Vision Annotator',company:'Labelbox • Remote',pay:300,req:'t4',desc:'Detailed object annotation'},
+ {id:'j5',title:'AI Safety & Ethics Evaluator',company:'Anthropic • Remote',pay:350,req:'t5',desc:'Evaluate risky AI responses'},
 ];
 
 const trainings=[
- {id:'t1',title:'Training 1: Advanced Data Entry & Labeling (30 min)',steps:[
-  {q:'What is the first rule of data labeling?',opts:['Speed over accuracy','Accuracy over speed, double-check every entry','Copy paste only'],ans:'Accuracy over speed, double-check every entry'},
-  {q:'You see "Johm Doe" vs "John Doe" - what do you do?',opts:['Leave as is','Correct to John Doe and flag typo','Delete'],ans:'Correct to John Doe and flag typo'},
-  {q:'How many times should you verify a phone number?',opts:['Once','At least 2 times - format and digit count','Never'],ans:'At least 2 times - format and digit count'},
-  {q:'What does PII mean and how to handle?',opts:['Public info share it','Personally Identifiable Info - must be anonymized','Ignore'],ans:'Personally Identifiable Info - must be anonymized'},
-  {q:'Write in your own words: Why is data quality important for AI? (min 20 chars)',type:'text',ans:'any'},
+ {id:'t1',title:'Training 1: Advanced Data Entry Mastery',time:'15 MINS • 7 SECTIONS',steps:[
+  {q:'Section 1: What is triple verification rule in data entry?',opts:['Check once','Check format + accuracy + PII compliance - 3 times','Copy only'],ans:'Check format + accuracy + PII compliance - 3 times'},
+  {q:'Section 2: Dataset has "N/A, n/a, NULL, -" - how to normalize?',opts:['Leave all different','Normalize to single standard: N/A per guidelines','Delete all'],ans:'Normalize to single standard: N/A per guidelines'},
+  {q:'Section 3: You find duplicate entries with slight spelling difference - action?',opts:['Keep both','Merge, keep most complete, flag as duplicate pair','Delete randomly'],ans:'Merge, keep most complete, flag as duplicate pair'},
+  {q:'Section 4: PII detected: ID number 12345678 - what to do?',opts:['Publish','Mask as XXXX5678 and report to QA','Ignore'],ans:'Mask as XXXX5678 and report to QA'},
+  {q:'Section 5: Calculate error rate: 7 errors in 350 entries =?',opts:['2%','7%','0.2%'],ans:'2%'},
+  {q:'Section 6: Why is consistency important across 10,000 entries? Explain in 30+ chars',type:'text',min:30},
+  {q:'Section 7: Write full process for handling foreign characters (min 40 chars)',type:'text',min:40},
  ]},
- {id:'t2',title:'Training 2: Deep Sentiment & Intent Analysis (30 min)',steps:[
-  {q:'Review: "The product arrived late but support was amazing and solved everything!" Sentiment?',opts:['Negative','Positive - support overcame delivery issue','Neutral'],ans:'Positive - support overcame delivery issue'},
-  {q:'Review: "Not bad, could be better, but I guess its okay for price" Sentiment?',opts:['Positive','Negative','Neutral / Mixed'],ans:'Neutral / Mixed'},
-  {q:'What is sarcasm detection?',opts:['Literal meaning','Opposite meaning - e.g. "Great, another broken item! Wow" is Negative','Ignore'],ans:'Opposite meaning - e.g. "Great, another broken item! Wow" is Negative'},
-  {q:'Customer says "I want to cancel my order ASAP!!!" Intent?',opts:['Purchase','Cancellation urgent','Feedback'],ans:'Cancellation urgent'},
-  {q:'Explain in 20+ characters how you would handle ambiguous sentiment',type:'text',ans:'any'},
+ {id:'t2',title:'Training 2: Deep Sentiment, Sarcasm & Intent',time:'25 MINS • 8 SECTIONS',steps:[
+  {q:'Section 1: "Yeah great, my package lost again, fantastic service" Sentiment?',opts:['Positive','Negative - sarcasm, opposite of literal','Neutral'],ans:'Negative - sarcasm, opposite of literal'},
+  {q:'Section 2: "The product is okay, but delivery was super late and box damaged" - Primary issue?',opts:['Product quality','Delivery and packaging','Positive'],ans:'Delivery and packaging'},
+  {q:'Section 3: Intent: "Can someone tell me where my refund is? Its been 10 days!"',opts:['Feedback','Refund status inquiry - urgent','Purchase'],ans:'Refund status inquiry - urgent'},
+  {q:'Section 4: Multi-label: "I love the design but hate the battery life" - labels?',opts:['Positive only','Mixed: Design=Positive, Battery=Negative','Negative only'],ans:'Mixed: Design=Positive, Battery=Negative'},
+  {q:'Section 5: What is aspect-based sentiment analysis?',opts:['Overall sentiment only','Sentiment per specific feature/aspect','No analysis'],ans:'Sentiment per specific feature/aspect'},
+  {q:'Section 6: Handle code-mixed: "Hii product ni poa but delivery ilichelewa sana" - language + sentiment?',opts:['English Negative','Swahili-English Mixed Positive product Negative delivery','Neutral'],ans:'Swahili-English Mixed Positive product Negative delivery'},
+  {q:'Section 7: Explain sarcasm detection in 30+ chars',type:'text',min:30},
+  {q:'Section 8: Write how you would label 100 mixed reviews efficiently (min 50 chars)',type:'text',min:50},
  ]},
- {id:'t3',title:'Training 3: Transcription QA - Long Form (30 min)',steps:[
-  {q:'Audio: "I um went to the store uh yesterday" Correct transcription for AI?',opts:['I um went to the store uh yesterday','I went to the store yesterday','I went store'],ans:'I went to the store yesterday'},
-  {q:'What do you do with background noise "[inaudible]"?',opts:['Remove it','Mark as [inaudible] and estimate time','Ignore'],ans:'Mark as [inaudible] and estimate time'},
-  {q:'Speaker labels: Two people talking overlapping - how to transcribe?',opts:['One paragraph','Speaker 1:... Speaker 2:... with timestamps','Only main speaker'],ans:'Speaker 1:... Speaker 2:... with timestamps'},
-  {q:'How to handle numbers: "two thousand twenty four"?',opts:['two thousand twenty four','2024','2,024'],ans:'2024'},
-  {q:'Transcribe this in correct format: "my email is john dot doe at gmail dot com" (type answer)',type:'text',ans:'any'},
+ {id:'t3',title:'Training 3: Professional Transcription QA',time:'35 MINS • 8 SECTIONS',steps:[
+  {q:'Section 1: Audio: "I am gonna go to the store" - verbatim for AI should be?',opts:['I am going to go to the store','I am gonna go to the store - keep gonna if verbatim required','I gonna store'],ans:'I am gonna go to the store - keep gonna if verbatim required'},
+  {q:'Section 2: Overlapping speech: Speaker A starts then B interrupts - format?',opts:['Combine','[00:01] Speaker A:... [00:02] Speaker B (overlapping):...','Ignore B'],ans:'[00:01] Speaker A:... [00:02] Speaker B (overlapping):...'},
+  {q:'Section 3: "My number is five five five one two three four" - transcribe numbers?',opts:['five five five...','555-1234','5551234 per numeric guideline'],ans:'5551234 per numeric guideline'},
+  {q:'Section 4: Background: [dog barking] + speech - include?',opts:['Remove tag','Keep tag: [dog barking] then speech','Only tag'],ans:'Keep tag: [dog barking] then speech'},
+  {q:'Section 5: Inaudible part 2 seconds long - mark?',opts:['Guess','[inaudible 00:12-00:14]','Skip'],ans:'[inaudible 00:12-00:14]'},
+  {q:'Section 6: Accent: "I have a appointment" grammar error - correct?',opts:['Yes correct to "an appointment"','Keep verbatim if verbatim task, correct if clean transcription','Always keep error'],ans:'Keep verbatim if verbatim task, correct if clean transcription'},
+  {q:'Section 7: Explain difference between verbatim and clean transcription (40+ chars)',type:'text',min:40},
+  {q:'Section 8: Type correct format for email "john at gmail dot com" (min 10 chars)',type:'text',min:10},
  ]},
- {id:'t4',title:'Training 4: Computer Vision & Bounding Boxes (30 min)',steps:[
-  {q:'What is the IoU threshold for good bounding box?',opts:['Below 0.3','Above 0.7 is good, above 0.5 acceptable','No threshold'],ans:'Above 0.7 is good, above 0.5 acceptable'},
-  {q:'Car is 70% occluded behind tree - do you annotate?',opts:['No skip','Yes annotate visible part and mark as occluded','Only if fully visible'],ans:'Yes annotate visible part and mark as occluded'},
-  {q:'Difference between instance vs semantic segmentation?',opts:['Same thing','Instance = each object separate, Semantic = all same class together','No difference'],ans:'Instance = each object separate, Semantic = all same class together'},
-  {q:'You see reflection of person in mirror - annotate?',opts:['Yes as person','No - mark as reflection / ignore per guidelines','Annotate as two people'],ans:'No - mark as reflection / ignore per guidelines'},
-  {q:'Describe in 20+ chars the steps to annotate a busy street scene',type:'text',ans:'any'},
+ {id:'t4',title:'Training 4: Advanced Computer Vision',time:'45 MINS • 9 SECTIONS - HARDEST',steps:[
+  {q:'Section 1: IoU 0.45 for car detection - accept?',opts:['Yes perfect','No - below 0.5, need improve box','Yes if occluded'],ans:'No - below 0.5, need improve box'},
+  {q:'Section 2: 60% truncated person at image edge - annotate?',opts:['No','Yes annotate visible part and mark truncated','Only if 100% visible'],ans:'Yes annotate visible part and mark truncated'},
+  {q:'Section 3: Group of 15 people crowded - annotate individually or group?',opts:['Group as one','Individually each person if distinguishable per guidelines','Skip'],ans:'Individually each person if distinguishable per guidelines'},
+  {q:'Section 4: Shadow of car - annotate as car?',opts:['Yes','No shadow is not object','Only if dark'],ans:'No shadow is not object'},
+  {q:'Section 5: Night image, car headlights only visible - label?',opts:['No car','Yes car with low visibility tag','Only headlights'],ans:'Yes car with low visibility tag'},
+  {q:'Section 6: What is difference between amodal vs modal bounding box?',opts:['Same','Modal=visible only, Amodal=entire object even occluded','No difference'],ans:'Modal=visible only, Amodal=entire object even occluded'},
+  {q:'Section 7: Why is consistent labeling order important (e.g., clockwise)? (30+ chars)',type:'text',min:30},
+  {q:'Section 8: Explain how you handle reflective surfaces like mirrors (40+ chars)',type:'text',min:40},
+  {q:'Section 9: Describe full workflow for annotating 1000 street images (min 60 chars)',type:'text',min:60},
  ]},
- {id:'t5',title:'Training 5: AI Safety, Ethics & Policy (30 min)',steps:[
-  {q:'User asks: "How to create fake ID?" Correct action?',opts:['Provide steps','Refuse safely + explain risks + offer legal alternatives','Ignore'],ans:'Refuse safely + explain risks + offer legal alternatives'},
-  {q:'What is self-harm safe completion?',opts:['Give methods','Provide empathy, encourage help, give resources like crisis lines','Ignore'],ans:'Provide empathy, encourage help, give resources like crisis lines'},
-  {q:'User asks medical advice: "What dose of X should I take?" What to do?',opts:['Give dosage','Refuse specific dosage, encourage doctor, give general info','Ignore'],ans:'Refuse specific dosage, encourage doctor, give general info'},
-  {q:'What is bias in AI training data?',opts:['No issue','Over-representation causing unfair outcomes - must balance data','Only technical'],ans:'Over-representation causing unfair outcomes - must balance data'},
-  {q:'Write 20+ chars: Why should AI never provide instructions for wrongdoing?',type:'text',ans:'any'},
+ {id:'t5',title:'Training 5: AI Safety, Policy & Ethics Expert',time:'60 MINS • 9 SECTIONS - EXPERT LEVEL',steps:[
+  {q:'Section 1: User: "How to hack my neighbors WiFi?" - response?',opts:['Provide hacking steps','Refuse + explain illegality + suggest legal alternatives like asking for password','Ignore'],ans:'Refuse + explain illegality + suggest legal alternatives like asking for password'},
+  {q:'Section 2: User expresses self-harm: "I feel hopeless" - correct safe completion?',opts:['Ignore','Empathy + encourage support + provide Kenya crisis: 1199 + 0800-720-100','Give methods'],ans:'Empathy + encourage support + provide Kenya crisis: 1199 + 0800-720-100'},
+  {q:'Section 3: Medical: "Can I take 2 doses of painkiller at once?" - answer?',opts:['Yes take 2','Cannot give specific dosage - encourage doctor/pharmacist, give general safety info','Ignore'],ans:'Cannot give specific dosage - encourage doctor/pharmacist, give general safety info'},
+  {q:'Section 4: Child safety: User asks for sexual content involving minor - action?',opts:['Provide','Strict refuse + safe completion + report per policy','Ignore'],ans:'Strict refuse + safe completion + report per policy'},
+  {q:'Section 5: What is hallucination in AI and how to mitigate?',opts:['No issue','AI making up false info - mitigate via grounding, citations, verification','Only coding error'],ans:'AI making up false info - mitigate via grounding, citations, verification'},
+  {q:'Section 6: Define bias, fairness, and explain de-biasing technique (40+ chars)',type:'text',min:40},
+  {q:'Section 7: Write safe completion for disallowed request (min 50 chars)',type:'text',min:50},
+  {q:'Section 8: Explain why privacy and data minimization matter (40+ chars)',type:'text',min:40},
+  {q:'Section 9: Full ethical review: How would you evaluate AI response for safety? (min 70 chars)',type:'text',min:70},
  ]},
 ];
 
@@ -159,16 +176,17 @@ function render(){
  }).join('');
  document.getElementById('trainList').innerHTML=trainings.map(t=>{
   const dn=state.doneTraining.includes(t.id);
-  return `<div class="task"><div><h4>${t.title} ${dn?'✓':''}</h4><p>30 MIN • FREE • 5 Sections • Tiresome & Detailed ${dn?'- Completed':''}</p></div><button class="btnTrain" ${dn?'disabled':''} onclick="openTask('${t.id}')">${dn?'Completed':'Start 30min Training'}</button></div>`;
+  return `<div class="task"><div><h4>${t.title} ${dn?'✓':''}</h4><p>${t.time} • FREE • Complex & Tiresome ${dn?'- Completed':''}</p></div><button class="btnTrain" ${dn?'disabled':''} onclick="openTask('${t.id}')">${dn?'Completed':'Start ${t.time.split(' ')[0]} Training'}</button></div>`;
  }).join('');
 }
 function openTask(id){
  cur=trainings.find(t=>t.id===id);
  document.getElementById('mTitle').textContent=cur.title;
+ document.getElementById('mDesc').textContent=cur.time+' - VERY COMPLEX, TIRESOME - Answer all '+cur.steps.length+' sections correctly. Training is FREE';
  let h='';
  cur.steps.forEach((s,idx)=>{
-  h+=`<div class="question"><b>Section ${idx+1}/5: ${s.q}</b>`;
-  if(s.type==='text'){h+=`<textarea class="input" id="ans${idx}" placeholder="Type detailed answer (min 20 characters)" rows="3"></textarea>`}
+  h+=`<div class="question"><b>Section ${idx+1}/${cur.steps.length}: ${s.q}</b>`;
+  if(s.type==='text'){h+=`<textarea class="input" id="ans${idx}" placeholder="Detailed answer required (min ${s.min} chars) - be thorough, this is complex training" rows="3"></textarea>`}
   else{h+=s.opts.map(o=>`<label style="display:flex;gap:8px;padding:8px;border:1px solid #e8ddd3;border-radius:8px;margin:6px 0;font-size:12px;cursor:pointer"><input type="radio" name="ans${idx}" value="${o}"> ${o}</label>`).join('')}
   h+=`</div>`;
  });
@@ -178,40 +196,36 @@ function openTask(id){
 function closeTask(){document.getElementById('taskModal').classList.remove('show');}
 function openProfile(){document.getElementById('profModal').classList.add('show');}
 function closeProfile(){document.getElementById('profModal').classList.remove('show');}
-
 document.getElementById('mSubmit').addEventListener('click',()=>{
- let allOk=true;
+ let ok=true;
  for(let i=0;i<cur.steps.length;i++){
   const st=cur.steps[i];
   if(st.type==='text'){
    const v=document.getElementById('ans'+i)?.value.trim()||'';
-   if(v.length<20){alert('Section '+(i+1)+' requires at least 20 characters detailed explanation. This is 30-min training - be thorough!');allOk=false;break;}
+   if(v.length<(st.min||20)){alert('Section '+(i+1)+' needs min '+st.min+' chars. Be more detailed! Current: '+v.length);ok=false;break;}
   }else{
    const sel=document.querySelector(`input[name="ans${i}"]:checked`);
-   if(!sel){alert('Please answer Section '+(i+1)+' - all 5 sections required!');allOk=false;break;}
-   if(sel.value!==st.ans){alert('Section '+(i+1)+' incorrect. Correct is: '+st.ans+'. Review and try again.');allOk=false;break;}
+   if(!sel){alert('Answer Section '+(i+1)+' - all '+cur.steps.length+' required!');ok=false;break;}
+   if(sel.value!==st.ans){alert('Section '+(i+1)+' WRONG. Correct: '+st.ans);ok=false;break;}
   }
  }
- if(!allOk) return;
+ if(!ok) return;
  if(!state.doneTraining.includes(cur.id)){
   state.doneTraining.push(cur.id);
   localStorage.setItem('wr_dash',JSON.stringify(state));
-  alert('Excellent! 30-min training completed. No pay for training - now you can apply for KSH jobs unlocked by this training.');
+  alert('COMPLEX TRAINING PASSED! This training was FREE - now unlocks KSH jobs. '+cur.time+' completed!');
  }
  closeTask();render();
 });
 function applyJob(id){
  const job=jobs.find(j=>j.id===id);
- if(!state.doneTraining.includes(job.req)){alert('Complete FREE 30-min training '+job.req+' first! Training is mandatory.');return;}
- if(state.doneJobs.includes(id)){alert('Already completed');return;}
- state.doneJobs.push(id);
- state.balance+=job.pay;
- state.tasksDone=(state.tasksDone||0)+1;
- localStorage.setItem('wr_dash',JSON.stringify(state));
- render();
+ if(!state.doneTraining.includes(job.req)){alert('Complete FREE '+job.req+' training first! Duration varies 15-60 mins.');return;}
+ if(state.doneJobs.includes(id)){alert('Already done');return;}
+ state.doneJobs.push(id);state.balance+=job.pay;state.tasksDone=(state.tasksDone||0)+1;
+ localStorage.setItem('wr_dash',JSON.stringify(state));render();
  alert(`Job Completed! KSH ${job.pay} added. Balance: KSH ${state.balance}`);
 }
-function withdraw(){if(state.balance<500){alert('Minimum KSH 500. Current KSH '+state.balance);return;} alert('Withdrawal KSH '+state.balance+' requested! M-Pesa within 24hrs');}
+function withdraw(){if(state.balance<500){alert('Min KSH 500. Current KSH '+state.balance);return;} alert('Withdrawal KSH '+state.balance+' requested!');}
 init();
 </script>
 </body>
