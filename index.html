@@ -1,42 +1,221 @@
-ï»¿ <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Remote Work Platform</title>
+<title>WorkRemotely - Remote Jobs Kenya</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
-body{background:#f8fafc;color:#1e293b;line-height:1.6}
-.header{background:white;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.08);position:sticky;top:0;z-index:20}
-.logo{font-weight:800;color:#1e40af;font-size:20px}
-.hero{position:relative;height:380px;overflow:hidden;background:#0f172a}
-.hero img{width:100%;height:100%;object-fit:cover;opacity:0.7}
-.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:white;padding:30px;background:linear-gradient(180deg, rgba(15,23,42,.2), rgba(15,23,42,.75))}
-.hero-overlay h1{font-size:38px;font-weight:800;max-width:700px;margin-bottom:14px}
-.hero-overlay p{font-size:17px;color:#e2e8f0;background:rgba(255,255,255,.1);padding:10px 22px;border-radius:100px;border:1px solid rgba(255,255,255,.2)}
-.container{max-width:1100px;margin:0 auto;padding:24px}
-.jobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
-.job-card{background:white;border-radius:12px;padding:20px;border:1px solid #e2e8f0;display:flex;gap:16px}
-.icon-box{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
-.footer{background:#0f172a;color:#cbd5e1;margin-top:50px;padding:40px 24px 20px}
-.footer-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px}
-.footer h4{color:white;font-size:14px;margin-bottom:12px;text-transform:uppercase}
-.footer-bottom{max-width:1100px;margin:30px auto 0;padding-top:20px;border-top:1px solid #1e293b;text-align:center;font-size:12.5px;color:#64748b}
-.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.65);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+body{background:#f8fafc;color:#1e293b}
+.header{background:white;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.08);position:sticky;top:0;z-index:50}
+.logo{font-weight:800;color:#1e40af;font-size:21px}
+.nav{display:flex;gap:18px;align-items:center}
+.nav a{font-size:13.5px;color:#475569;text-decoration:none;font-weight:600;cursor:pointer}
+.nav a:hover{color:#1e40af}
+.btn{padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer;font-size:13px;border:none}
+.btn-outline{background:white;border:1px solid #cbd5e1;color:#334155}
+.btn-primary{background:#1e40af;color:white}
+.hero{position:relative;height:400px;overflow:hidden;background:#0f172a}
+.hero img{width:100%;height:100%;object-fit:cover;opacity:.65}
+.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:white;padding:20px;background:linear-gradient(180deg, rgba(15,23,42,.1), rgba(15,23,42,.8))}
+.hero-overlay h1{font-size:40px;font-weight:800;max-width:750px;line-height:1.1;margin-bottom:12px}
+.hero-overlay p{font-size:17px;color:#e2e8f0;margin-bottom:18px}
+.container{max-width:1150px;margin:0 auto;padding:22px}
+.jobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:16px}
+.job-card{background:white;border:1px solid #e2e8f0;border-radius:14px;padding:18px;position:relative;transition:.2s}
+.job-card:hover{box-shadow:0 10px 30px rgba(0,0,0,.07);border-color:#93c5fd;transform:translateY(-2px)}
+.job-top{display:flex;gap:14px}
+.icon-box{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.job-info h3{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:4px}
+.job-info p{font-size:13.2px;color:#64748b;line-height:1.5;min-height:48px;margin-bottom:10px}
+.job-meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;border-top:1px solid #f1f5f9;padding-top:10px}
+.amount{font-weight:800;color:#1e40af;font-size:14px}
+.badge-available{background:#dcfce7;color:#166534;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;position:absolute;top:12px;right:12px}
+.apply-btn{background:#1e40af;color:white;border:none;padding:7px 14px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12.5px}
+.footer{background:#0f172a;color:#cbd5e1;margin-top:50px;padding:40px 22px 18px}
+.footer-grid{max-width:1150px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px}
+.footer h4{color:white;font-size:13px;margin-bottom:10px;text-transform:uppercase}
+.footer p{font-size:13px;color:#94a3b8;line-height:1.9}
+.footer-bottom{max-width:1150px;margin:28px auto 0;padding-top:18px;border-top:1px solid #1e293b;text-align:center;font-size:12px;color:#64748b}
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.7);display:none;align-items:center;justify-content:center;z-index:100;padding:14px}
 .modal-bg.active{display:flex}
-.modal{background:white;width:100%;max-width:440px;border-radius:16px;padding:24px}
-.error{color:#dc2626;font-size:12px;display:none;margin:-10px 0 12px}
-.steps{display:flex;gap:6px;margin-bottom:18px}
-.steps div{flex:1;height:5px;background:#e2e8f0;border-radius:10px}
+.modal{background:white;width:100%;max-width:440px;border-radius:16px;padding:24px;max-height:92vh;overflow-y:auto}
+.modal h2{font-size:19px;margin-bottom:4px}
+.sub{font-size:13px;color:#64748b;margin-bottom:14px}
+.modal input,.modal select,.modal textarea{width:100%;padding:11px 13px;margin:6px 0 12px;border:1px solid #cbd5e1;border-radius:10px;font-size:14px}
+.btn-main{width:100%;background:#1e40af;color:white;border:none;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;margin-top:6px}
+.error{color:#dc2626;font-size:11.5px;display:none;margin:-8px 0 10px}
+.steps{display:flex;gap:5px;margin-bottom:16px}
+.steps div{flex:1;height:4px;background:#e2e8f0;border-radius:10px}
 .steps div.active{background:#1e40af}
+.training-item{background:#f8fafc;border:1px solid #e2e8f0;padding:11px 12px;border-radius:10px;margin:8px 0;display:flex;gap:10px;font-size:13px}
 </style>
 </head>
 <body>
-<div class="header"><div class="logo">WorkRemotely</div><div><button onclick="openLogin()" style="border:1px solid #cbd5e1;padding:8px 16px;border-radius:8px;background:white;cursor:pointer;font-weight:600">Login</button> <span id="userBadge" style="margin-left:10px;font-size:13px;font-weight:600"></span></div></div>
-<div class="hero"><img src="handshake.jpg.webp" alt="Handshake"><div class="hero-overlay"><h1>Brighten your future by working remotely</h1><p>Secure remote jobs â€¢ Daily M-Pesa payouts â€¢ Free training</p></div></div>
-<div class="container"><div style="display:flex;justify-content:space-between;margin:30px 0 18px"><h2 style="font-size:22px;font-weight:700">Available Tasks</h2><span style="font-size:13px;color:#64748b">8 tasks open</span></div><div class="jobs" id="jobsGrid"></div></div>
-<footer class="footer"><div class="footer-grid"><div><h4>WorkRemotely</h4><p style="font-size:13.5px;color:#94a3b8">We connect skilled Kenyans to verified remote tasks. Work from home, get paid via M-Pesa daily.</p></div><div><h4>How It Works</h4><p style="font-size:13.5px;color:#94a3b8">Create Account<br>Complete Survey<br>Pay Activation (KES 150)<br>Finish Training<br>Start Earning</p></div><div><h4>Support</h4><p style="font-size:13.5px;color:#94a3b8">Help Center<br>Payment Proof<br>Terms of Service<br>Privacy Policy<br>Contact Us</p></div><div><h4>Contact</h4><p style="font-size:13.5px;color:#94a3b8">support@workremotely.co.ke<br>+254 700 000 000<br>Eldoret, Kenya</p></div></div><div class="footer-bottom">Â© 2026 WorkRemotely. All rights reserved.</div></footer>
-<!-- Modals same logic as previous - validation no empty, password min 8, amount 150 - I will send full file if you need -->
+
+<div class="header">
+<div class="logo">WorkRemotely</div>
+<div class="nav">
+<a onclick="document.getElementById('jobsSection').scrollIntoView({behavior:'smooth'})">Tasks</a>
+<a onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How it Works</a>
+<a onclick="document.getElementById('footer').scrollIntoView({behavior:'smooth'})">Contact</a>
+<button class="btn btn-outline" onclick="openLogin()">Login</button>
+<button class="btn btn-primary" onclick="openRegister()">Register</button>
+<span id="userBadge" style="font-size:12px;font-weight:700;margin-left:6px"></span>
+</div>
+</div>
+
+<div class="hero">
+<img src="handshake.jpg.webp" alt="Handshake">
+<div class="hero-overlay">
+<h1>Brighten your future by working remotely</h1>
+<p>Verified tasks • Daily M-Pesa payouts • Free training included</p>
+</div>
+</div>
+
+<div class="container">
+<div id="jobsSection">
+<div style="display:flex;justify-content:space-between;margin:28px 0 6px"><h2 style="font-size:22px;font-weight:800">Available Tasks (9)</h2><span style="font-size:13px;color:#64748b">All Available</span></div>
+<p style="font-size:14px;color:#64748b;margin-bottom:16px">Each task has unique amount KES 900-1500 based on complexity. Click Apply to start.</p>
+<div class="jobs" id="jobsGrid"></div>
+</div>
+
+
+
+<footer class="footer" id="footer">
+<div class="footer-grid">
+<div><h4>WorkRemotely</h4><p>Connecting Kenyans to verified remote work. Daily payouts via M-Pesa. Training provided.</p></div>
+<div><h4>Platform</h4><p>Browse Tasks<br>How It Works<br>Training Center<br>Payment Proof</p></div>
+<div><h4>Legal</h4><p>Terms of Service<br>Privacy Policy<br>Refund Policy</p></div>
+<div><h4>Contact</h4><p>support@workremotely.co.ke<br>+254 700 000 000<br>Eldoret, Kenya</p></div>
+</div>
+<div class="footer-bottom">© 2026 WorkRemotely • All rights reserved</div>
+</footer>
+
+<div class="modal-bg" id="regModal"><div class="modal"><div class="steps"><div class="active"></div><div></div><div></div><div></div></div><h2>Create Account</h2><div class="sub">Step 1 of 4 • All fields required</div><input id="rName" placeholder="Full Name *"><div class="error" id="eName">Full Name is required</div><input id="rEmail" type="email" placeholder="Email *"><div class="error" id="eEmail">Valid email required</div><input id="rPhone" placeholder="M-Pesa Phone 07... *"><div class="error" id="ePhone">Phone required</div><input id="rPass" type="password" placeholder="Password (min 8 chars) *"><div class="error" id="ePass">Password must be at least 8 characters</div><input id="rPass2" type="password" placeholder="Confirm Password *"><div class="error" id="ePass2">Passwords must match</div><button class="btn-main" onclick="doRegister()">Continue to Survey</button></div></div>
+
+<div class="modal-bg" id="surveyModal"><div class="modal"><div class="steps"><div class="active"></div><div class="active"></div><div></div><div></div></div><h2>Quick Survey</h2><div class="sub">Step 2 of 4 • Required</div><select id="sExp"><option value="">Experience Level *</option><option>Beginner</option><option>Intermediate</option><option>Expert</option></select><div class="error" id="eExp">Required</div><select id="sTime"><option value="">Hours Per Day *</option><option>1-2 Hours</option><option>3-5 Hours</option><option>6+ Hours</option></select><div class="error" id="eTime">Required</div><select id="sDevice"><option value="">Primary Device *</option><option>Smartphone</option><option>Laptop</option><option>Both</option></select><div class="error" id="eDevice">Required</div><textarea id="sSkill" placeholder="Your skills *"></textarea><div class="error" id="eSkill">Required</div><button class="btn-main" onclick="doSurvey()">Continue to Payment (KES 150)</button></div></div>
+
+<div class="modal-bg" id="payModal"><div class="modal"><div class="steps"><div class="active"></div><div class="active"></div><div class="active"></div><div></div></div><h2>Activate - KES 150</h2><div class="sub">Step 3 of 4 • Real M-Pesa STK Push</div><input id="pPhone" placeholder="M-Pesa Number 2547... *"><div class="error" id="ePPhone">Phone required</div><div style="display:flex;justify-content:space-between;margin:12px 0;padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-weight:800"><span>Fee</span><span>KES 150</span></div><button class="btn-main" id="payBtn" onclick="doPay()">Pay KES 150 with M-Pesa</button><p id="payStatus" style="font-size:12.5px;text-align:center;margin-top:10px"></p></div></div>
+
+<div class="modal-bg" id="trainModal"><div class="modal"><div class="steps"><div class="active"></div><div class="active"></div><div class="active"></div><div class="active"></div></div><h2>Training Required</h2><div class="sub">Step 4 of 4</div><div class="training-item"><input type="checkbox" class="tCheck"><span><strong>Module 1: Quality</strong> - How to complete tasks correctly</span></div><div class="training-item"><input type="checkbox" class="tCheck"><span><strong>Module 2: Rules</strong> - Platform policies</span></div><div class="training-item"><input type="checkbox" class="tCheck"><span><strong>Module 3: Payouts</strong> - M-Pesa daily payments</span></div><p id="trainErr" class="error">Complete all modules</p><button class="btn-main" onclick="doTraining()">Finish Training</button></div></div>
+
+<div class="modal-bg" id="loginModal"><div class="modal"><h2>Login</h2><div class="sub">Access your account</div><input id="lEmail" placeholder="Email *"><div class="error" id="eLEmail">Email required</div><input id="lPass" type="password" placeholder="Password *"><div class="error" id="eLPass">Password min 8 chars required</div><div class="error" id="eLogin"></div><button class="btn-main" onclick="doLogin()">Login</button><button onclick="closeAll()" style="width:100%;margin-top:8px;background:#f1f5f9;border:1px solid #e2e8f0;padding:10px;border-radius:10px;cursor:pointer">Cancel</button></div></div>
+
+<script>
+const tasks = [
+{icon:'fa-microphone', color:'#fef3c7', ic:'#92400e', title:'Transcription', desc:'Convert 5-10 minute audio interviews into text. Requires good listening and fast typing.', amount:1200},
+{icon:'fa-keyboard', color:'#dbeafe', ic:'#1e40af', title:'Typing Job', desc:'Retype scanned PDF documents and handwritten notes into Word format. Simple copy typing.', amount:900},
+{icon:'fa-magnifying-glass', color:'#e0e7ff', ic:'#3730a3', title:'Data Verification', desc:'Cross-check customer names, phone numbers and IDs against database to confirm accuracy.', amount:1100},
+{icon:'fa-file-lines', color:'#dcfce7', ic:'#14532d', title:'Data Entry', desc:'Enter product details, prices and descriptions into e-commerce admin panel from sheets.', amount:1000},
+{icon:'fa-pen-nib', color:'#fce7f3', ic:'#9d174d', title:'Content Writing', desc:'Write 300-400 word SEO articles on given topics. Most complex, requires research and grammar.', amount:1500},
+{icon:'fa-clipboard-list', color:'#ffedd5', ic:'#9a3412', title:'Survey Completion', desc:'Complete market research surveys for international clients. Easy, 3-4 minutes per survey.', amount:900},
+{icon:'fa-chart-simple', color:'#e0f2fe', ic:'#075985', title:'Data Analysis', desc:'Categorize sales data and create simple summaries in Excel. Intermediate Excel needed.', amount:1400},
+{icon:'fa-headset', color:'#f3e8ff', ic:'#6b21a8', title:'Customer Support', desc:'Answer customer questions via chat using pre-written templates. Good English required.', amount:1300},
+{icon:'fa-image', color:'#fef9c3', ic:'#854d0e', title:'Image Annotation', desc:'Label and tag images for AI training - draw boxes around objects and name them correctly.', amount:1250}
+];
+function renderJobs(){
+const grid=document.getElementById('jobsGrid');
+grid.innerHTML=tasks.map((t,i)=>`
+<div class="job-card">
+<span class="badge-available">Available</span>
+<div class="job-top">
+<div class="icon-box" style="background:${t.color};color:${t.ic}"><i class="fa-solid ${t.icon}"></i></div>
+<div class="job-info" style="flex:1"><h3>${t.title}</h3><p>${t.desc}</p></div>
+</div>
+<div class="job-meta"><span class="amount">KES ${t.amount} / task</span><button class="apply-btn" onclick="handleApply(${i})">Apply Now</button></div>
+</div>
+`).join('');
+}
+renderJobs();
+function openModal(id){closeAll();document.getElementById(id).classList.add('active')}
+function closeAll(){document.querySelectorAll('.modal-bg').forEach(m=>m.classList.remove('active'))}
+function openRegister(){openModal('regModal')}
+function openLogin(){openModal('loginModal')}
+function showErr(id,msg){const e=document.getElementById(id);if(msg)e.textContent=msg;e.style.display='block'}
+function hideErrs(){document.querySelectorAll('.error').forEach(e=>e.style.display='none')}
+function handleApply(idx){
+localStorage.setItem('selectedTask',idx);
+const user=JSON.parse(localStorage.getItem('user')||'null');
+const survey=localStorage.getItem('surveyDone');
+const pay=localStorage.getItem('paymentDone');
+const train=localStorage.getItem('trainingDone');
+if(!user){openRegister();return}
+if(!survey){openModal('surveyModal');return}
+if(!pay){openModal('payModal');return}
+if(!train){openModal('trainModal');return}
+alert('Starting: '+tasks[idx].title+' KES '+tasks[idx].amount);
+}
+async function doRegister(){
+hideErrs();
+const name=document.getElementById('rName').value.trim();
+const email=document.getElementById('rEmail').value.trim();
+const phone=document.getElementById('rPhone').value.trim();
+const pass=document.getElementById('rPass').value;
+const pass2=document.getElementById('rPass2').value;
+let ok=true;
+if(!name){showErr('eName');ok=false}
+if(!email||!email.includes('@')){showErr('eEmail');ok=false}
+if(!phone){showErr('ePhone');ok=false}
+if(!pass||pass.length<8){showErr('ePass');ok=false}
+if(!pass2||pass!==pass2){showErr('ePass2');ok=false}
+if(!ok)return;
+try{const res=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,phone,password:pass})});const data=await res.json();if(!res.ok)throw new Error(data.message);localStorage.setItem('user',JSON.stringify(data.user||{name,email,phone}))}catch{localStorage.setItem('user',JSON.stringify({name,email,phone}))}
+document.getElementById('pPhone').value=phone;
+document.getElementById('userBadge').innerText='Hi, '+name;
+openModal('surveyModal');
+}
+function doSurvey(){
+hideErrs();
+const exp=document.getElementById('sExp').value;
+const time=document.getElementById('sTime').value;
+const device=document.getElementById('sDevice').value;
+const skill=document.getElementById('sSkill').value.trim();
+let ok=true;
+if(!exp){showErr('eExp');ok=false}
+if(!time){showErr('eTime');ok=false}
+if(!device){showErr('eDevice');ok=false}
+if(!skill){showErr('eSkill');ok=false}
+if(!ok)return;
+localStorage.setItem('surveyDone','1');
+openModal('payModal');
+}
+async function doPay(){
+hideErrs();
+const phone=document.getElementById('pPhone').value.trim();
+if(!phone){showErr('ePPhone');return}
+const btn=document.getElementById('payBtn');
+const status=document.getElementById('payStatus');
+btn.disabled=true;btn.textContent='Sending STK Push...';
+status.textContent='Check phone for M-Pesa prompt KES 150';
+try{
+const res=await fetch('/api/pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone,amount:150})});
+const data=await res.json();if(!res.ok)throw new Error(data.message||'Payment failed');
+status.style.color='#166534';status.textContent='STK Push sent! Enter PIN...';
+let tries=0;
+const interval=setInterval(async()=>{
+tries++;
+try{const r=await fetch('/api/pay/status?phone='+encodeURIComponent(phone));const d=await r.json();if(d.paid){clearInterval(interval);localStorage.setItem('paymentDone','1');openModal('trainModal')}}catch{}
+if(tries>25){clearInterval(interval);status.textContent='If paid click Continue';btn.disabled=false;btn.textContent='I Have Paid - Continue';btn.onclick=()=>{localStorage.setItem('paymentDone','1');openModal('trainModal')}}
+},3000);
+}catch(e){status.style.color='#dc2626';status.textContent=e.message;setTimeout(()=>{btn.disabled=false;btn.textContent='I Have Paid - Continue';btn.onclick=()=>{localStorage.setItem('paymentDone','1');openModal('trainModal')}},1200)}
+}
+function doTraining(){
+if(!Array.from(document.querySelectorAll('.tCheck')).every(c=>c.checked)){document.getElementById('trainErr').style.display='block';return}
+localStorage.setItem('trainingDone','1');closeAll();alert('Training complete! You can now work.');
+}
+async function doLogin(){
+hideErrs();
+const email=document.getElementById('lEmail').value.trim();
+const pass=document.getElementById('lPass').value;
+if(!email){showErr('eLEmail');return}
+if(!pass||pass.length<8){showErr('eLPass');document.getElementById('eLogin').textContent='Password must be at least 8 chars';document.getElementById('eLogin').style.display='block';return}
+try{const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pass})});const data=await res.json();if(!res.ok)throw new Error(data.message);localStorage.setItem('user',JSON.stringify(data.user));closeAll();location.reload()}catch(e){document.getElementById('eLogin').textContent=e.message||'Login failed';document.getElementById('eLogin').style.display='block'}
+}
+const u=JSON.parse(localStorage.getItem('user')||'null');
+if(u)document.getElementById('userBadge').innerText='Hi, '+(u.name||u.email);
+document.querySelectorAll('.modal-bg').forEach(bg=>{bg.addEventListener('click',e=>{if(e.target===bg)closeAll()})});
+</script>
 </body>
 </html>
