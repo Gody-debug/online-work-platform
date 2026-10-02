@@ -4,41 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WorkRemotely - Remote Jobs Kenya</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',system-ui,sans-serif}
-body{background:#f8fafc;color:#1e293b;line-height:1.6}
-.header{background:#ffffff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.08);position:sticky;top:0;z-index:20}
-.logo{font-weight:800;color:#1e40af;font-size:21px}
+body{background:#faf8f5;color:#2d241e;line-height:1.6}
+.header{background:#ffffff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06);position:sticky;top:0;z-index:20}
+.logo{font-weight:800;color:#5c3d2e;font-size:21px}
 .nav{display:flex;gap:20px;align-items:center}
-.nav a{font-size:13.5px;color:#475569;text-decoration:none;font-weight:600;cursor:pointer}
+.nav a{font-size:13.5px;color:#6b5a4f;text-decoration:none;font-weight:600;cursor:pointer}
 .btn{padding:8px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;border:none}
-.btn-outline{background:#ffffff;border:1px solid #cbd5e1;color:#334155}
-.btn-primary{background:#1e40af;color:#ffffff}
-.hero{position:relative;height:420px;overflow:hidden;background:#0f172a}
-.hero img{width:100%;height:100%;object-fit:cover;opacity:0.7}
-.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#ffffff;padding:30px;background:linear-gradient(180deg, rgba(15,23,42,.15), rgba(15,23,42,.8))}
+.btn-outline{background:#ffffff;border:1px solid #d6c7b8;color:#5c3d2e}
+.btn-primary{background:#8b5e3c;color:#ffffff}
+.hero{position:relative;height:420px;overflow:hidden;background:#2d241e}
+.hero img{width:100%;height:100%;object-fit:cover;opacity:0.75}
+.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#ffffff;padding:30px;background:linear-gradient(180deg, rgba(45,36,30,.2), rgba(45,36,30,.85))}
 .hero-overlay h1{font-size:42px;font-weight:800;max-width:720px;line-height:1.1;margin-bottom:12px}
-.hero-overlay p{font-size:15px;color:#e2e8f0}
+.hero-overlay p{font-size:15px;color:#e8ddd3}
 .container{max-width:1120px;margin:0 auto;padding:24px}
 .section-head{display:flex;justify-content:space-between;align-items:center;margin:32px 0 16px}
-.section-head h2{font-size:22px;font-weight:700}
+.section-head h2{font-size:22px;font-weight:700;color:#2d241e}
 .jobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
-.job-card{background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;position:relative}
-.job-card:hover{box-shadow:0 8px 28px rgba(15,23,42,.08);border-color:#93c5fd;transform:translateY(-2px)}
-.icon-box{width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.job-top{display:flex;gap:14px}
-.job-info h3{font-size:14.5px;font-weight:700;color:#0f172a;margin-bottom:4px}
-.job-info p{font-size:13px;color:#64748b;line-height:1.55;min-height:42px}
-.job-meta{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #f1f5f9}
-.amount{font-weight:700;color:#1e40af;font-size:13.5px}
-.badge-available{background:#dcfce7;color:#166534;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;position:absolute;top:14px;right:14px;border:1px solid #bbf7d0}
-.apply-btn{background:#1e40af;color:#ffffff;border:none;padding:7px 14px;border-radius:8px;font-weight:600;cursor:pointer;font-size:12.5px}
-.footer{background:#0f172a;color:#cbd5e1;margin-top:60px;padding:44px 24px 20px}
+.job-card{background:#ffffff;border:1px solid #e8ddd3;border-radius:14px;padding:22px;position:relative;transition:.2s}
+.job-card:hover{box-shadow:0 8px 28px rgba(92,61,46,.08);border-color:#d6c7b8;transform:translateY(-2px)}
+.job-card h3{font-size:15px;font-weight:700;color:#2d241e;margin-bottom:6px}
+.job-card p{font-size:13px;color:#6b5a4f;line-height:1.6;min-height:44px;margin-bottom:14px}
+.job-meta{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #f3ece4}
+.amount{font-weight:700;color:#5c3d2e;font-size:13.5px}
+.badge-available{background:#f0e6d8;color:#5c3d2e;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;position:absolute;top:14px;right:14px;border:1px solid #e8ddd3}
+.apply-btn{background:#8b5e3c;color:#ffffff;border:none;padding:8px 18px;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;transition:.15s}
+.apply-btn:hover{background:#6f4b30}
+.footer{background:#2d241e;color:#c9b8a8;margin-top:60px;padding:44px 24px 20px}
 .footer-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px}
-.footer h4{color:#ffffff;font-size:13px;margin-bottom:12px;text-transform:uppercase}
-.footer p{font-size:13px;color:#94a3b8;line-height:1.9}
-.footer-bottom{max-width:1120px;margin:32px auto 0;padding-top:20px;border-top:1px solid #1e293b;text-align:center;font-size:12px;color:#64748b}
+.footer h4{color:#ffffff;font-size:13px;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.6px}
+.footer p{font-size:13px;color:#a08f7e;line-height:1.9}
+.footer-bottom{max-width:1120px;margin:32px auto 0;padding-top:20px;border-top:1px solid #3d2f26;text-align:center;font-size:12px;color:#8a7a6b}
 </style>
 </head>
 <body>
@@ -52,7 +50,7 @@ body{background:#f8fafc;color:#1e293b;line-height:1.6}
 </div>
 </div>
 <div class="hero">
-<img src="handshake.jpg" alt="Professional handshake">
+<img src="handshake.jpg" onerror="this.src='handshake.jpg.webp'" alt="Handshake">
 <div class="hero-overlay">
 <h1>Brighten your future by working remotely</h1>
 <p>Verified remote tasks • Daily M-Pesa payouts • Free training included</p>
@@ -62,15 +60,15 @@ body{background:#f8fafc;color:#1e293b;line-height:1.6}
 <div id="jobsSection">
 <div class="section-head"><h2>Available Tasks (9)</h2><span>All tasks available</span></div>
 <div class="jobs">
-<div class="job-card"><span class="badge-available">Available</span><div class="job-top"><div class="icon-box" style="background:#dbeafe;color:#1e40af"><i class="fa-solid fa-file-lines"></i></div><div class="job-info"><h3>Data Entry</h3><p>Enter product details, prices and descriptions into e-commerce admin panel from provided sheets.</p></div></div><div class="job-meta"><span class="amount">KES 1000 per task</span><button class="apply-btn">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><div class="job-top"><div class="icon-box" style="background:#e0e7ff;color:#3730a3"><i class="fa-solid fa-keyboard"></i></div><div class="job-info"><h3>Typing Job</h3><p>Retype scanned PDF documents and handwritten notes into Word format. Simple copy typing task.</p></div></div><div class="job-meta"><span class="amount">KES 900 per task</span><button class="apply-btn">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><div class="job-top"><div class="icon-box" style="background:#f1f5f9;color:#334155"><i class="fa-solid fa-magnifying-glass"></i></div><div class="job-info"><h3>Data Verification</h3><p>Cross-check customer names, phone numbers and IDs against database to confirm accuracy.</p></div></div><div class="job-meta"><span class="amount">KES 1100 per task</span><button class="apply-btn">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><div class="job-top"><div class="icon-box" style="background:#fef3c7;color:#92400e"><i class="fa-solid fa-microphone"></i></div><div class="job-info"><h3>Transcription</h3><p>Convert 5-10 minute audio interviews into text. Requires good listening and fast typing.</p></div></div><div class="job-meta"><span class="amount">KES 1200 per task</span><button class="apply-btn">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><div class="job-top"><div class="icon-box" style="background:#fce7f3;color:#9d174d"><i class="fa-solid fa-pen-nib"></i></div><div class="job-info"><h3>Content Writing</h3><p>Write 300-400 word SEO articles on given topics. Requires research and good grammar.</p></div></div><div class="job-meta"><span class="amount">KES 1500 per task</span><button class="apply-btn">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><div class="job-top"><div class="icon-box" style="background:#ffedd5;color:#9a3412"><i class="fa-solid fa-clipboard-list"></i></div><div class="job-info"><h3>Survey Completion</h3><p>Complete market research surveys for international clients. Easy, 3-4 minutes per survey.</p></div></div><div class="job-meta"><span class="amount">KES 900 per task</span><button class="apply-btn">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><div class="job-top"><div class="icon-box" style="background:#e0f2fe;color:#075985"><i class="fa-solid fa-chart-simple"></i></div><div class="job-info"><h3>Data Analysis</h3><p>Categorize sales data and create simple summaries in Excel. Intermediate Excel skills needed.</p></div></div><div class="job-meta"><span class="amount">KES 1400 per task</span><button class="apply-btn">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><div class="job-top"><div class="icon-box" style="background:#f3e8ff;color:#6b21a8"><i class="fa-solid fa-headset"></i></div><div class="job-info"><h3>Customer Support</h3><p>Answer customer questions via chat using pre-written templates. Good English required.</p></div></div><div class="job-meta"><span class="amount">KES 1300 per task</span><button class="apply-btn">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><div class="job-top"><div class="icon-box" style="background:#fef9c3;color:#854d0e"><i class="fa-solid fa-image"></i></div><div class="job-info"><h3>Image Annotation</h3><p>Label and tag images for AI training. Draw boxes around objects and name them correctly.</p></div></div><div class="job-meta"><span class="amount">KES 1250 per task</span><button class="apply-btn">Apply</button></div></div>
+<div class="job-card"><span class="badge-available">Available</span><h3>Data Entry</h3><p>Enter product details, prices and descriptions into e-commerce admin panel from provided sheets.</p><div class="job-meta"><span class="amount">KES 1000 per task</span><button class="apply-btn">Apply</button></div></div>
+<div class="job-card"><span class="badge-available">Available</span><h3>Typing Job</h3><p>Retype scanned PDF documents and handwritten notes into Word format. Simple copy typing task.</p><div class="job-meta"><span class="amount">KES 900 per task</span><button class="apply-btn">Apply</button></div></div>
+<div class="job-card"><span class="badge-available">Available</span><h3>Data Verification</h3><p>Cross-check customer names, phone numbers and IDs against database to confirm accuracy.</p><div class="job-meta"><span class="amount">KES 1100 per task</span><button class="apply-btn">Apply</button></div></div>
+<div class="job-card"><span class="badge-available">Available</span><h3>Transcription</h3><p>Convert 5-10 minute audio interviews into text. Requires good listening and fast typing.</p><div class="job-meta"><span class="amount">KES 1200 per task</span><button class="apply-btn">Apply</button></div></div>
+<div class="job-card"><span class="badge-available">Available</span><h3>Content Writing</h3><p>Write 300-400 word SEO articles on given topics. Requires research and good grammar. Most complex task.</p><div class="job-meta"><span class="amount">KES 1500 per task</span><button class="apply-btn">Apply</button></div></div>
+<div class="job-card"><span class="badge-available">Available</span><h3>Survey Completion</h3><p>Complete market research surveys for international clients. Easy, 3-4 minutes per survey.</p><div class="job-meta"><span class="amount">KES 900 per task</span><button class="apply-btn">Apply</button></div></div>
+<div class="job-card"><span class="badge-available">Available</span><h3>Data Analysis</h3><p>Categorize sales data and create simple summaries in Excel. Intermediate Excel skills needed.</p><div class="job-meta"><span class="amount">KES 1400 per task</span><button class="apply-btn">Apply</button></div></div>
+<div class="job-card"><span class="badge-available">Available</span><h3>Customer Support</h3><p>Answer customer questions via chat using pre-written templates. Good English required.</p><div class="job-meta"><span class="amount">KES 1300 per task</span><button class="apply-btn">Apply</button></div></div>
+<div class="job-card"><span class="badge-available">Available</span><h3>Image Annotation</h3><p>Label and tag images for AI training. Draw boxes around objects and name them correctly.</p><div class="job-meta"><span class="amount">KES 1250 per task</span><button class="apply-btn">Apply</button></div></div>
 </div>
 </div>
 </div>
