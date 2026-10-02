@@ -50,7 +50,7 @@ body{background:#f8fafc;color:#1e293b}
 .steps div{flex:1;height:4px;background:#e2e8f0;border-radius:10px}
 .steps div.active{background:#1e40af}
 .training-item{background:#f8fafc;border:1px solid #e2e8f0;padding:11px 12px;border-radius:10px;margin:8px 0;display:flex;gap:10px;font-size:13px}
-</style>
+.locked-overlay{position:absolute;inset:0;background:rgba(248,250,252,.85);backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;border-radius:14px;text-align:center;padding:20px}.jobs-wrapper{position:relative}.pay-wall-card{background:white;border:2px solid #1e40af;border-radius:16px;padding:22px;max-width:380px;box-shadow:0 15px 40px rgba(0,0,0,.15)}</style>
 </head>
 <body>
 
@@ -75,7 +75,7 @@ body{background:#f8fafc;color:#1e293b}
 </div>
 
 <div class="container">
-<div id="jobsSection">
+<div id="jobsSection" class="jobs-wrapper"><div id="jobsLock" class="locked-overlay"><div class="pay-wall-card"><div style="font-size:32px;margin-bottom:10px"><i class="fa-solid fa-lock" style="color:#1e40af"></i></div><h3 style="font-size:18px;font-weight:800;margin-bottom:6px">Tasks Locked</h3><p style="font-size:13.5px;color:#475569;margin-bottom:14px">Pay activation KES 150 to unlock all 9 tasks. Must pay before accessing jobs or training.</p><button class="btn-main" onclick="openRegister()">Unlock Now - Pay KES 150</button></div></div>
 <div style="display:flex;justify-content:space-between;margin:28px 0 6px"><h2 style="font-size:22px;font-weight:800">Available Tasks (9)</h2><span style="font-size:13px;color:#64748b">All Available</span></div>
 <p style="font-size:14px;color:#64748b;margin-bottom:16px">Each task has unique amount KES 900-1500 based on complexity. Click Apply to start.</p>
 <div class="jobs" id="jobsGrid"></div>
@@ -135,7 +135,7 @@ function openRegister(){openModal('regModal')}
 function openLogin(){openModal('loginModal')}
 function showErr(id,msg){const e=document.getElementById(id);if(msg)e.textContent=msg;e.style.display='block'}
 function hideErrs(){document.querySelectorAll('.error').forEach(e=>e.style.display='none')}
-function handleApply(idx){
+function checkGate(){const paid=localStorage.getItem("paymentDone")==="1";const lock=document.getElementById("jobsLock");if(lock)lock.style.display=paid?"none":"flex";return paid} function handleApply(idx){
 localStorage.setItem('selectedTask',idx);
 const user=JSON.parse(localStorage.getItem('user')||'null');
 const survey=localStorage.getItem('surveyDone');
@@ -144,7 +144,7 @@ const train=localStorage.getItem('trainingDone');
 if(!user){openRegister();return}
 if(!survey){openModal('surveyModal');return}
 if(!pay){openModal('payModal');return}
-if(!train){openModal('trainModal');return}
+if(localStorage.getItem("paymentDone")!=="1"){openModal("payModal");return} if(!train){openModal("trainModal");return}
 alert('Starting: '+tasks[idx].title+' KES '+tasks[idx].amount);
 }
 async function doRegister(){
@@ -201,10 +201,7 @@ if(tries>25){clearInterval(interval);status.textContent='If paid click Continue'
 },3000);
 }catch(e){status.style.color='#dc2626';status.textContent=e.message;setTimeout(()=>{btn.disabled=false;btn.textContent='I Have Paid - Continue';btn.onclick=()=>{localStorage.setItem('paymentDone','1');openModal('trainModal')}},1200)}
 }
-function doTraining(){
-if(!Array.from(document.querySelectorAll('.tCheck')).every(c=>c.checked)){document.getElementById('trainErr').style.display='block';return}
-localStorage.setItem('trainingDone','1');closeAll();alert('Training complete! You can now work.');
-}
+function doTraining(){if(localStorage.getItem("paymentDone")!=="1"){alert("You must pay KES 150 first");openModal("payModal");return}if(!Array.from(document.querySelectorAll(".tCheck")).every(c=>c.checked)){document.getElementById("trainErr").style.display="block";return}localStorage.setItem("trainingDone","1");closeAll();checkGate();alert("Training complete! Tasks unlocked.")}
 async function doLogin(){
 hideErrs();
 const email=document.getElementById('lEmail').value.trim();
@@ -216,6 +213,12 @@ try{const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'a
 const u=JSON.parse(localStorage.getItem('user')||'null');
 if(u)document.getElementById('userBadge').innerText='Hi, '+(u.name||u.email);
 document.querySelectorAll('.modal-bg').forEach(bg=>{bg.addEventListener('click',e=>{if(e.target===bg)closeAll()})});
-</script>
+document.addEventListener("DOMContentLoaded",()=>{const p=localStorage.getItem("paymentDone")==="1";const l=document.getElementById("jobsLock");if(l)l.style.display=p?"none":"flex"});</script>
 </body>
 </html>
+
+
+
+
+
+
