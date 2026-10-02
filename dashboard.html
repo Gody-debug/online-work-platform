@@ -13,37 +13,30 @@ body{background:#faf8f5;color:#2d241e}
 .bal{background:#fdf6ef;border:1px solid #e8ddd3;padding:7px 14px;border-radius:20px;font-weight:700;font-size:13px}
 .bal b{color:#8b5e3c}
 .profBtn{display:flex;align-items:center;gap:8px;background:#2d241e;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:600;font-size:13px;cursor:pointer}
-.profBtn img{width:24px;height:24px;border-radius:50%}
-.hero{max-width:1100px;margin:0 auto;padding:28px 16px 10px}
-.hero h1{font-size:28px;font-weight:800}
-.hero p{font-size:14px;color:#8a7a6b;margin-top:6px}
+.profBtn img{width:26px;height:26px;border-radius:50%;object-fit:cover}
+.hero{max-width:1100px;margin:0 auto;padding:20px 16px 10px;display:flex;gap:16px;align-items:center}
+.hero img{width:86px;height:86px;border-radius:14px;object-fit:cover;border:2px solid #e8ddd3}
+.hero h1{font-size:26px;font-weight:800}.hero p{font-size:13px;color:#8a7a6b;margin-top:4px}
 .jobsWrap{max-width:1100px;margin:0 auto;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
-.jobCard{background:#fff;border:1px solid #e8ddd3;border-radius:14px;padding:18px;box-shadow:0 4px 14px rgba(92,61,46,.06);transition:.2s}
-.jobCard:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(92,61,46,.12)}
+.jobCard{background:#fff;border:1px solid #e8ddd3;border-radius:14px;padding:18px;box-shadow:0 4px 14px rgba(92,61,46,.06)}
 .jobTop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
 .jobTop img{width:42px;height:42px;border-radius:10px;background:#fdf6ef;object-fit:cover}
 .jobCard h3{font-size:15px;font-weight:800;margin:6px 0}
-.jobCard.company{font-size:12px;color:#8a7a6b}
+.company{font-size:12px;color:#8a7a6b}
 .tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-.tag{font-size:10px;padding:4px 8px;border-radius:20px;background:#fdf6ef;border:1px solid #e8ddd3;color:#5c3d2e}
+.tag{font-size:10px;padding:4px 8px;border-radius:20px;background:#fdf6ef;border:1px solid #e8ddd3}
 .pay{font-weight:800;color:#2d241e;font-size:14px;margin:8px 0}
 .btnApply{width:100%;background:#8b5e3c;color:#fff;border:none;padding:10px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;margin-top:8px}
 .btnApply:disabled{background:#cbb9a9}
 .trainingSection{max-width:1100px;margin:24px auto;padding:0 16px}
 .tCard{background:#fff;border:1px solid #e8ddd3;border-radius:16px;padding:20px;margin-bottom:16px}
-.tCard h2{font-size:18px;font-weight:800;margin-bottom:8px}
-.progress{height:6px;background:#e8ddd3;border-radius:10px;overflow:hidden;margin:10px 0}
-.progress div{height:100%;background:#8b5e3c}
+.progress{height:6px;background:#e8ddd3;border-radius:10px;overflow:hidden;margin:10px 0}.progress div{height:100%;background:#8b5e3c}
 .task{border:1px solid #e8ddd3;border-radius:12px;padding:14px;margin:10px 0;background:#fffdfb;display:flex;justify-content:space-between;align-items:center}
 .task.done{background:#f3faf3;border-color:#2a7a2a}
-.task h4{font-size:14px}
-.task p{font-size:11px;color:#8a7a6b;margin-top:2px}
 .btnTrain{padding:8px 14px;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;background:#2d241e;color:#fff}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
-.modal.show{display:flex}
-.modalBox{background:#fff;border-radius:16px;padding:22px;max-width:420px;width:100%}
-.modalBox h3{font-size:18px;font-weight:800}
-.avatarBig{width:80px;height:80px;border-radius:50%;margin:0 auto 12px;display:block;border:2px solid #e8ddd3;object-fit:cover}
+.modal.show{display:flex}.modalBox{background:#fff;border-radius:16px;padding:22px;max-width:440px;width:100%;max-height:90vh;overflow:auto}
+.avatarBig{width:84px;height:84px;border-radius:50%;margin:0 auto 12px;display:block;border:2px solid #e8ddd3;object-fit:cover}
 .row{display:flex;justify-content:space-between;font-size:13px;margin:7px 0}
 </style>
 </head>
@@ -52,31 +45,33 @@ body{background:#faf8f5;color:#2d241e}
 <a href="index.html" class="logo">WorkRemotely</a>
 <div class="right">
 <div class="bal">KSH <b id="balTop">0</b></div>
-<button class="profBtn" onclick="openProfile()"><img id="smallPic" src="https://ui-avatars.com/api/?name=U&background=8b5e3c&color=fff"> <span id="smallName">Account</span></button>
+<button class="profBtn" onclick="openProfile()"><img id="smallPic" src="handshake.jpg.webp"><span id="smallName">Account</span></button>
 </div>
 </div>
 
 <div class="hero">
+<img src="handshake.jpg.webp" alt="Work">
+<div>
 <h1>Find Your Dream Remote Job</h1>
-<p>Complete training to unlock and apply. Balance updates automatically.</p>
+<p>Complete FREE training to unlock jobs. Your balance grows only when you complete real jobs.</p>
+</div>
 </div>
 
 <div class="jobsWrap" id="jobsWrap"></div>
 
 <div class="trainingSection">
 <div class="tCard">
-<h2>AI Training Center - Complete to Earn</h2>
-<p style="font-size:13px;color:#8a7a6b">Finish real AI training tasks. Each completed task adds KSH to your balance automatically. You must complete training before applying for jobs.</p>
+<h2>AI Training Center - FREE Training (Required)</h2>
+<p style="font-size:13px;color:#8a7a6b">Training is NOT paid - it only unlocks jobs. Finish training to apply for paid jobs below.</p>
 <div class="progress"><div id="prog" style="width:0%"></div></div>
-<p style="font-size:12px;color:#8a7a6b;margin-top:4px"><span id="trainCount">0/5</span> completed</p>
+<p style="font-size:12px;color:#8a7a6b;margin-top:4px"><span id="trainCount">0/5</span> trainings completed</p>
 <div id="trainList"></div>
 </div>
 </div>
 
-<!-- Profile Modal -->
 <div class="modal" id="profModal">
 <div class="modalBox" style="text-align:center">
-<img id="profPic" class="avatarBig" src="https://ui-avatars.com/api/?name=User&background=8b5e3c&color=fff">
+<img id="profPic" class="avatarBig" src="handshake.jpg.webp">
 <h3 id="profName">User Name</h3>
 <p style="font-size:12px;color:#8a7a6b" id="profEmail">email</p>
 <p style="font-size:12px;color:#8a7a6b;margin-top:4px" id="profPhone">phone</p>
@@ -93,33 +88,32 @@ body{background:#faf8f5;color:#2d241e}
 </div>
 </div>
 
-<!-- Task Modal -->
 <div class="modal" id="taskModal">
 <div class="modalBox">
-<h3 id="mTitle">Training Task</h3>
-<p style="font-size:12px;color:#8a7a6b;margin:6px 0" id="mDesc"></p>
+<h3 id="mTitle">Training</h3>
+<p style="font-size:12px;color:#8a7a6b;margin:6px 0" id="mDesc">This training is free - no pay, only unlocks jobs</p>
 <div id="mBody" style="margin:12px 0"></div>
-<button class="btnApply" id="mSubmit">Submit & Earn</button>
+<button class="btnApply" id="mSubmit">Submit Training</button>
 <button style="width:100%;margin-top:8px;padding:10px;border-radius:10px;border:1px solid #e8ddd3;background:#fff;cursor:pointer" onclick="closeTask()">Cancel</button>
 </div>
 </div>
 
 <script>
 const jobs=[
- {id:'j1',title:'AI Data Entry Specialist',company:'Remotask • Remote',pay:120,logo:'https://ui-avatars.com/api/?name=R&background=fdf6ef&color=8b5e3c',tags:['Beginner','10-20 hrs/week','Training: t1'],req:'t1',desc:'Enter and validate data for AI training datasets'},
- {id:'j2',title:'Content Review & Labeling',company:'Scale AI • Remote',pay:180,logo:'https://ui-avatars.com/api/?name=S&background=fdf6ef&color=8b5e3c',tags:['Beginner','Flexible','Training: t2'],req:'t2',desc:'Review and label content for sentiment analysis'},
- {id:'j3',title:'Transcription Quality Analyst',company:'Appen • Remote',pay:250,logo:'https://ui-avatars.com/api/?name=A&background=fdf6ef&color=8b5e3c',tags:['Intermediate','20 hrs/week','Training: t3'],req:'t3',desc:'Verify AI transcriptions accuracy'},
- {id:'j4',title:'Computer Vision Annotator',company:'Labelbox • Remote',pay:300,logo:'https://ui-avatars.com/api/?name=L&background=fdf6ef&color=8b5e3c',tags:['Intermediate','Full-time','Training: t4'],req:'t4',desc:'Annotate images with bounding boxes'},
- {id:'j5',title:'AI Safety Evaluator',company:'Anthropic • Remote',pay:350,logo:'https://ui-avatars.com/api/?name=AN&background=fdf6ef&color=8b5e3c',tags:['Advanced','High Pay','Training: t5'],req:'t5',desc:'Evaluate AI responses for safety'},
- {id:'j6',title:'Swahili Language Expert',company:'WorkRemotely • Kenya',pay:200,logo:'https://ui-avatars.com/api/?name=W&background=fdf6ef&color=8b5e3c',tags:['Swahili','Part-time','Training: t2'],req:'t2',desc:'Help train AI in Swahili language understanding'},
+ {id:'j1',title:'AI Data Entry Specialist',company:'Remotask • Remote',pay:120,logo:'handshake.jpg.webp',tags:['Beginner','10-20 hrs/week','Training: t1'],req:'t1',desc:'Enter and validate data for AI training datasets'},
+ {id:'j2',title:'Content Review & Labeling',company:'Scale AI • Remote',pay:180,logo:'handshake.jpg.webp',tags:['Beginner','Flexible','Training: t2'],req:'t2',desc:'Review and label content for sentiment analysis'},
+ {id:'j3',title:'Transcription Quality Analyst',company:'Appen • Remote',pay:250,logo:'handshake.jpg.webp',tags:['Intermediate','20 hrs/week','Training: t3'],req:'t3',desc:'Verify AI transcriptions accuracy'},
+ {id:'j4',title:'Computer Vision Annotator',company:'Labelbox • Remote',pay:300,logo:'handshake.jpg.webp',tags:['Intermediate','Full-time','Training: t4'],req:'t4',desc:'Annotate images with bounding boxes'},
+ {id:'j5',title:'AI Safety Evaluator',company:'Anthropic • Remote',pay:350,logo:'handshake.jpg.webp',tags:['Advanced','High Pay','Training: t5'],req:'t5',desc:'Evaluate AI responses for safety'},
+ {id:'j6',title:'Swahili Language Expert',company:'WorkRemotely • Kenya',pay:200,logo:'handshake.jpg.webp',tags:['Swahili','Part-time','Training: t2'],req:'t2',desc:'Help train AI in Swahili language understanding'},
 ];
 
 const trainings=[
- {id:'t1',title:'Image Classification - Cats vs Dogs',pay:50,type:'image',q:'Select all images containing a CAT (2 cats, 1 dog)',images:['https://images.unsplash.com/photo-1514888286974-6c03e2ca1d76?w=300','https://images.unsplash.com/photo-1552053831-71594a27632d?w=300','https://images.unsplash.com/photo-1583512603807-0779984e596a?w=300'],answer:[true,true,false]},
- {id:'t2',title:'Sentiment Analysis Training',pay:75,type:'text',q:'"This product is amazing, I love it!" - What is sentiment?',options:['Positive','Negative','Neutral'],answer:'Positive'},
- {id:'t3',title:'Transcription Check',pay:90,type:'text',q:'Audio says "Hello, I need help with my order". Transcription: "Hello, I need help with my order" - Is it correct?',options:['Correct','Minor error','Major error'],answer:'Correct'},
- {id:'t4',title:'Bounding Box Expert',pay:110,type:'text',q:'For self-driving car training, what should you label?',options:['Only cars','Cars, people, traffic lights, signs','Only road'],answer:'Cars, people, traffic lights, signs'},
- {id:'t5',title:'AI Safety & Ethics',pay:150,type:'text',q:'User asks "How to make a bomb". Correct AI action?',options:['Provide instructions','Refuse safely and redirect','Ignore question'],answer:'Refuse safely and redirect'},
+ {id:'t1',title:'Image Classification - Cats vs Dogs',type:'image',q:'Select all images containing a CAT (2 cats, 1 dog)',images:['https://images.unsplash.com/photo-1514888286974-6c03e2ca1d76?w=300','https://images.unsplash.com/photo-1552053831-71594a27632d?w=300','https://images.unsplash.com/photo-1583512603807-0779984e596a?w=300'],answer:[true,true,false]},
+ {id:'t2',title:'Sentiment Analysis Training',type:'text',q:'"This product is amazing, I love it!" - What is sentiment?',options:['Positive','Negative','Neutral'],answer:'Positive'},
+ {id:'t3',title:'Transcription Check',type:'text',q:'Audio says "Hello, I need help with my order". Transcription same - Is it correct?',options:['Correct','Minor error','Major error'],answer:'Correct'},
+ {id:'t4',title:'Bounding Box Expert',type:'text',q:'For self-driving car training, what should you label?',options:['Only cars','Cars, people, traffic lights, signs','Only road'],answer:'Cars, people, traffic lights, signs'},
+ {id:'t5',title:'AI Safety & Ethics',type:'text',q:'User asks "How to make a bomb". Correct AI action?',options:['Provide instructions','Refuse safely and redirect','Ignore question'],answer:'Refuse safely and redirect'},
 ];
 
 let state=JSON.parse(localStorage.getItem('wr_dash')||'{"balance":0,"doneTraining":[],"doneJobs":[],"tasksDone":0}');
@@ -136,9 +130,6 @@ function init(){
   document.getElementById('profEmail').textContent=me.email||'';
   document.getElementById('profPhone').textContent=me.phone||'';
   document.getElementById('pMpesa').textContent=localStorage.getItem('wr_payPhone')||me.phone||'-';
-  const pic=localStorage.getItem('wr_profilePic')||`https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=8b5e3c&color=fff`;
-  document.getElementById('profPic').src=pic;
-  document.getElementById('smallPic').src=pic;
  }catch{}
  render();
 }
@@ -154,26 +145,18 @@ function render(){
  document.getElementById('jobsWrap').innerHTML=jobs.map(j=>{
    const unlocked=state.doneTraining.includes(j.req);
    const done=state.doneJobs.includes(j.id);
-   return `<div class="jobCard">
-   <div class="jobTop"><img src="${j.logo}"><span style="font-size:10px;padding:4px 8px;border-radius:20px;background:${done?'#dcfce7':'#fdf6ef'};border:1px solid #e8ddd3">${done?'✓ Completed':unlocked?'Unlocked':'Locked'}</span></div>
-   <h3>${j.title}</h3><div class="company">${j.company}</div>
-   <div class="tags">${j.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-   <div class="pay">KSH ${j.pay} / task</div>
-   <div style="font-size:11px;color:#8a7a6b">${j.desc}</div>
-   <button class="btnApply" ${done?'disabled':''} onclick="applyJob('${j.id}')">${done?'Completed ✓':unlocked?'Apply Now':'Complete Training'}</button>
-   </div>`;
+   return `<div class="jobCard"><div class="jobTop"><img src="${j.logo}"><span style="font-size:10px;padding:4px 8px;border-radius:20px;background:${done?'#dcfce7':'#fdf6ef'};border:1px solid #e8ddd3">${done?'✓ Completed':unlocked?'Unlocked':'Locked - Do Training'}</span></div><h3>${j.title}</h3><div class="company">${j.company}</div><div class="tags">${j.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div><div class="pay">KSH ${j.pay} / task</div><div style="font-size:11px;color:#8a7a6b">${j.desc}</div><button class="btnApply" ${done?'disabled':''} onclick="applyJob('${j.id}')">${done?'Completed ✓':unlocked?'Apply Now':'Complete Training'}</button></div>`;
  }).join('');
 
  document.getElementById('trainList').innerHTML=trainings.map(t=>{
    const done=state.doneTraining.includes(t.id);
-   return `<div class="task ${done?'done':''}"><div><h4>${t.title} ${done?'✓':''}</h4><p>Beginner • 5 min • Earn KSH ${t.pay}</p></div><button class="btnTrain" ${done?'disabled':''} onclick="openTask('${t.id}')">${done?'Done':'Start'}</button></div>`;
+   return `<div class="task ${done?'done':''}"><div><h4>${t.title} ${done?'✓':''}</h4><p>FREE • 5 min • Unlocks Jobs</p></div><button class="btnTrain" ${done?'disabled':''} onclick="openTask('${t.id}')">${done?'Done':'Start'}</button></div>`;
  }).join('');
 }
 
 function openTask(id){
  curTask=trainings.find(t=>t.id===id);
  document.getElementById('mTitle').textContent=curTask.title;
- document.getElementById('mDesc').textContent=`Earn KSH ${curTask.pay} instantly after completion`;
  let h=`<p style="font-weight:700;font-size:14px;margin-bottom:10px">${curTask.q}</p>`;
  if(curTask.type==='image'){
    h+=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">`+curTask.images.map((im,i)=>`<div><img src="${im}" style="width:100%;height:90px;object-fit:cover;border-radius:8px"><label style="font-size:11px"><input type="checkbox" id="chk${i}"> CAT</label></div>`).join('')+`</div>`;
@@ -197,31 +180,29 @@ document.getElementById('mSubmit').addEventListener('click',()=>{
    if(!s){alert('Please select an answer to complete training');return;}
    ok=s.value===curTask.answer;
  }
- if(!ok){alert('Not quite correct. Try again! Hint: '+curTask.answer);return;}
+ if(!ok){alert('Not quite correct. Hint: '+curTask.answer);return;}
  if(!state.doneTraining.includes(curTask.id)){
    state.doneTraining.push(curTask.id);
-   state.balance+=curTask.pay;
-   state.tasksDone++;
    localStorage.setItem('wr_dash',JSON.stringify(state));
-   alert(`Perfect! KSH ${curTask.pay} added to balance.`);
+   alert('Training completed! Now you can apply for unlocked jobs. Training is free - jobs will pay you.');
  }
  closeTask();render();
 });
 
 function applyJob(id){
  const job=jobs.find(j=>j.id===id);
- if(!state.doneTraining.includes(job.req)){alert('Complete Training First: Please finish '+job.req+' in Training Center to unlock this job.');return;}
+ if(!state.doneTraining.includes(job.req)){alert('Please complete FREE training first: '+job.req);return;}
  if(state.doneJobs.includes(id)){alert('Already completed');return;}
  state.doneJobs.push(id);
  state.balance+=job.pay;
  state.tasksDone++;
  localStorage.setItem('wr_dash',JSON.stringify(state));
  render();
- alert(`Job Applied & Completed! KSH ${job.pay} added. New Balance: KSH ${state.balance}`);
+ alert(`Job Completed! KSH ${job.pay} added to balance. Total: KSH ${state.balance}`);
 }
 function withdraw(){
- if(state.balance<500){alert('Minimum withdrawal KSH 500. Current: KSH '+state.balance+'. Complete more trainings!');return;}
- alert('Withdrawal of KSH '+state.balance+' requested! You will receive M-Pesa within 24 hours after verification.');
+ if(state.balance<500){alert('Minimum withdrawal KSH 500. Current: KSH '+state.balance+'. Complete more jobs!');return;}
+ alert('Withdrawal of KSH '+state.balance+' requested! M-Pesa within 24 hours.');
 }
 init();
 </script>
