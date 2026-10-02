@@ -133,7 +133,7 @@ form.addEventListener('submit', (e)=>{
  localStorage.setItem('wr_currentUser', JSON.stringify({fullName:nameVal,email:emailVal,phone:phoneVal}));
  
  document.getElementById('btnReg').textContent='Account Created! Redirecting...';
- setTimeout(()=>{ window.location.href='survey.html'; }, 800);
+ setTimeout(()=>{ window.location.href='survey.html';
 });
 
 // live clear on typing
@@ -143,6 +143,7 @@ form.addEventListener('submit', (e)=>{
 </script>
 </body>
 </html>
+
 
 
 
