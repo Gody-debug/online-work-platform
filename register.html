@@ -1,129 +1,76 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿ <!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Register - WorkRemotely</title>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
-body{background:#faf8f5;color:#2d241e;min-height:100vh;display:flex;flex-direction:column}
-.header{background:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.logo{font-weight:800;color:#5c3d2e;font-size:21px;text-decoration:none}
-.wrapper{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 16px}
-.card{background:#fff;border:1px solid #e8ddd3;border-radius:16px;width:100%;max-width:440px;padding:28px;box-shadow:0 12px 32px rgba(92,61,46,.08)}
-.card h1{font-size:22px;font-weight:800;margin-bottom:4px}
-.sub{font-size:13.5px;color:#8a7a6b;margin-bottom:22px}
-label{font-size:13px;font-weight:600;color:#5c3d2e;display:block;margin:14px 0 6px}
-input{width:100%;padding:11px 13px;border:1px solid #d6c7b8;border-radius:10px;font-size:14px;outline:none;background:#fffdfb;transition:.15s}
-input:focus{border-color:#8b5e3c;box-shadow:0 0 0 3px rgba(139,94,60,.12)}
-input.error-border{border-color:#b91c1c;background:#fef2f2}
-.err{font-size:12px;color:#b91c1c;margin-top:5px;display:none}.err.show{display:block}
-.btn-main{width:100%;background:#8b5e3c;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;margin-top:20px}
-.btn-main:hover{background:#6f4b30}
-.bottom-text{font-size:13px;text-align:center;margin-top:18px;color:#8a7a6b}.bottom-text a{color:#8b5e3c;font-weight:700;text-decoration:none}
+body{margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:#FFF8E7; font-family:Arial; }
+.card{background:#fff; width:90%; max-width:380px; padding:30px; border-radius:18px; box-shadow:0 8px 25px rgba(139,94,60,0.15); border:1px solid #F5E6CC; text-align:center}
+h2{color:#5C3A21; margin-bottom:5px}
+p.sub{color:#8B6F5A; font-size:14px; margin-top:0}
+.field{text-align:left; margin:6px 0}
+.field input{width:100%; padding:13px; border-radius:10px; border:1.5px solid #E8D5B7; background:#FFFCF5; outline:none; box-sizing:border-box}
+.field input:focus{border-color:#8B5E3C}
+.field span{color:#c0392b; font-size:12px; display:none; margin-top:3px}
+button{width:100%; padding:13px; background:#8B5E3C; color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:14px}
+a{color:#8B5E3C; text-decoration:none; font-size:14px}
+#msg{color:#c0392b; font-size:13px; margin-top:10px}
 </style>
 </head>
 <body>
-<div class="header"><a href="index.html" class="logo">WorkRemotely</a></div>
-<div class="wrapper">
 <div class="card">
-<h1>Create Account</h1><p class="sub">Join 2,400+ workers earning daily via M-Pesa</p>
-<form id="regForm" novalidate>
-<label>Full Name</label>
-<input id="fullName" placeholder="Liam Mitchell" autocomplete="name">
-<div class="err" id="errName">This field is required</div>
-
-<label>Email Address</label>
-<input id="email" placeholder="liam.mitchell@gmail.com" autocomplete="email">
-<div class="err" id="errEmail">This field is required</div>
-<div class="err" id="errEmailUsed">This email already has an account</div>
-<div class="err" id="errEmailInvalid">Enter a valid email address</div>
-
-<label>Phone Number (M-Pesa)</label>
-<input id="phone" placeholder="07..." autocomplete="tel">
-<div class="err" id="errPhone">This field is required</div>
-
-<label>Password</label>
-<input id="password" type="password" placeholder="8 characters minimum !">
-<div class="err" id="errPass">This field is required</div>
-<div class="err" id="errPassWeak">8 characters minimum !</div>
-
-<button type="submit" class="btn-main">Create Account</button>
-</form>
-<div class="bottom-text">Already have account? <a href="login.html">Login</a></div>
-</div>
+<h2>Create Account</h2>
+<p class="sub">Join WorkRemotely today</p>
+<div class="field"><input id="name" placeholder="Full Name"><span id="e-name">This field is required</span></div>
+<div class="field"><input id="email" placeholder="Email"><span id="e-email">This field is required</span></div>
+<div class="field"><input id="password" type="password" placeholder="Password (min 8 characters)"><span id="e-pass">This field is required</span></div>
+<div class="field"><input id="confirm" type="password" placeholder="Confirm Password"><span id="e-confirm">This field is required</span></div>
+<button onclick="register()">Register</button>
+<p id="msg"></p>
+<p><a href="login.html">Already have account? Login</a></p>
 </div>
 <script>
-function getUsers(){try{return JSON.parse(localStorage.getItem('wr_users')||'[]')}catch{return[]}}
-// Clear error when typing - but NEVER clear value
-['fullName','email','phone','password'].forEach(id=>{
- const el=document.getElementById(id);
- el.addEventListener('input',()=>{
-   el.classList.remove('error-border');
-   document.querySelectorAll('.err').forEach(e=>{if(e.id.startsWith('err'+el.id.charAt(0).toUpperCase()+el.id.slice(1,3)) || e.id==='err'+el.id.charAt(0).toUpperCase()+el.id.slice(1)) e.classList.remove('show')});
-   if(id==='password') document.getElementById('errPassWeak').classList.remove('show');
-   if(id==='email'){document.getElementById('errEmail').classList.remove('show');document.getElementById('errEmailUsed').classList.remove('show');document.getElementById('errEmailInvalid').classList.remove('show');}
-   if(id==='fullName') document.getElementById('errName').classList.remove('show');
-   if(id==='phone') document.getElementById('errPhone').classList.remove('show');
- });
-});
+const firebaseConfig = {
+  apiKey: "AIzaSyDKREClm9YLksiZS10W02eq6_dTmxVgxRI",
+  authDomain: "workremotely-6ad9d.firebaseapp.com",
+  projectId: "workremotely-6ad9d",
+  storageBucket: "workremotely-6ad9d.firebasestorage.app",
+  messagingSenderId: "997970626852",
+  appId: "1:997970626852:web:d51d2b81b13a1795468bb1"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-document.getElementById('regForm').addEventListener('submit',e=>{
- e.preventDefault();
- let hasError=false;
- const n=document.getElementById('fullName');
- const em=document.getElementById('email');
- const ph=document.getElementById('phone');
- const pw=document.getElementById('password');
+function showErr(id,msg){const el=document.getElementById(id); el.style.display='block'; if(msg) el.innerText=msg; }
+function hideAll(){document.querySelectorAll('.field span').forEach(s=>s.style.display='none'); document.getElementById('msg').innerText='';}
 
- // reset only errors, NOT values
- document.querySelectorAll('.err').forEach(el=>el.classList.remove('show'));
- [n,em,ph,pw].forEach(el=>el.classList.remove('error-border'));
+async function register(){
+ hideAll();
+ const name=document.getElementById('name').value.trim();
+ const email=document.getElementById('email').value.trim();
+ const pass=document.getElementById('password').value;
+ const conf=document.getElementById('confirm').value;
+ let hasErr=false;
+ if(!name){showErr('e-name','This field is required'); hasErr=true}
+ if(!email){showErr('e-email','This field is required'); hasErr=true}
+ if(!pass){showErr('e-pass','This field is required'); hasErr=true}
+ else if(pass.length<8){showErr('e-pass','Password must be at least 8 characters'); hasErr=true}
+ if(!conf){showErr('e-confirm','This field is required'); hasErr=true}
+ else if(pass!==conf){showErr('e-confirm','Passwords do not match'); hasErr=true}
+ if(hasErr) return;
 
- if(!n.value.trim()){
-   document.getElementById('errName').classList.add('show');
-   n.classList.add('error-border');
-   hasError=true;
- }
- if(!em.value.trim()){
-   document.getElementById('errEmail').classList.add('show');
-   em.classList.add('error-border');
-   hasError=true;
- } else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())){
-   document.getElementById('errEmailInvalid').classList.add('show');
-   em.classList.add('error-border');
-   hasError=true;
- }
- if(!ph.value.trim()){
-   document.getElementById('errPhone').classList.add('show');
-   ph.classList.add('error-border');
-   hasError=true;
- }
- if(!pw.value){
-   document.getElementById('errPass').classList.add('show');
-   pw.classList.add('error-border');
-   hasError=true;
- } else if(pw.value.length<8 || !/[A-Za-z]/.test(pw.value) || !/[0-9]/.test(pw.value)){
-   document.getElementById('errPassWeak').classList.add('show');
-   pw.classList.add('error-border');
-   hasError=true;
- }
-
- if(hasError) return; // KEEP all typed values - do not clear
-
- // check duplicate email but keep values
- if(getUsers().find(u=>u.email===em.value.trim().toLowerCase())){
-   document.getElementById('errEmailUsed').classList.add('show');
-   em.classList.add('error-border');
-   return;
- }
-
- const users=getUsers();
- users.push({fullName:n.value.trim(),email:em.value.trim().toLowerCase(),phone:ph.value.trim(),password:pw.value});
- localStorage.setItem('wr_users',JSON.stringify(users));
- localStorage.setItem('wr_currentUser',JSON.stringify({fullName:n.value.trim(),email:em.value.trim().toLowerCase()}));
- location.href='survey.html';
-});
+ document.getElementById('msg').style.color='#8B5E3C';
+ document.getElementById('msg').innerText="Registering...";
+ try{
+   const cred=await auth.createUserWithEmailAndPassword(email,pass);
+   await db.collection("users").doc(cred.user.uid).set({name:name,email:email,created:new Date()});
+   window.location.href="login.html";
+ }catch(e){document.getElementById('msg').style.color='#c0392b'; document.getElementById('msg').innerText=e.message}
+}
 </script>
 </body>
 </html>

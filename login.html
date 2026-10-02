@@ -1,161 +1,58 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿ <!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Login - WorkRemotely</title>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
-body{background:#faf8f5;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:16px}
-.card{background:#fff;border:1px solid #e8ddd3;border-radius:18px;padding:28px;max-width:400px;width:100%;box-shadow:0 12px 32px rgba(92,61,46,.1)}
-.card h2{font-size:22px;font-weight:800;color:#2d241e;text-align:center}
-.card p.small{font-size:12px;color:#8a7a6b;text-align:center;margin:6px 0 18px}
-.input{width:100%;padding:12px;border:1px solid #d6c7b8;border-radius:10px;margin:8px 0;font-size:14px}
-.btn{width:100%;background:#8b5e3c;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;margin-top:10px}
-.btn:disabled{background:#cbb9a9}
-.error{font-size:12px;color:#b91c1c;background:#fef2f2;border:1px solid #fecaca;padding:8px;border-radius:8px;margin:8px 0;display:none}
-.success{font-size:12px;color:#166534;background:#f0fdf4;border:1px solid #bbf7d0;padding:8px;border-radius:8px;margin:8px 0;display:none}
-.link{font-size:13px;color:#8b5e3c;text-decoration:none;font-weight:600;cursor:pointer}
-.links{display:flex;justify-content:space-between;margin-top:12px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
-.modal.show{display:flex}
-.modalBox{background:#fff;border-radius:16px;padding:22px;max-width:400px;width:100%}
-.otpBox{display:flex;gap:8px;justify-content:center;margin:12px 0}
-.otpBox input{width:42px;height:48px;text-align:center;font-size:18px;font-weight:700;border:1px solid #d6c7b8;border-radius:10px}
+body{margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:#FFF8E7; font-family:Arial; }
+.card{background:#fff; width:90%; max-width:380px; padding:30px; border-radius:18px; box-shadow:0 8px 25px rgba(139,94,60,0.15); border:1px solid #F5E6CC; text-align:center}
+h2{color:#5C3A21; margin-bottom:5px}
+p.sub{color:#8B6F5A; font-size:14px; margin-top:0}
+.field{text-align:left; margin:6px 0}
+.field input{width:100%; padding:13px; border-radius:10px; border:1.5px solid #E8D5B7; background:#FFFCF5; outline:none; box-sizing:border-box}
+.field span{color:#c0392b; font-size:12px; display:none; margin-top:3px}
+button{width:100%; padding:13px; background:#8B5E3C; color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:14px}
+a{color:#8B5E3C; text-decoration:none; font-size:14px}
+#msg{color:#c0392b; font-size:13px; margin-top:10px}
 </style>
 </head>
 <body>
 <div class="card">
 <h2>Welcome Back</h2>
-<p class="small">Login with your Gmail and password</p>
-<div class="error" id="err"></div>
-<div class="success" id="suc"></div>
-<input type="email" id="email" class="input" placeholder="Enter your Gmail (e.g. user@gmail.com)">
-<input type="password" id="password" class="input" placeholder="Enter your password">
-<button class="btn" onclick="login()">Login</button>
-<div class="links">
-<a class="link" onclick="openForgot()">Forgot Password?</a>
-<a class="link" href="register.html">Create Account</a>
+<p class="sub">Login to continue</p>
+<div class="field"><input id="email" placeholder="Email"><span id="e-email">This field is required</span></div>
+<div class="field"><input id="password" type="password" placeholder="Password"><span id="e-pass">This field is required</span></div>
+<button onclick="login()">Login</button>
+<p id="msg"></p>
+<p><a href="register.html">Don't have account? Register</a></p>
 </div>
-</div>
-
-<!-- Forgot Password Modal -->
-<div class="modal" id="forgotModal">
-<div class="modalBox">
-<h3 style="font-weight:800;margin-bottom:6px">Forgot Password</h3>
-<p style="font-size:12px;color:#8a7a6b;margin-bottom:12px">Enter your Gmail to receive OTP</p>
-<div class="error" id="fErr"></div>
-<div class="success" id="fSuc"></div>
-<div id="step1">
-<input type="email" id="fEmail" class="input" placeholder="Enter your Gmail">
-<button class="btn" onclick="sendOTP()">Send OTP to Gmail</button>
-</div>
-<div id="step2" style="display:none">
-<p style="font-size:12px;color:#8a7a6b;text-align:center;margin:8px 0">OTP sent to <b id="otpEmailLabel"></b> (demo shows OTP in alert)</p>
-<div class="otpBox">
-<input maxlength="1" id="o1"><input maxlength="1" id="o2"><input maxlength="1" id="o3"><input maxlength="1" id="o4"><input maxlength="1" id="o5"><input maxlength="1" id="o6">
-</div>
-<button class="btn" onclick="verifyOTP()">Verify OTP</button>
-</div>
-<div id="step3" style="display:none">
-<input type="password" id="newPass" class="input" placeholder="Create new password (min 6 chars)">
-<input type="password" id="confirmPass" class="input" placeholder="Confirm new password">
-<button class="btn" onclick="resetPass()">Create New Password</button>
-</div>
-<button style="width:100%;margin-top:10px;background:none;border:none;color:#8a7a6b;font-size:13px;cursor:pointer" onclick="closeForgot()">Cancel</button>
-</div>
-</div>
-
 <script>
-function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display='block';}
-function hideErr(id){document.getElementById(id).style.display='none';}
-function showSuc(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display='block';}
-
-function login(){
- hideErr('err');hideErr('suc');
- const email=document.getElementById('email').value.trim().toLowerCase();
+const firebaseConfig = {
+  apiKey: "AIzaSyDKREClm9YLksiZS10W02eq6_dTmxVgxRI",
+  authDomain: "workremotely-6ad9d.firebaseapp.com",
+  projectId: "workremotely-6ad9d",
+  storageBucket: "workremotely-6ad9d.firebasestorage.app",
+  messagingSenderId: "997970626852",
+  appId: "1:997970626852:web:d51d2b81b13a1795468bb1"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+function showErr(id){document.getElementById(id).style.display='block'}
+function hideAll(){document.querySelectorAll('.field span').forEach(s=>s.style.display='none'); document.getElementById('msg').innerText=''}
+async function login(){
+ hideAll();
+ const email=document.getElementById('email').value.trim();
  const pass=document.getElementById('password').value;
- if(!email||!pass){showErr('err','Please enter Gmail and password to continue');return;}
- if(!email.includes('@gmail.com')){showErr('err','Please enter a valid Gmail address');return;}
- const users=JSON.parse(localStorage.getItem('wr_users')||'[]');
- const user=users.find(u=>u.email.toLowerCase()===email);
- if(!user){
-   showErr('err','Enter the correct Gmail or password to continue - no account found with this Gmail');
-   return;
- }
- if(user.password!==pass){
-   showErr('err','Enter the correct Gmail or password to continue - wrong password');
-   return;
- }
- localStorage.setItem('wr_currentUser',JSON.stringify(user));
- showSuc('suc','Login successful! Redirecting to dashboard...');
- setTimeout(()=>{window.location.href='dashboard.html';},800);
+ let hasErr=false;
+ if(!email){showErr('e-email'); hasErr=true}
+ if(!pass){showErr('e-pass'); hasErr=true}
+ if(hasErr) return;
+ document.getElementById('msg').innerText="Logging in...";
+ try{await auth.signInWithEmailAndPassword(email,pass); window.location.href="dashboard.html";}
+ catch(e){document.getElementById('msg').innerText=e.message}
 }
-
-function openForgot(){document.getElementById('forgotModal').classList.add('show'); resetForgot();}
-function closeForgot(){document.getElementById('forgotModal').classList.remove('show');}
-function resetForgot(){
- hideErr('fErr');hideErr('fSuc');
- document.getElementById('step1').style.display='block';
- document.getElementById('step2').style.display='none';
- document.getElementById('step3').style.display='none';
- document.getElementById('fEmail').value='';
- ['o1','o2','o3','o4','o5','o6'].forEach(id=>document.getElementById(id).value='');
-}
-
-function sendOTP(){
- hideErr('fErr');
- const email=document.getElementById('fEmail').value.trim().toLowerCase();
- if(!email.includes('@gmail.com')){showErr('fErr','Enter valid Gmail');return;}
- const users=JSON.parse(localStorage.getItem('wr_users')||'[]');
- const user=users.find(u=>u.email.toLowerCase()===email);
- if(!user){showErr('fErr','No account found with this Gmail - enter the correct Gmail');return;}
- const otp=Math.floor(100000+Math.random()*900000).toString();
- localStorage.setItem('wr_otp_'+email,otp);
- localStorage.setItem('wr_otp_email',email);
- document.getElementById('otpEmailLabel').textContent=email;
- document.getElementById('step1').style.display='none';
- document.getElementById('step2').style.display='block';
- showSuc('fSuc','OTP sent to '+email);
- alert('DEMO: Your OTP for '+email+' is: '+otp+'\nIn production this would be sent to your Gmail via email service');
-}
-
-function verifyOTP(){
- hideErr('fErr');
- const email=localStorage.getItem('wr_otp_email');
- const realOtp=localStorage.getItem('wr_otp_'+email);
- const entered=['o1','o2','o3','o4','o5','o6'].map(id=>document.getElementById(id).value).join('');
- if(entered.length!==6){showErr('fErr','Enter full 6-digit OTP');return;}
- if(entered!==realOtp){showErr('fErr','Invalid OTP - enter the correct OTP sent to your Gmail');return;}
- document.getElementById('step2').style.display='none';
- document.getElementById('step3').style.display='block';
- showSuc('fSuc','OTP verified! Create new password');
-}
-
-function resetPass(){
- hideErr('fErr');
- const email=localStorage.getItem('wr_otp_email');
- const np=document.getElementById('newPass').value;
- const cp=document.getElementById('confirmPass').value;
- if(np.length<6){showErr('fErr','Password must be at least 6 characters');return;}
- if(np!==cp){showErr('fErr','Passwords do not match');return;}
- let users=JSON.parse(localStorage.getItem('wr_users')||'[]');
- const idx=users.findIndex(u=>u.email.toLowerCase()===email);
- if(idx===-1){showErr('fErr','Account not found');return;}
- users[idx].password=np;
- localStorage.setItem('wr_users',JSON.stringify(users));
- localStorage.removeItem('wr_otp_'+email);
- localStorage.removeItem('wr_otp_email');
- showSuc('fSuc','Password reset successful! You can now login with new password');
- setTimeout(()=>{closeForgot(); document.getElementById('email').value=email;},1200);
-}
-
-// auto move otp inputs
-['o1','o2','o3','o4','o5','o6'].forEach((id,i)=>{
- document.getElementById(id).addEventListener('input',function(){
-   if(this.value && i<5) document.getElementById('o'+(i+2)).focus();
- });
-});
 </script>
 </body>
 </html>
