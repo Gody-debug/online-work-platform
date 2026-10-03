@@ -1,4 +1,3 @@
-backend/registrations.json
-backend/mpesa-confirmations.json
+node_modules
+backend
 .env
-node_modules/
