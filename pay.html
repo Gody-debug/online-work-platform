@@ -32,14 +32,14 @@ input:focus{border-color:#8b5a2b}
 </div>
 
 <label style="font-size:13px;font-weight:700">Enter M-Pesa Code from SMS:</label>
-<input id="mpesaCode" placeholder="e.g. QCK9T8R2M1" maxlength="10">
+<input id="mpesaCode" placeholder="Enter M-Pesa Code" maxlength="10">
 <div id="eCode" class="err">This field is required</div>
 
 <button class="btn" id="verifyBtn">Verify & Activate</button>
 
 <p style="font-size:12px;text-align:center;color:#8b6a4a;margin-top:10px">Paste the code you received after paying 150</p>
 
-<img src="mpesa-example.jpg" class="example-img" alt="Example M-Pesa SMS - copy the highlighted code">
+
 
 <div class="steps">
 <h3>Payment Procedure:</h3>
@@ -75,9 +75,9 @@ document.getElementById("verifyBtn").addEventListener("click", async()=>{
  const code=document.getElementById("mpesaCode").value.trim().toUpperCase();
  document.getElementById("eCode").style.display="none";
  if(!code){show("This field is required");return}
- if(code.length<6){show("Code must be at least 6 characters");return}
+ if(code.length<6){show("Enter the correct code to proceed!");return}
  const mpesaRegex=/^[A-Z0-9]{6,10}$/;
- if(!mpesaRegex.test(code)){show("Enter valid M-Pesa code e.g. QCK9T8R2M1");return}
+ if(!mpesaRegex.test(code)){show("Enter the correct code to proceed!");return}
  try{
   document.getElementById("verifyBtn").textContent="Verifying...";
   const user=auth.currentUser;
@@ -91,4 +91,5 @@ document.getElementById("verifyBtn").addEventListener("click", async()=>{
 });
 </script>
 </body></html>
+
 
