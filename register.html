@@ -56,7 +56,8 @@ document.getElementById("regBtn").addEventListener("click", async()=>{
   document.getElementById("regBtn").textContent="Creating...";
   const cred=await createUserWithEmailAndPassword(auth,email,pass);
   window.location.href="survey.html"; setDoc(doc(db,"users",cred.user.uid),{fullName:name,email:email,createdAt:new Date()}).catch(()=>{});
- }catch(err){show("e4",err.message);document.getElementById("regBtn").disabled=false;document.getElementById("regBtn").textContent="Register"}
+ }catch(err){if(err.code==="auth/email-already-in-use"){show("e4","Email already registered. Please login.");}else{show("e4",err.message)};document.getElementById("regBtn").disabled=false;document.getElementById("regBtn").textContent="Register"}
 });
 </script></body></html>
+
 
