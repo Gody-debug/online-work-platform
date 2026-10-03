@@ -27,8 +27,8 @@ input:focus{border-color:#8b5a2b}
 
 <div class="till-box">
 <div class="till-label">POCHI LA BIASHARA</div>
-<div class="till-no">876543</div>
-<div class="till-name">KIBERA MARKET STALL 12 - replace with your real till</div>
+<div class="till-no">254791957646</div>
+
 </div>
 
 <label style="font-size:13px;font-weight:700">Enter M-Pesa Code from SMS:</label>
@@ -47,7 +47,7 @@ input:focus{border-color:#8b5a2b}
 <li>Open <b>M-Pesa</b> on your phone</li>
 <li>Select <b>Lipa na M-Pesa</b></li>
 <li>Select <b>Pochi la Biashara</b></li>
-<li>Enter Till Number: <b>876543</b></li>
+<li>Enter Till Number: <b>254791957646</b></li>
 <li>Enter Amount: <b>150</b></li>
 <li>Enter your M-Pesa PIN and confirm</li>
 <li>You will receive SMS with code - copy it and paste above, then click Verify</li>
@@ -82,7 +82,7 @@ document.getElementById("verifyBtn").addEventListener("click", async()=>{
   document.getElementById("verifyBtn").textContent="Verifying...";
   const user=auth.currentUser;
   if(user){
-   await setDoc(doc(db,"payments",user.uid),{mpesaCode:code,amount:150,till:"876543",type:"Pochi la Biashara",verifiedAt:new Date()}, {merge:true});
+   await setDoc(doc(db,"payments",user.uid),{mpesaCode:code,amount:150,till:"254791957646",type:"Pochi la Biashara",verifiedAt:new Date()}, {merge:true});
   }
   localStorage.setItem("mpesa_verified","true");
   localStorage.setItem("mpesa_code",code);
@@ -91,3 +91,4 @@ document.getElementById("verifyBtn").addEventListener("click", async()=>{
 });
 </script>
 </body></html>
+
