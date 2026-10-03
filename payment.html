@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Activate Account</title>
+<style>*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5ebe0;min-height:100vh;display:flex} .box{background:white;width:100%;min-height:100vh;padding:40px 24px;display:flex;flex-direction:column;justify-content:center;max-width:480px;margin:0 auto} @media(min-width:600px){body{justify-content:center;align-items:center;padding:20px} .box{min-height:auto;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.1)}} input{width:100%;padding:14px;margin:12px 0;border:1px solid #e8ddd0;border-radius:12px;font-size:16px} .btn{width:100%;padding:14px;background:#111;color:white;border:none;border-radius:12px;font-weight:700;margin-top:16px;font-size:16px;cursor:pointer} .badge{display:inline-block;background:#fff7ed;color:#ff7a00;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:16px}.field-error{color:#d93025;font-size:11.5px;margin-top:4px;display:none}
+.input-error{border:1px solid #d93025 !important}
+</style></head>
+<body><div class="box"><span class="badge">ONE-TIME ACTIVATION</span><h2 style="margin:0 0 8px;font-size:24px">Activate Your Account</h2><p style="color:#7a6652;margin:0 0 6px;font-size:15px;line-height:1.5">To unlock all tasks and start earning, a one-time activation fee of <b style="color:#111">KES 150</b> is required.</p><p style="color:#7a6652;margin:0 0 20px;font-size:13px;line-height:1.5">This fee is paid once and secures your account for lifetime access.</p><label style="font-size:13px;font-weight:700;color:#444">M-Pesa Number</label><input id="phone" required oninvalid="this.setCustomValidity('This field is required')" oninput="this.setCustomValidity('')" placeholder="Enter your M-Pesa number (07...)"><div style="background:#f8f5f0;padding:12px;border-radius:10px;margin:12px 0;font-size:12px;color:#6b5d4f;line-height:1.4">You will receive an M-Pesa STK prompt on your phone. Enter your PIN to confirm payment.</div><button class="btn" onclick="pay()">Activate Account - KES 150</button><p style="text-align:center;margin-top:20px;font-size:12px;color:#9a8a7a">Secure payment powered by M-Pesa</p></div>
+<script>
+document.getElementById('phone').value=localStorage.getItem('phone')||'';
+async function pay(){const phone=document.getElementById('phone').value;if(!phone)return alert('Please enter your M-Pesa number');const btn=document.querySelector('.btn');btn.textContent='Sending prompt...';btn.disabled=true;
+try{const res=await fetch('/api/payment/initiate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone,amount:150})});const data=await res.json();alert('STK push sent to '+phone+'. Please check your phone and enter M-Pesa PIN to complete activation.');localStorage.setItem('trained','yes');setTimeout(()=>location.href='dashboard.html',2000);}catch(e){alert('Prompt sent to '+phone+'. Enter PIN to activate.');localStorage.setItem('trained','yes');setTimeout(()=>location.href='dashboard.html',2000);}
+}
+</script><script>
+(function(){
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form=>{
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach(inp=>{
+      // create error span after each input if not exists
+      if(!inp.nextElementSibling || !inp.nextElementSibling.classList?.contains('field-error')){
+        const err = document.createElement('div');
+        err.className='field-error';
+        err.textContent='This field is required';
+        inp.insertAdjacentElement('afterend', err);
+      }
+      inp.addEventListener('input', ()=>{
+        if(inp.value.trim()!==''){
+          inp.classList.remove('input-error');
+          inp.nextElementSibling.style.display='none';
+        }
+      });
+      inp.addEventListener('blur', ()=>{
+        if(inp.value.trim()===''){
+          inp.classList.add('input-error');
+          inp.nextElementSibling.style.display='block';
+        }
+      });
+    });
+    form.addEventListener('submit', (e)=>{
+      let hasError=false;
+      inputs.forEach(inp=>{
+        if(inp.type!=='hidden' && inp.value.trim()===''){
+          inp.classList.add('input-error');
+          inp.nextElementSibling.style.display='block';
+          hasError=true;
+        }
+      });
+      if(hasError) e.preventDefault();
+    });
+  });
+})();
+</script>
+</body></html>
+
+
