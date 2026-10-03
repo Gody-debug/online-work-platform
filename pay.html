@@ -9,13 +9,11 @@ h1{text-align:center;color:#5a3210;font-size:22px;margin:0 0 8px}
 .till-box{background:#fffbf0;border:2px dashed #c49a6c;border-radius:14px;padding:16px;text-align:center;margin:14px 0}
 .till-label{font-size:13px;color:#8b6a4a;letter-spacing:1px}
 .till-no{font-size:28px;font-weight:900;color:#5a3210;margin:6px 0}
-.till-name{font-size:13px;color:#5a3210;background:#f5e6c8;display:inline-block;padding:4px 10px;border-radius:20px}
 input{width:100%;box-sizing:border-box;padding:14px 16px;margin:10px 0;border:1.5px solid #e8dcc8;background:#fffbf0;border-radius:12px;outline:none;text-transform:uppercase}
 input:focus{border-color:#8b5a2b}
 .btn{width:100%;padding:14px;background:#8b5a2b;color:#fff;border:none;border-radius:30px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(139,90,43,.3);margin-top:8px}
 .btn:hover{background:#6f4621}
 .err{color:#c0392b;font-size:12px;display:none;margin:4px 0}
-.example-img{width:100%;border-radius:12px;margin:12px 0;border:1px solid #f0dfc3}
 .steps{background:#fffbf0;border-radius:12px;padding:16px;margin-top:16px}
 .steps h3{margin:0 0 10px;color:#5a3210;font-size:15px}
 .steps ol{margin:0;padding-left:18px;font-size:13px;line-height:1.7;color:#5a3210}
@@ -24,23 +22,15 @@ input:focus{border-color:#8b5a2b}
 <div class="card">
 <h1>Pay Ksh 150 to Activate Your Account</h1>
 <p class="sub">One-time activation fee to access jobs & dashboard</p>
-
 <div class="till-box">
 <div class="till-label">POCHI LA BIASHARA</div>
 <div class="till-no">254791957646</div>
-
 </div>
-
 <label style="font-size:13px;font-weight:700">Enter M-Pesa Code from SMS:</label>
 <input id="mpesaCode" placeholder="Enter M-Pesa Code" maxlength="10">
-<div id="eCode" class="err">This field is required</div>
-
+<div id="eCode" class="err"></div>
 <button class="btn" id="verifyBtn">Verify & Activate</button>
-
 <p style="font-size:12px;text-align:center;color:#8b6a4a;margin-top:10px">Paste the code you received after paying 150</p>
-
-
-
 <div class="steps">
 <h3>Payment Procedure:</h3>
 <ol>
@@ -71,13 +61,18 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 function show(msg){const el=document.getElementById("eCode");el.textContent=msg;el.style.display="block"}
+function isValidMpesa(code){
+ if(code.length!==10) return false;
+ if(!/^[A-Z0-9]{10}$/.test(code)) return false;
+ let letters=(code.match(/[A-Z]/g)||[]).length;
+ let numbers=(code.match(/[0-9]/g)||[]).length;
+ return letters===7 && numbers===3;
+}
 document.getElementById("verifyBtn").addEventListener("click", async()=>{
  const code=document.getElementById("mpesaCode").value.trim().toUpperCase();
  document.getElementById("eCode").style.display="none";
  if(!code){show("This field is required");return}
- if(code.length<6){show("Enter the correct code to proceed!");return}
- const mpesaRegex=/^[A-Z0-9]{6,10}$/;
- if(!mpesaRegex.test(code)){show("Enter the correct code to proceed!");return}
+ if(!isValidMpesa(code)){show("Enter the correct code to proceed!");return}
  try{
   document.getElementById("verifyBtn").textContent="Verifying...";
   const user=auth.currentUser;
@@ -87,9 +82,7 @@ document.getElementById("verifyBtn").addEventListener("click", async()=>{
   localStorage.setItem("mpesa_verified","true");
   localStorage.setItem("mpesa_code",code);
   window.location.href="dashboard.html";
- }catch(e){show(e.message); document.getElementById("verifyBtn").textContent="Verify & Activate"}
+ }catch(e){show("Enter the correct code to proceed!"); document.getElementById("verifyBtn").textContent="Verify & Activate"}
 });
 </script>
 </body></html>
-
-
