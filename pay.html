@@ -1,8 +1,93 @@
 ﻿<!DOCTYPE html>
-<html><head><title>Pay 150</title></head>
-<body style="font-family:Arial;text-align:center;padding:30px">
-<h2>Lipa Ksh 150 Till: 254791957646</h2>
-<input id="code" placeholder="SJD7K2M8P1" style="padding:12px;width:260px"><br><br>
-<button onclick="if(/^[A-Z][A-Z0-9]{9}$/.test(document.getElementById('code').value.trim().toUpperCase())){document.getElementById('msg').innerHTML='✅ Accepted! Redirecting...';setTimeout(()=>location.href='dashboard.html',1000)}else{document.getElementById('msg').innerHTML='❌ Invalid format, e.g SJD7K2M8P1'}" style="padding:12px 25px;background:green;color:white;border:none">Verify</button>
-<p id="msg"></p>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Activate Account - Ksh 150</title>
+<style>
+body{margin:0;background:#fdf5e6;font-family:Arial;color:#3b2310}
+.wrap{max-width:480px;margin:0 auto;padding:18px}
+.card{background:#fff;border-radius:20px;padding:24px;box-shadow:0 10px 30px rgba(90,50,16,.15);margin-top:14px}
+h1{text-align:center;color:#5a3210;font-size:22px;margin:0 0 8px}
+.sub{text-align:center;color:#8b6a4a;font-size:14px;margin-bottom:18px}
+.till-box{background:#fffbf0;border:2px dashed #c49a6c;border-radius:14px;padding:16px;text-align:center;margin:14px 0}
+.till-label{font-size:13px;color:#8b6a4a;letter-spacing:1px}
+.till-no{font-size:28px;font-weight:900;color:#5a3210;margin:6px 0}
+.till-name{font-size:13px;color:#5a3210;background:#f5e6c8;display:inline-block;padding:4px 10px;border-radius:20px}
+input{width:100%;box-sizing:border-box;padding:14px 16px;margin:10px 0;border:1.5px solid #e8dcc8;background:#fffbf0;border-radius:12px;outline:none;text-transform:uppercase}
+input:focus{border-color:#8b5a2b}
+.btn{width:100%;padding:14px;background:#8b5a2b;color:#fff;border:none;border-radius:30px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(139,90,43,.3);margin-top:8px}
+.btn:hover{background:#6f4621}
+.err{color:#c0392b;font-size:12px;display:none;margin:4px 0}
+.example-img{width:100%;border-radius:12px;margin:12px 0;border:1px solid #f0dfc3}
+.steps{background:#fffbf0;border-radius:12px;padding:16px;margin-top:16px}
+.steps h3{margin:0 0 10px;color:#5a3210;font-size:15px}
+.steps ol{margin:0;padding-left:18px;font-size:13px;line-height:1.7;color:#5a3210}
+</style></head><body>
+<div class="wrap">
+<div class="card">
+<h1>Pay Ksh 150 to Activate Your Account</h1>
+<p class="sub">One-time activation fee to access jobs & dashboard</p>
+
+<div class="till-box">
+<div class="till-label">POCHI LA BIASHARA</div>
+<div class="till-no">876543</div>
+<div class="till-name">KIBERA MARKET STALL 12 - replace with your real till</div>
+</div>
+
+<label style="font-size:13px;font-weight:700">Enter M-Pesa Code from SMS:</label>
+<input id="mpesaCode" placeholder="e.g. QCK9T8R2M1" maxlength="10">
+<div id="eCode" class="err">This field is required</div>
+
+<button class="btn" id="verifyBtn">Verify & Activate</button>
+
+<p style="font-size:12px;text-align:center;color:#8b6a4a;margin-top:10px">Paste the code you received after paying 150</p>
+
+<img src="mpesa-example.jpg" class="example-img" alt="Example M-Pesa SMS - copy the highlighted code">
+
+<div class="steps">
+<h3>Payment Procedure:</h3>
+<ol>
+<li>Open <b>M-Pesa</b> on your phone</li>
+<li>Select <b>Lipa na M-Pesa</b></li>
+<li>Select <b>Pochi la Biashara</b></li>
+<li>Enter Till Number: <b>876543</b></li>
+<li>Enter Amount: <b>150</b></li>
+<li>Enter your M-Pesa PIN and confirm</li>
+<li>You will receive SMS with code - copy it and paste above, then click Verify</li>
+</ol>
+</div>
+</div>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyDKREClm9YLksiZS10W02eq6_dTmxVgxRI",
+  authDomain: "workremotely-6ad9d.firebaseapp.com",
+  projectId: "workremotely-6ad9d",
+  storageBucket: "workremotely-6ad9d.firebasestorage.app",
+  messagingSenderId: "997970626852",
+  appId: "1:997970626852:web:d51d2b81b13a1795468bb1"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+function show(msg){const el=document.getElementById("eCode");el.textContent=msg;el.style.display="block"}
+document.getElementById("verifyBtn").addEventListener("click", async()=>{
+ const code=document.getElementById("mpesaCode").value.trim().toUpperCase();
+ document.getElementById("eCode").style.display="none";
+ if(!code){show("This field is required");return}
+ if(code.length<6){show("Code must be at least 6 characters");return}
+ const mpesaRegex=/^[A-Z0-9]{6,10}$/;
+ if(!mpesaRegex.test(code)){show("Enter valid M-Pesa code e.g. QCK9T8R2M1");return}
+ try{
+  document.getElementById("verifyBtn").textContent="Verifying...";
+  const user=auth.currentUser;
+  if(user){
+   await setDoc(doc(db,"payments",user.uid),{mpesaCode:code,amount:150,till:"876543",type:"Pochi la Biashara",verifiedAt:new Date()}, {merge:true});
+  }
+  localStorage.setItem("mpesa_verified","true");
+  localStorage.setItem("mpesa_code",code);
+  window.location.href="dashboard.html";
+ }catch(e){show(e.message); document.getElementById("verifyBtn").textContent="Verify & Activate"}
+});
+</script>
 </body></html>
