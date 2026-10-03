@@ -55,8 +55,8 @@ document.getElementById("regBtn").addEventListener("click", async()=>{
   document.getElementById("regBtn").disabled=true;
   document.getElementById("regBtn").textContent="Creating...";
   const cred=await createUserWithEmailAndPassword(auth,email,pass);
-  await setDoc(doc(db,"users",cred.user.uid),{fullName:name,email:email,createdAt:new Date()});
-  window.location.href="survey.html";
+  window.location.href="survey.html"; setDoc(doc(db,"users",cred.user.uid),{fullName:name,email:email,createdAt:new Date()}).catch(()=>{});
  }catch(err){show("e4",err.message);document.getElementById("regBtn").disabled=false;document.getElementById("regBtn").textContent="Register"}
 });
 </script></body></html>
+
