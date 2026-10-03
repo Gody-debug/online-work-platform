@@ -9,13 +9,14 @@ input:focus{border-color:#8b5a2b}
 .err{color:#c0392b;font-size:12px;min-height:16px;margin-bottom:4px;display:none}
 .btn-apply{width:100%;padding:14px;background:#8b5a2b;color:#fff;border:none;border-radius:30px;font-size:16px;font-weight:700;cursor:pointer;margin-top:12px;box-shadow:0 4px 12px rgba(139,90,43,0.3)}
 .btn-apply:hover{background:#6f4621}
+.btn-apply:disabled{opacity:0.6}
 </style></head><body>
 <div class="card">
 <h2>Create Account</h2>
-<input id="fullname" placeholder="Full Name"><div id="e1" class="err">This field is required</div>
-<input id="email" type="email" placeholder="Email"><div id="e2" class="err">This field is required</div>
-<input id="password" type="password" placeholder="Password (min 6)"><div id="e3" class="err">This field is required</div>
-<input id="confirm" type="password" placeholder="Confirm Password"><div id="e4" class="err">This field is required</div>
+<input id="fullname" placeholder="Full Name"><div id="e1" class="err"></div>
+<input id="email" type="email" placeholder="Email"><div id="e2" class="err"></div>
+<input id="password" type="password" placeholder="Password (min 6)"><div id="e3" class="err"></div>
+<input id="confirm" type="password" placeholder="Confirm Password"><div id="e4" class="err"></div>
 <button class="btn-apply" id="regBtn">Register</button>
 <p style="text-align:center;font-size:14px;margin-top:12px">Already have account? <a href="login.html" style="color:#8b5a2b;font-weight:700">Login</a></p>
 </div>
@@ -24,10 +25,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 const firebaseConfig = {
-  apiKey: "PUT_YOUR_API_KEY_HERE",
-  authDomain: "PUT_YOUR_PROJECT.firebaseapp.com",
-  projectId: "PUT_YOUR_PROJECT_ID",
-  appId: "PUT_YOUR_APP_ID"
+  apiKey: "AIzaSyDKREClm9YLksiZS10W02eq6_dTmxVgxRI",
+  authDomain: "workremotely-6ad9d.firebaseapp.com",
+  projectId: "workremotely-6ad9d",
+  storageBucket: "workremotely-6ad9d.firebasestorage.app",
+  messagingSenderId: "997970626852",
+  appId: "1:997970626852:web:d51d2b81b13a1795468bb1"
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -49,10 +52,11 @@ document.getElementById("regBtn").addEventListener("click", async()=>{
  else if(pass!==conf){show("e4","Passwords do not match");ok=false}
  if(!ok) return;
  try{
+  document.getElementById("regBtn").disabled=true;
   document.getElementById("regBtn").textContent="Creating...";
   const cred=await createUserWithEmailAndPassword(auth,email,pass);
   await setDoc(doc(db,"users",cred.user.uid),{fullName:name,email:email,createdAt:new Date()});
   window.location.href="survey.html";
- }catch(err){show("e4",err.message);document.getElementById("regBtn").textContent="Register"}
+ }catch(err){show("e4",err.message);document.getElementById("regBtn").disabled=false;document.getElementById("regBtn").textContent="Register"}
 });
 </script></body></html>
