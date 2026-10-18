@@ -1,4 +1,5 @@
-﻿const express = require('express');
+﻿require("dotenv").config();
+const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
@@ -99,4 +100,209 @@ app.get('/api/jobs',(req,res)=>{
   ]);
 });
 
+ // ===== PAYSTACK M-PESA PAYMENT =====
+
+const PAYSTACK_FEE = 15000; // KSh 150 in cents/subunits
+const PAYSTACK_CURRENCY = "KES";
+
+// START PAYMENT AND SEND M-PESA PROMPT
+app.post("/api/payment/start", async (req, res) => {
+  try {
+    const { email, phone: submittedPhone } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    if (!process.env.PAYSTACK_SECRET_KEY) {
+      return res.status(500).json({ message: "Payment service is not configured" });
+    }
+
+    const users = getUsers();
+    const user = users.find(
+      u => u.email?.toLowerCase() === email.toLowerCase()
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    if (user.paid === true) {
+      return res.json({ message: "Account already activated" });
+    }
+
+    if (!(submittedPhone || user.phone)) {
+      return res.status(400).json({ message: "M-Pesa phone number is required" });
+    }
+    // Use the phone number entered on the payment page.
+    let phone = String(submittedPhone || user.phone).replace(/\s+/g, "");
+
+    if (phone.startsWith("0")) {
+      phone = "+254" + phone.slice(1);
+    } else if (phone.startsWith("254")) {
+      phone = "+" + phone;
+    }
+
+    if (!/^\+254[17]\d{8}$/.test(phone)) {
+      return res.status(400).json({
+        message: "Invalid Kenyan phone number on your account"
+      });
+    }
+
+    // Create an unpredictable reference for this payment.
+    const reference =
+      "OWK-" + require("crypto").randomBytes(18).toString("hex");
+
+    const response = await fetch("https://api.paystack.co/charge", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: user.email,
+        amount: PAYSTACK_FEE,
+        currency: PAYSTACK_CURRENCY,
+        reference,
+        mobile_money: {
+          phone,
+          provider: "mpesa"
+        }
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.status || !result.data?.reference) {
+      console.error("Paystack payment initiation failed:", result);
+
+      return res.status(502).json({
+        message: "Could not start payment. Please try again."
+      });
+    }
+
+    // Save the reference against the account before verification.
+    user.pendingPaymentReference = result.data.reference;
+    saveUsers(users);
+
+    return res.json({
+      message: result.data.display_text ||
+        "Check your phone and authorize the M-PESA payment.",
+      status: result.data.status,
+      reference: result.data.reference
+    });
+
+  } catch (error) {
+    console.error("Payment start error:", error);
+
+    return res.status(500).json({
+      message: "Payment service error"
+    });
+  }
+});
+
+
+// VERIFY PAYMENT BEFORE ACTIVATING ACCOUNT
+app.post("/api/payment/verify", async (req, res) => {
+  try {
+    const { email, reference } = req.body;
+
+    if (!email || !reference) {
+      return res.status(400).json({
+        message: "Email and payment reference are required"
+      });
+    }
+
+    if (!process.env.PAYSTACK_SECRET_KEY) {
+      return res.status(500).json({
+        message: "Payment service is not configured"
+      });
+    }
+
+    const users = getUsers();
+    const user = users.find(
+      u => u.email?.toLowerCase() === email.toLowerCase()
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    if (user.paid === true) {
+      return res.json({
+        message: "Account already activated",
+        paid: true
+      });
+    }
+
+    // Only allow verification of a reference created for this account.
+    if (
+      !user.pendingPaymentReference ||
+      user.pendingPaymentReference !== reference
+    ) {
+      return res.status(403).json({
+        message: "Invalid payment reference"
+      });
+    }
+
+    const response = await fetch(
+      "https://api.paystack.co/transaction/verify/" +
+        encodeURIComponent(reference),
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.status || !result.data) {
+      return res.status(502).json({
+        message: "Could not verify payment. Please try again."
+      });
+    }
+
+    const transaction = result.data;
+
+    // Never activate an account unless Paystack confirms all details.
+    if (
+      transaction.status !== "success" ||
+      Number(transaction.amount) !== PAYSTACK_FEE ||
+      transaction.currency !== PAYSTACK_CURRENCY ||
+      transaction.customer?.email?.toLowerCase() !== user.email.toLowerCase() ||
+      transaction.reference !== user.pendingPaymentReference
+    ) {
+      return res.status(402).json({
+        message: "Payment has not been confirmed",
+        paid: false
+      });
+    }
+
+    user.paid = true;
+    user.paidAt = new Date().toISOString();
+    user.paystackReference = transaction.reference;
+    delete user.pendingPaymentReference;
+
+    saveUsers(users);
+
+    return res.json({
+      message: "Payment verified. Your account is activated.",
+      paid: true
+    });
+
+  } catch (error) {
+    console.error("Payment verification error:", error);
+
+    return res.status(500).json({
+      message: "Payment verification failed"
+    });
+  }
+});
+
 app.listen(PORT,()=>console.log('Server running on '+PORT));
+
+
+
