@@ -81,7 +81,7 @@ async function login() {
 
         if (!result.user || result.user.paid !== true) {
             await auth.signOut();
-            window.location.href = 'payment.html';
+            window.location.href = 'pay.html';
             return;
         }
 
@@ -95,3 +95,4 @@ async function login() {
 </script>
 </body>
 </html>
+

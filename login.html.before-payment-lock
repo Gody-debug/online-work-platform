@@ -1,0 +1,58 @@
+﻿ <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login - WorkRemotely</title>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<style>
+body{margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:#FFF8E7; font-family:Arial; }
+.card{background:#fff; width:90%; max-width:380px; padding:30px; border-radius:18px; box-shadow:0 8px 25px rgba(139,94,60,0.15); border:1px solid #F5E6CC; text-align:center}
+h2{color:#5C3A21; margin-bottom:5px}
+p.sub{color:#8B6F5A; font-size:14px; margin-top:0}
+.field{text-align:left; margin:6px 0}
+.field input{width:100%; padding:13px; border-radius:10px; border:1.5px solid #E8D5B7; background:#FFFCF5; outline:none; box-sizing:border-box}
+.field span{color:#c0392b; font-size:12px; display:none; margin-top:3px}
+button{width:100%; padding:13px; background:#8B5E3C; color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:14px}
+a{color:#8B5E3C; text-decoration:none; font-size:14px}
+#msg{color:#c0392b; font-size:13px; margin-top:10px}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>Welcome Back</h2>
+<p class="sub">Login to continue</p>
+<div class="field"><input id="email" placeholder="Email"><span id="e-email">This field is required</span></div>
+<div class="field"><input id="password" type="password" placeholder="Password"><span id="e-pass">This field is required</span></div>
+<button onclick="login()">Login</button>
+<p id="msg"></p>
+<p><a href="register.html">Don't have account? Register</a></p>
+</div>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDKREClm9YLksiZS10W02eq6_dTmxVgxRI",
+  authDomain: "workremotely-6ad9d.firebaseapp.com",
+  projectId: "workremotely-6ad9d",
+  storageBucket: "workremotely-6ad9d.firebasestorage.app",
+  messagingSenderId: "997970626852",
+  appId: "1:997970626852:web:d51d2b81b13a1795468bb1"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+function showErr(id){document.getElementById(id).style.display='block'}
+function hideAll(){document.querySelectorAll('.field span').forEach(s=>s.style.display='none'); document.getElementById('msg').innerText=''}
+async function login(){
+ hideAll();
+ const email=document.getElementById('email').value.trim();
+ const pass=document.getElementById('password').value;
+ let hasErr=false;
+ if(!email){showErr('e-email'); hasErr=true}
+ if(!pass){showErr('e-pass'); hasErr=true}
+ if(hasErr) return;
+ document.getElementById('msg').innerText="Logging in...";
+ try{await auth.signInWithEmailAndPassword(email,pass); window.location.href="dashboard.html";}
+ catch(e){document.getElementById('msg').innerText=e.message}
+}
+</script>
+</body>
+</html>

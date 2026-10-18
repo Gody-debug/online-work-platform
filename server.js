@@ -33,7 +33,7 @@ app.post('/api/qualify',(req,res)=>{
   const u=users.find(x=>x.email?.toLowerCase()===email.toLowerCase());
   if(!u) return res.status(404).json({message:"User not found"});
   u.qualified=true; saveUsers(users);
-  res.json({message:"qualified", redirect:"payment.html"});
+  res.json({message:"qualified", redirect:"pay.html"});
 });
 
 app.post('/api/pay',(req,res)=>{
@@ -54,7 +54,7 @@ app.post('/api/login',(req,res)=>{
   const u=findByEmail(email);
   if(!u || u.password!==password) return res.status(401).json({message:"Invalid email or password"});
   if(!u.qualified) return res.status(403).json({message:"Complete qualification first", redirect:"qualification.html"});
-  if(!u.paid) return res.status(403).json({message:"Account not activated. You must pay KES 150 to activate. Redirecting to payment...", redirect:"payment.html"});
+  if(!u.paid) return res.status(403).json({message:"Account not activated. You must pay KES 150 to activate. Redirecting to payment...", redirect:"pay.html"});
   res.json({user:{email:u.email,name:u.name,phone:u.phone,paid:true,qualified:true}});
 });
 
@@ -90,7 +90,7 @@ app.get('/api/check-auth',(req,res)=>{
   const email=req.query.email;
   const u=findByEmail(email);
   if(!u) return res.status(401).json({paid:false});
-  if(!u.paid) return res.status(403).json({paid:false, redirect:"payment.html", message:"Pay KES 150 to activate"});
+  if(!u.paid) return res.status(403).json({paid:false, redirect:"pay.html", message:"Pay KES 150 to activate"});
   res.json({paid:true, user:u});
 });
 
@@ -303,6 +303,7 @@ app.post("/api/payment/verify", async (req, res) => {
 });
 
 app.listen(PORT,()=>console.log('Server running on '+PORT));
+
 
 
 

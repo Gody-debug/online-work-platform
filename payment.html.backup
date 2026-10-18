@@ -1,0 +1,372 @@
+﻿ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activate Account - KSh 150</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #fdf5e6;
+      font-family: Arial, sans-serif;
+      color: #3b2310;
+    }
+
+    .wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(90, 50, 16, .15);
+      margin-top: 14px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #5a3210;
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+
+    .sub {
+      text-align: center;
+      color: #8b6a4a;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .price {
+      background: #fffbf0;
+      border: 2px dashed #c49a6c;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      margin: 14px 0;
+    }
+
+    .amount {
+      font-size: 32px;
+      font-weight: 900;
+      color: #5a3210;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 14px;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px 16px;
+      margin-top: 8px;
+      border: 1.5px solid #e8dcc8;
+      background: #fffbf0;
+      border-radius: 12px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus {
+      border-color: #8b5a2b;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #8b5a2b;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    .btn:hover {
+      background: #6f4621;
+    }
+
+    .btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    #verifyBtn {
+      display: none;
+    }
+
+    .message {
+      display: none;
+      padding: 12px;
+      margin-top: 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .info {
+      background: #fff4d6;
+      color: #664d03;
+    }
+
+    .success {
+      background: #dff5e5;
+      color: #176534;
+    }
+
+    .error {
+      background: #fde8e7;
+      color: #a12622;
+    }
+
+    .steps {
+      background: #fffbf0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 18px;
+    }
+
+    .steps h3 {
+      margin: 0 0 10px;
+      color: #5a3210;
+      font-size: 15px;
+    }
+
+    .steps ol {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+
+      <h1>Activate Your Account</h1>
+
+      <p class="sub">
+        Complete your one-time registration payment to access your dashboard.
+      </p>
+
+      <div class="price">
+        <div class="amount">KSh 150</div>
+        <div>One-time activation fee</div>
+      </div>
+
+      <label for="email">Registered email address</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your registered email"
+        autocomplete="email"
+        required
+      >
+
+      <label for="phone">M-Pesa phone number</label>
+      <input
+        type="tel"
+        id="phone"
+        placeholder="0712345678 or 254712345678"
+        autocomplete="tel"
+        inputmode="tel"
+        required
+      >
+
+      <button class="btn" id="startBtn">
+        Pay KSh 150 with M-PESA
+      </button>
+
+      <div id="message" class="message" role="status" aria-live="polite"></div>
+
+      <button class="btn" id="verifyBtn">
+        Check Payment Status
+      </button>
+
+      <div class="steps">
+        <h3>How payment works</h3>
+        <ol>
+          <li>Enter the email address you registered with.</li>
+          <li>Click Pay KSh 150 with M-PESA.</li>
+          <li>Follow the instructions displayed on the page.</li>
+          <li>Authorize the payment on your phone if prompted.</li>
+          <li>Click Check Payment Status.</li>
+          <li>Your account will activate after the server confirms payment.</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    /*
+      If your frontend and backend use different domains,
+      replace the empty string with your backend's base URL.
+      Example format: https://your-backend.onrender.com
+    */
+    const API_BASE = "";
+
+    const emailInput = document.getElementById("email");
+    const phoneInput = document.getElementById("phone");
+    const startBtn = document.getElementById("startBtn");
+    const verifyBtn = document.getElementById("verifyBtn");
+    const messageBox = document.getElementById("message");
+
+    let paymentReference = sessionStorage.getItem("owk_payment_reference") || "";
+    let paymentEmail = sessionStorage.getItem("owk_payment_email") || "";
+
+    if (paymentEmail) {
+      emailInput.value = paymentEmail;
+    }
+
+    if (paymentReference) {
+      verifyBtn.style.display = "block";
+    }
+
+    function showMessage(text, type = "info") {
+      messageBox.textContent = text;
+      messageBox.className = "message " + type;
+      messageBox.style.display = "block";
+    }
+
+    async function postJSON(path, data) {
+      const response = await fetch(API_BASE + path, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      let result;
+
+      try {
+        result = await response.json();
+      } catch {
+        throw new Error("The server returned an invalid response.");
+      }
+
+      if (!response.ok) {
+        throw new Error(result.message || "The request failed.");
+      }
+
+      return result;
+    }
+
+    startBtn.addEventListener("click", async () => {
+      const email = emailInput.value.trim().toLowerCase();
+
+      messageBox.style.display = "none";
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showMessage("Enter a valid registered email address.", "error");
+        return;
+      }
+
+      startBtn.disabled = true;
+      startBtn.textContent = "Starting payment...";
+
+      try {
+        const phone = phoneInput.value.trim().replace(/[\s-]/g, "");
+
+        if (!/^(?:\+?254|0)7\d{8}$/.test(phone)) {
+          showMessage("Enter a valid Kenyan M-Pesa mobile number.", "error");
+          return;
+        }
+
+        const result = await postJSON("/api/payment/start", {
+          email,
+          phone
+        });
+
+        if (result.message === "Account already activated") {
+          showMessage("Your account is already activated. You can go to your dashboard.", "success");
+          return;
+        }
+
+        if (result.reference) {
+          paymentReference = result.reference;
+          paymentEmail = email;
+
+          sessionStorage.setItem("owk_payment_reference", paymentReference);
+          sessionStorage.setItem("owk_payment_email", paymentEmail);
+
+          verifyBtn.style.display = "block";
+        }
+
+        showMessage(
+          result.message || "Follow the instructions on your phone to complete payment.",
+          "info"
+        );
+
+      } catch (error) {
+        showMessage(error.message, "error");
+      } finally {
+        startBtn.disabled = false;
+        startBtn.textContent = "Pay KSh 150 with M-PESA";
+      }
+    });
+
+    verifyBtn.addEventListener("click", async () => {
+      const email = emailInput.value.trim().toLowerCase();
+
+      if (!email || !paymentReference) {
+        showMessage("Start a payment first, using your registered email.", "error");
+        return;
+      }
+
+      if (email !== paymentEmail) {
+        showMessage("Use the same email address you used to start this payment.", "error");
+        return;
+      }
+
+      verifyBtn.disabled = true;
+      verifyBtn.textContent = "Checking payment...";
+
+      try {
+        const result = await postJSON("/api/payment/verify", {
+          email: paymentEmail,
+          reference: paymentReference
+        });
+
+        if (result.paid === true) {
+          sessionStorage.removeItem("owk_payment_reference");
+          sessionStorage.removeItem("owk_payment_email");
+
+          showMessage("Payment confirmed! Redirecting to your dashboard...", "success");
+
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 1200);
+
+          return;
+        }
+
+        showMessage(
+          result.message || "Payment is not confirmed yet. Please try again.",
+          "info"
+        );
+
+      } catch (error) {
+        showMessage(error.message, "error");
+      } finally {
+        verifyBtn.disabled = false;
+        verifyBtn.textContent = "Check Payment Status";
+      }
+    });
+  </script>
+</body>
+</html>

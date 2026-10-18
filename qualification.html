@@ -27,6 +27,7 @@ document.getElementById('qf').addEventListener('submit',(e)=>{
  fetch('/api/qualify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:user.email, qualified:true})});
  document.getElementById('msg').style.color='green';
  document.getElementById('msg').textContent='Congratulations! You qualify. Redirecting to activation...';
- setTimeout(()=>location.href='payment.html', 1200);
+ setTimeout(()=>location.href='pay.html', 1200);
 });
 </script></body></html>
+
