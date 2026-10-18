@@ -41,17 +41,56 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 function showErr(id){document.getElementById(id).style.display='block'}
 function hideAll(){document.querySelectorAll('.field span').forEach(s=>s.style.display='none'); document.getElementById('msg').innerText=''}
-async function login(){
- hideAll();
- const email=document.getElementById('email').value.trim();
- const pass=document.getElementById('password').value;
- let hasErr=false;
- if(!email){showErr('e-email'); hasErr=true}
- if(!pass){showErr('e-pass'); hasErr=true}
- if(hasErr) return;
- document.getElementById('msg').innerText="Logging in...";
- try{await auth.signInWithEmailAndPassword(email,pass); window.location.href="dashboard.html";}
- catch(e){document.getElementById('msg').innerText=e.message}
+async function login() {
+    hideAll();
+
+    const email = document.getElementById('email').value.trim();
+    const pass = document.getElementById('password').value;
+    const msg = document.getElementById('msg');
+
+    if (!email || !pass) {
+        if (!email) showErr('e-email');
+        if (!pass) showErr('e-pass');
+        return;
+    }
+
+    msg.innerText = 'Checking your account...';
+
+    try {
+        await auth.signInWithEmailAndPassword(email, pass);
+
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password: pass })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            await auth.signOut();
+
+            if (response.status === 403 && result.redirect) {
+                window.location.href = result.redirect;
+                return;
+            }
+
+            msg.innerText = result.message || 'Login could not be verified.';
+            return;
+        }
+
+        if (!result.user || result.user.paid !== true) {
+            await auth.signOut();
+            window.location.href = 'payment.html';
+            return;
+        }
+
+        window.location.href = 'dashboard.html';
+
+    } catch (error) {
+        try { await auth.signOut(); } catch (_) {}
+        msg.innerText = error.message || 'Could not verify your login.';
+    }
 }
 </script>
 </body>
