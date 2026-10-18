@@ -18,7 +18,7 @@ const otpStore={};
 
 app.post('/api/register',(req,res)=>{
   const {name,email,phone,password}=req.body;
-  if(!name||!email||!phone||!password) return res.status(400).json({message:"All fields required"});
+  if(!name||!email||!password) return res.status(400).json({message:"All fields required"});
   if(!isStrongPassword(password)) return res.status(400).json({message:"Password must be 8+ chars with a letter and a number. Example: John2024"});
   let users=getUsers();
   if(users.find(u=>u.email?.toLowerCase()===email.toLowerCase())) return res.status(400).json({message:"Email already registered"});
@@ -303,6 +303,7 @@ app.post("/api/payment/verify", async (req, res) => {
 });
 
 app.listen(PORT,()=>console.log('Server running on '+PORT));
+
 
 
 
