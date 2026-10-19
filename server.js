@@ -3,6 +3,31 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const admin = require('firebase-admin');
+const { getFirestore } = require('firebase-admin/firestore');
+
+let db = null;
+
+try {
+    const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT;
+
+    if (serviceAccountJson) {
+        const serviceAccount = JSON.parse(serviceAccountJson);
+
+        if (!admin.apps.length) {
+            admin.initializeApp({
+                credential: admin.cert(serviceAccount)
+            });
+        }
+
+        db = getFirestore();
+        console.log('Firebase Admin connected successfully');
+    } else {
+        console.warn('Firebase service account is not configured');
+    }
+} catch (error) {
+    console.error('Firebase Admin initialization failed:', error.message);
+}
 const app = express();
 const PORT = process.env.PORT || 10000;
 app.use(cors());
@@ -36,16 +61,10 @@ app.post('/api/qualify',(req,res)=>{
   res.json({message:"qualified", redirect:"pay.html"});
 });
 
-app.post('/api/pay',(req,res)=>{
-  const {email, mpesaCode}=req.body;
-  let users=getUsers();
-  const u=users.find(x=>x.email?.toLowerCase()===email.toLowerCase());
-  if(!u) return res.status(404).json({message:"User not found"});
-  if(!u.qualified) return res.status(403).json({message:"Complete qualification first", redirect:"qualification.html"});
-  // Accept any mpesa code for now - in production verify with Daraja API
-  u.paid=true; u.mpesaCode=mpesaCode||"DEMO"; u.paidAt=new Date().toISOString();
-  saveUsers(users);
-  res.json({message:"Payment confirmed", redirect:"login.html"});
+ app.post('/api/pay', (req, res) => {
+  return res.status(410).json({
+    message: "This payment endpoint is disabled. Use verified Paystack payments."
+  });
 });
 
 // === THIS IS THE LOCK - NO PAY = NO LOGIN ===
@@ -303,6 +322,7 @@ app.post("/api/payment/verify", async (req, res) => {
 });
 
 app.listen(PORT,()=>console.log('Server running on '+PORT));
+
 
 
 
