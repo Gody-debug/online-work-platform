@@ -85,7 +85,25 @@ async function login() {
             return;
         }
 
-        window.location.href = 'dashboard.html';
+         const idToken = await auth.currentUser.getIdToken();
+
+const sessionResponse = await fetch('/api/session-login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ idToken })
+});
+
+const sessionResult = await sessionResponse.json();
+
+if (!sessionResponse.ok) {
+    await auth.signOut();
+    msg.innerText = sessionResult.message || 'Could not create a secure session.';
+    return;
+}
+
+window.location.href = 'dashboard.html';
 
     } catch (error) {
         try { await auth.signOut(); } catch (_) {}

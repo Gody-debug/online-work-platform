@@ -31,7 +31,102 @@ try {
 const app = express();
 const PORT = process.env.PORT || 10000;
 app.use(cors());
-app.use(express.json());
+ app.use(express.json());
+
+// Create a secure server-side session after Firebase login.
+app.post('/api/session-login', async (req, res) => {
+    try {
+        if (!admin.apps.length) {
+            return res.status(503).json({
+                message: 'Authentication service is unavailable.'
+            });
+        }
+
+        const { idToken } = req.body;
+
+        if (!idToken) {
+            return res.status(401).json({
+                message: 'Please log in again.'
+            });
+        }
+
+        const decoded = await admin.auth().verifyIdToken(idToken);
+        const user = findByEmail(decoded.email || '');
+
+        if (!user || user.paid !== true) {
+            return res.status(403).json({
+                message: 'A verified payment is required.'
+            });
+        }
+
+        const expiresIn = 5 * 24 * 60 * 60 * 1000;
+
+        const sessionCookie = await admin.auth().createSessionCookie(
+            idToken,
+            { expiresIn }
+        );
+
+        const secure = req.get('x-forwarded-proto') === 'https';
+
+        res.cookie('owk_session', sessionCookie, {
+            maxAge: expiresIn,
+            httpOnly: true,
+            secure,
+            sameSite: 'lax',
+            path: '/'
+        });
+
+        return res.json({ success: true });
+    } catch (error) {
+        console.error('Session login failed:', error.message);
+        return res.status(401).json({
+            message: 'Could not verify your login.'
+        });
+    }
+});
+
+// Protect the dashboard URL itself.
+app.get('/dashboard.html', async (req, res) => {
+    try {
+        const cookies = Object.fromEntries(
+            (req.headers.cookie || '')
+                .split(';')
+                .map(part => part.trim())
+                .filter(Boolean)
+                .map(part => {
+                    const index = part.indexOf('=');
+                    return [
+                        part.slice(0, index),
+                        decodeURIComponent(part.slice(index + 1))
+                    ];
+                })
+        );
+
+        const session = cookies.owk_session;
+
+        if (!session || !admin.apps.length) {
+            return res.redirect('/login.html');
+        }
+
+        const decoded = await admin.auth().verifySessionCookie(
+            session,
+            true
+        );
+
+        const user = findByEmail(decoded.email || '');
+
+        if (!user || user.paid !== true) {
+            res.clearCookie('owk_session', { path: '/' });
+            return res.redirect('/login.html');
+        }
+
+        return res.sendFile(path.join(__dirname, 'dashboard.html'));
+    } catch (error) {
+        res.clearCookie('owk_session', { path: '/' });
+        return res.redirect('/login.html');
+    }
+});
+
 app.use(express.static(__dirname));
 
 const USERS_FILE = path.join(__dirname,'users.json');

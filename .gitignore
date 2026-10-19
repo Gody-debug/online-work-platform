@@ -1,3 +1,12 @@
 node_modules
 backend
 .env
+
+/firebase-service-account.json
+
+# Local user data and backup files
+users.json
+*.security-backup
+*.backup
+*.bak
+*.before-backend-sync
