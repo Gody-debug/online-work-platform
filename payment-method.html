@@ -47,11 +47,11 @@ button:hover{background:#4d2c16}
 <label for="accountName">Account holder name</label>
 <input id="accountName" type="text" placeholder="Name on the account">
 <label for="accountNumber">Account number</label>
-<input id="accountNumber" type="text" inputmode="numeric" placeholder="Bank account number">
+<input id="accountNumber" type="text" inputmode="numeric" placeholder="Bank account number" pattern="[0-9]{6,20}" minlength="6" maxlength="20" title="Enter 6 to 20 digits only" required>
 <p class="small">Only provide the details needed to receive a bank transfer. Never enter your banking password or PIN.</p>
 </div>
 <button type="submit">Continue to Account Activation</button>
-<p class="small">Your selected method is saved in this browser for this website. It is not automatically connected to a payment provider.</p>
+
 </form>
 </main>
 <script>
@@ -73,6 +73,10 @@ fields[key].forEach(input=>input.required=method.value===key);
 });
 }
 method.addEventListener('change',updateFields);
+document.getElementById('accountNumber').addEventListener('input',function(){this.setCustomValidity(/^[0-9]{6,20}$/.test(this.value)?'':'Enter 6 to 20 digits only.');});
+document.getElementById('accountNumber').addEventListener('input',function(){this.setCustomValidity(/^[0-9]{6,20}$/.test(this.value)?'':'Enter 6 to 20 digits only.');});
+document.getElementById('accountNumber').addEventListener('input',function(){this.setCustomValidity(/^[0-9]{6,20}$/.test(this.value)?'':'Enter 6 to 20 digits only.');});
+document.getElementById('accountNumber').addEventListener('input',function(){this.setCustomValidity(/^[0-9]{6,20}$/.test(this.value)?'':'Enter 6 to 20 digits only.');});
 document.getElementById('paymentForm').addEventListener('submit',e=>{
 e.preventDefault();
 if(!method.value){method.reportValidity();return;}
@@ -93,3 +97,8 @@ location.href='pay.html';
 </script>
 </body>
 </html>
+
+
+
+
+
