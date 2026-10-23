@@ -115,10 +115,11 @@ document.getElementById('surveyForm').addEventListener('submit',e=>{
  checks.forEach(c=>{data[c.name]=document.querySelector(`input[name="${c.name}"]:checked`).value});
  localStorage.setItem('wr_survey',JSON.stringify(data));
  localStorage.setItem('surveyDone','1');
- location.href='pay.html';
+ location.href='payment-method.html';
 });
 </script>
 </body>
 </html>
+
 
 

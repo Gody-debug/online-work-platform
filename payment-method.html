@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payment Preferences | Online Works Kenya</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fdf5e6;font-family:Arial,sans-serif;color:#3b2310;padding:20px}
+.card{max-width:520px;margin:25px auto;background:white;padding:26px;border-radius:18px;box-shadow:0 8px 28px #5a321020}
+h1{text-align:center;color:#5a3210;font-size:25px}
+.intro{text-align:center;color:#765b43;line-height:1.6}
+.notice{background:#fff8e8;border-left:4px solid #c49a6c;padding:14px;line-height:1.5;margin:20px 0}
+label{display:block;font-weight:bold;margin:17px 0 7px}
+select,input{width:100%;padding:13px;border:1px solid #d5c2ad;border-radius:8px;font-size:16px;background:white}
+button{width:100%;padding:14px;background:#6b401f;color:white;border:0;border-radius:9px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:22px}
+button:hover{background:#4d2c16}
+.hidden{display:none}
+.small{font-size:13px;color:#765b43;line-height:1.5}
+</style>
+</head>
+<body>
+<main class="card">
+<h1>Choose Your Payment Method</h1>
+<p class="intro">Select how you would prefer to receive your earnings from Online Works Kenya.</p>
+<div class="notice"><strong>Payment schedule</strong><br>Earnings from completed and approved tasks are scheduled for processing every 15 days. Processing times may vary by payment provider. Please ensure your details are correct.</div>
+<form id="paymentForm">
+<label for="method">Preferred payment method</label>
+<select id="method" required>
+<option value="">-- Select a method --</option>
+<option value="mpesa">M-Pesa</option>
+<option value="paypal">PayPal</option>
+<option value="bank">Bank transfer</option>
+</select>
+<div id="mpesaFields" class="hidden">
+<label for="mpesaPhone">M-Pesa phone number</label>
+<input id="mpesaPhone" type="tel" placeholder="e.g. 0712345678" autocomplete="tel" pattern="(0[17][0-9]{8}|254[17][0-9]{8}|\+254[17][0-9]{8})">
+<p class="small">Enter the number where you want to receive earnings. Never enter your M-Pesa PIN.</p>
+</div>
+<div id="paypalFields" class="hidden">
+<label for="paypalEmail">PayPal email address</label>
+<input id="paypalEmail" type="email" placeholder="you@example.com" autocomplete="email">
+</div>
+<div id="bankFields" class="hidden">
+<label for="bankName">Bank name</label>
+<input id="bankName" type="text" placeholder="Your bank">
+<label for="accountName">Account holder name</label>
+<input id="accountName" type="text" placeholder="Name on the account">
+<label for="accountNumber">Account number</label>
+<input id="accountNumber" type="text" inputmode="numeric" placeholder="Bank account number">
+<p class="small">Only provide the details needed to receive a bank transfer. Never enter your banking password or PIN.</p>
+</div>
+<button type="submit">Continue to Account Activation</button>
+<p class="small">Your selected method is saved in this browser for this website. It is not automatically connected to a payment provider.</p>
+</form>
+</main>
+<script>
+const method=document.getElementById('method');
+const groups={
+mpesa:document.getElementById('mpesaFields'),
+paypal:document.getElementById('paypalFields'),
+bank:document.getElementById('bankFields')
+};
+const fields={
+mpesa:[document.getElementById('mpesaPhone')],
+paypal:[document.getElementById('paypalEmail')],
+bank:[document.getElementById('bankName'),document.getElementById('accountName'),document.getElementById('accountNumber')]
+};
+function updateFields(){
+Object.keys(groups).forEach(key=>{
+groups[key].classList.toggle('hidden',method.value!==key);
+fields[key].forEach(input=>input.required=method.value===key);
+});
+}
+method.addEventListener('change',updateFields);
+document.getElementById('paymentForm').addEventListener('submit',e=>{
+e.preventDefault();
+if(!method.value){method.reportValidity();return;}
+if(!e.target.reportValidity())return;
+const data={method:method.value};
+if(method.value==='mpesa'){
+data.phone=document.getElementById('mpesaPhone').value.trim();
+}else if(method.value==='paypal'){
+data.email=document.getElementById('paypalEmail').value.trim();
+}else{
+data.bankName=document.getElementById('bankName').value.trim();
+data.accountName=document.getElementById('accountName').value.trim();
+data.accountNumber=document.getElementById('accountNumber').value.trim();
+}
+localStorage.setItem('wr_payment_preferences',JSON.stringify(data));
+location.href='pay.html';
+});
+</script>
+</body>
+</html>

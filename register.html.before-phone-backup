@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Register</title>
+<style>
+body{margin:0;background:#fdf5e6;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:Arial}
+.card{background:#fff;width:92%;max-width:420px;padding:30px;border-radius:18px;box-shadow:0 10px 30px rgba(90,50,16,0.15)}
+h2{text-align:center;color:#5a3210;margin:0 0 20px}
+input{width:100%;box-sizing:border-box;padding:14px 16px;margin:10px 0 4px;border:1.5px solid #e8dcc8;background:#fffbf0;border-radius:12px;outline:none}
+input:focus{border-color:#8b5a2b}
+.err{color:#c0392b;font-size:12px;min-height:16px;margin-bottom:4px;display:none}
+.btn-apply{width:100%;padding:14px;background:#8b5a2b;color:#fff;border:none;border-radius:30px;font-size:16px;font-weight:700;cursor:pointer;margin-top:12px;box-shadow:0 4px 12px rgba(139,90,43,0.3)}
+.btn-apply:hover{background:#6f4621}
+.btn-apply:disabled{opacity:0.6}
+</style></head><body>
+<div class="card">
+<h2>Create Account</h2>
+<input id="fullname" placeholder="Full Name"><div id="e1" class="err"></div>
+<input id="email" type="email" placeholder="Email"><div id="e2" class="err"></div>
+<input id="password" type="password" placeholder="Password (min 6)"><div id="e3" class="err"></div>
+<input id="confirm" type="password" placeholder="Confirm Password"><div id="e4" class="err"></div>
+<button class="btn-apply" id="regBtn">Register</button>
+<p style="text-align:center;font-size:14px;margin-top:12px">Already have account? <a href="login.html" style="color:#8b5a2b;font-weight:700">Login</a></p>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, deleteUser } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyDKREClm9YLksiZS10W02eq6_dTmxVgxRI",
+  authDomain: "workremotely-6ad9d.firebaseapp.com",
+  projectId: "workremotely-6ad9d",
+  storageBucket: "workremotely-6ad9d.firebasestorage.app",
+  messagingSenderId: "997970626852",
+  appId: "1:997970626852:web:d51d2b81b13a1795468bb1"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+function show(id,msg){const el=document.getElementById(id);el.textContent=msg;el.style.display="block"}
+function hideAll(){document.querySelectorAll(".err").forEach(e=>e.style.display="none")}
+document.getElementById("regBtn").addEventListener("click", async()=>{
+ hideAll();
+ const name=document.getElementById("fullname").value.trim();
+ const email=document.getElementById("email").value.trim();
+ const pass=document.getElementById("password").value;
+ const conf=document.getElementById("confirm").value;
+ let ok=true;
+ if(!name){show("e1","This field is required");ok=false}
+ if(!email){show("e2","This field is required");ok=false}
+ if(!pass){show("e3","This field is required");ok=false}
+ else if(pass.length<6){show("e3","Password must be at least 6 characters");ok=false}
+ if(!conf){show("e4","This field is required");ok=false}
+ else if(pass!==conf){show("e4","Passwords do not match");ok=false}
+ if(!ok) return;
+ try{
+  document.getElementById("regBtn").disabled=true;
+  document.getElementById("regBtn").textContent="Creating...";
+  const cred=await createUserWithEmailAndPassword(auth,email,pass);
+const response=await fetch("/api/register",{
+ method:"POST",
+ headers:{"Content-Type":"application/json"},
+ body:JSON.stringify({name,email,phone:"",password:pass})
+});
+const result=await response.json();
+if(!response.ok){
+ await deleteUser(cred.user);
+ throw new Error(result.message||"Could not create your account.");
+}
+await setDoc(doc(db,"users",cred.user.uid),{
+ fullName:name,email:email,createdAt:new Date()
+});
+window.location.href="survey.html";
+  window.location.href="survey.html"; setDoc(doc(db,"users",cred.user.uid),{fullName:name,email:email,createdAt:new Date()}).catch(()=>{});
+ }catch(err){if(err.code==="auth/email-already-in-use"){show("e4","Email already registered. Please login.");}else{show("e4",err.message)};document.getElementById("regBtn").disabled=false;document.getElementById("regBtn").textContent="Register"}
+});
+</script><style>
+.password-toggle-wrap {
+  position: relative;
+  width: 100%;
+}
+.password-toggle-wrap input[type="password"],
+.password-toggle-wrap input[type="text"] {
+  padding-right: 48px !important;
+  box-sizing: border-box;
+}
+.password-toggle-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  padding: 6px;
+  border: none;
+  background: transparent;
+  color: #6b401f;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.password-toggle-button svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+</style>
+<script>
+(function () {
+  document.querySelectorAll('input[type="password"]').forEach(function(input) {
+    if (input.parentElement.classList.contains('password-toggle-wrap')) return;
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'password-toggle-wrap';
+    input.parentNode.insertBefore(wrapper, input);
+    wrapper.appendChild(input);
+
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'password-toggle-button';
+    button.setAttribute('aria-label', 'Show password');
+    button.setAttribute('aria-pressed', 'false');
+
+    var eye = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
+    var hiddenEye = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10 10 0 0 1 12 5c6.5 0 10 7 10 7a16 16 0 0 1-4 4.8M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7a10 10 0 0 0 4-.8"/></svg>';
+
+    button.innerHTML = eye;
+    button.addEventListener('click', function() {
+      var showing = input.type === 'password';
+      input.type = showing ? 'text' : 'password';
+      button.innerHTML = showing ? hiddenEye : eye;
+      button.setAttribute('aria-label', showing ? 'Hide password' : 'Show password');
+      button.setAttribute('aria-pressed', String(showing));
+    });
+
+    wrapper.appendChild(button);
+  });
+})();
+</script>
+</body></html>
+
+
+
+

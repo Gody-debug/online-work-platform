@@ -10,3 +10,10 @@ users.json
 *.backup
 *.bak
 *.before-backend-sync
+.env
+.env.*
+!.env.example
+node_modules/
+backend/registrations.json
+backend/mpesa-confirmations.json
+*.backup
