@@ -95,8 +95,77 @@ localStorage.setItem('wr_payment_preferences',JSON.stringify(data));
 location.href='pay.html';
 });
 </script>
+
+<script id="OW_CONTINUE_ACTIVATION_FIX">
+document.addEventListener("DOMContentLoaded", function () {
+    const buttons = Array.from(document.querySelectorAll("button, a, input[type='button'], input[type='submit']"));
+    const continueButton = buttons.find(el =>
+        (el.innerText || el.value || "").trim().toLowerCase().includes("continue to activation")
+    );
+
+    if (!continueButton) {
+        console.error("Continue to Activation button not found.");
+        return;
+    }
+
+    continueButton.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        const selected = document.querySelector(
+            'input[name="paymentMethod"]:checked, input[name="payment-method"]:checked, input[type="radio"]:checked, [data-payment-method].selected, .payment-method.selected, .payment-option.selected'
+        );
+
+        let method = selected ? (
+            selected.value ||
+            selected.dataset.paymentMethod ||
+            selected.closest("[data-payment-method]")?.dataset.paymentMethod ||
+            selected.innerText ||
+            ""
+        ).trim() : "";
+
+        if (!method) {
+            const active = document.querySelector(
+                '[aria-checked="true"], [data-selected="true"], .payment-method.active, .payment-option.active, .selected'
+            );
+            if (active) {
+                method = (
+                    active.dataset.paymentMethod ||
+                    active.innerText ||
+                    active.getAttribute("aria-label") ||
+                    ""
+                ).trim();
+            }
+        }
+
+        if (!method) {
+            alert("Please choose a payment method before continuing.");
+            return;
+        }
+
+        localStorage.setItem("wr_payment_preferences", method);
+        window.location.href = "pay.html";
+    });
+});
+</script>
+
+<script id="activation-navigation-fix">
+document.addEventListener("click", function (event) {
+    const button = event.target.closest("button, input[type='button'], input[type='submit'], a");
+    if (!button) return;
+
+    const label = (button.innerText || button.value || "")
+        .trim()
+        .replace(/\s+/g, " ");
+
+    if (!/continue\s+to\s+activation/i.test(label)) return;
+
+    event.preventDefault();
+    window.location.href = "pay.html";
+});
+</script>
 </body>
 </html>
+
 
 
 
