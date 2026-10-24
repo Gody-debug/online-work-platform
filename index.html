@@ -2532,7 +2532,7 @@ html body footer#footer button[class*="register"] {
         Your next opportunity starts here
       </div>
 
-      <h1>Brighten Your Future by <span>Working Remotely.</span></h1>
+      <h1 class="hero-image-heading"><img src="future-work.png" alt="Brighten Your Future by Working Remotely"></h1>
 
       <p class="hero-copy">
         Discover online work opportunities, explore practical tasks, and build
@@ -2547,13 +2547,8 @@ html body footer#footer button[class*="register"] {
         <a class="btn btn-outline" href="register.html">Create Your Account</a>
       </div>
 
-      <div class="hero-note">
-        
-        .
-      </div>
+      <div class="hero-note"></div>
     </div>
-
-    
   </div>
 </section>
 
@@ -3092,55 +3087,47 @@ html body footer#footer button[class*="register"] {
 
 </main>
 
-<footer class="footer" id="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a class="logo" href="index.html">
-          <span class="logo-mark">OW</span>
-          <span class="logo-text">
-            <strong>ONLINE WORKS KENYA</strong>
-            
-          </span>
-        </a>
-        <p class="footer-description">
-          Explore digital work opportunities and task categories through
-          Online Works Kenya. Review each listing and its terms before applying.
-        </p>
-      </div>
+<footer id="footer" style="background:#241b16;color:#f5eee5;padding:42px 6% 20px;font-family:Arial,sans-serif;">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1200px;margin:0 auto 30px;">
 
-      <div>
-        <h4>Explore</h4>
-        <div class="footer-links">
-          <a href="#new-task-list">Available Tasks</a>
-          <a href="#categories">Work Categories</a>
-          <a href="#how-it-works">How It Works</a>
-          <a href="register.html">Create Account</a>
-        </div>
-      </div>
-
-      <div>
-        <h4>Your Account</h4>
-        <div class="footer-links">
-          <a href="login.html">Log In</a>
-          <a href="register.html">Register</a>
-
-        </div>
-      </div>
-
-      <div>
-        <h4>Information</h4>
-        <div class="footer-links">
-          <a href="about.html">About Us</a>
-          <a href="#footer">Contact</a>
-        </div>
-      </div>
+    <div>
+      <h3 style="color:#d6ad60;font-size:18px;margin:0 0 14px;">About Us</h3>
+      <p style="font-size:14px;line-height:1.8;color:#ded3c8;margin:0 0 12px;">
+        Online Works Kenya is a digital platform designed to connect people with online work opportunities and support the development of practical digital skills.
+      </p>
+      <a href="about.html" style="color:#d6ad60;text-decoration:none;font-size:14px;">Learn More &rarr;</a>
     </div>
 
-    <div class="footer-bottom">
-      <span>&copy; 2026 Online Works Kenya. All rights reserved.</span>
-      <span>Task listings and compensation are subject to applicable terms.</span>
+    <div>
+      <h3 style="color:#d6ad60;font-size:18px;margin:0 0 14px;">Contact</h3>
+      <p style="font-size:14px;line-height:1.8;color:#ded3c8;margin:0 0 12px;">
+        Need assistance with your account, registration, payments, or platform features? Visit our contact page for support information.
+      </p>
+      <a href="contact.html" style="color:#d6ad60;text-decoration:none;font-size:14px;">Contact Our Team &rarr;</a>
     </div>
+
+    <div>
+      <h3 style="color:#d6ad60;font-size:18px;margin:0 0 14px;">Terms of Service</h3>
+      <p style="font-size:14px;line-height:1.8;color:#ded3c8;margin:0 0 12px;">
+        Review the rules governing platform access, account responsibilities, payments, and the use of available services before using the platform.
+      </p>
+      <a href="terms.html" style="color:#d6ad60;text-decoration:none;font-size:14px;">Read Our Terms &rarr;</a>
+    </div>
+
+    <div>
+      <h3 style="color:#d6ad60;font-size:18px;margin:0 0 14px;">Privacy Policy</h3>
+      <p style="font-size:14px;line-height:1.8;color:#ded3c8;margin:0 0 12px;">
+        Learn how personal information may be collected, used, protected, and managed when you register for or use our services.
+      </p>
+      <a href="privacy.html" style="color:#d6ad60;text-decoration:none;font-size:14px;">Read Our Privacy Policy &rarr;</a>
+    </div>
+
+  </div>
+
+  <div style="border-top:1px solid #514238;padding-top:18px;text-align:center;">
+    <p style="font-size:12px;line-height:1.7;color:#cbbcaf;margin:0;">
+      &copy; 2026 Online Works Kenya. All rights reserved.
+    </p>
   </div>
 </footer>
 
@@ -3263,8 +3250,46 @@ document.addEventListener("click", function(event) {
 });
 </script>
 
+<script>
+(() => {
+  const image = document.getElementById("futureImageWrap");
+  if (!image || image.dataset.cursorEffectReady === "true") return;
+
+  image.dataset.cursorEffectReady = "true";
+
+  image.addEventListener("pointermove", (event) => {
+    const rect = image.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const px = (x / rect.width) * 100;
+    const py = (y / rect.height) * 100;
+
+    image.style.setProperty("--pointer-x", `${px}%`);
+    image.style.setProperty("--pointer-y", `${py}%`);
+
+    if (event.pointerType === "mouse") {
+      const tiltX = ((py - 50) / 50) * -2;
+      const tiltY = ((px - 50) / 50) * 2;
+      image.style.transform =
+        `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+    }
+  });
+
+  image.addEventListener("pointerleave", () => {
+    image.style.transform =
+      "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+    image.style.setProperty("--pointer-x", "50%");
+    image.style.setProperty("--pointer-y", "50%");
+  });
+})();
+</script>
 </body>
 </html>
+
+
+
+
+
 
 
 
