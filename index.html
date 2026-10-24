@@ -1,80 +1,3287 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WorkRemotely - Remote Jobs Kenya</title>
+<meta name="theme-color" content="#F8F3EB">
+<meta name="description" content="Explore remote work opportunities in Kenya with Online Works Kenya. Discover transcription, data entry, writing and other online tasks.">
+<title>Online Works Kenya | Remote Work Opportunities</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',system-ui,sans-serif}
-body{background:#faf8f5;color:#2d241e;line-height:1.6}
-.header{background:#ffffff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.06);position:sticky;top:0;z-index:20}
-.logo{font-weight:800;color:#5c3d2e;font-size:21px}
-.nav{display:flex;gap:20px;align-items:center}
-.nav a{font-size:13.5px;color:#6b5a4f;text-decoration:none;font-weight:600;cursor:pointer}
-.btn{padding:8px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;border:none}
-.btn-outline{background:#ffffff;border:1px solid #d6c7b8;color:#5c3d2e}
-.btn-primary{background:#8b5e3c;color:#ffffff}
-.hero{position:relative;height:420px;overflow:hidden;background:#2d241e}
-.hero img{width:100%;height:100%;object-fit:cover;opacity:0.75}
-.hero-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#ffffff;padding:30px;background:linear-gradient(180deg, rgba(45,36,30,.2), rgba(45,36,30,.85))}
-.hero-overlay h1{font-size:42px;font-weight:800;max-width:720px;line-height:1.1;margin-bottom:12px}
-.hero-overlay p{font-size:15px;color:#e8ddd3}
-.container{max-width:1120px;margin:0 auto;padding:24px}
-.section-head{display:flex;justify-content:space-between;align-items:center;margin:32px 0 16px}
-.section-head h2{font-size:22px;font-weight:700;color:#2d241e}
-.jobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
-.job-card{background:#ffffff;border:1px solid #e8ddd3;border-radius:14px;padding:22px;position:relative;transition:.2s}
-.job-card:hover{box-shadow:0 8px 28px rgba(92,61,46,.08);border-color:#d6c7b8;transform:translateY(-2px)}
-.job-card h3{font-size:15px;font-weight:700;color:#2d241e;margin-bottom:6px}
-.job-card p{font-size:13px;color:#6b5a4f;line-height:1.6;min-height:44px;margin-bottom:14px}
-.job-meta{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #f3ece4}
-.amount{font-weight:700;color:#5c3d2e;font-size:13.5px}
-.badge-available{background:#f0e6d8;color:#5c3d2e;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;position:absolute;top:14px;right:14px;border:1px solid #e8ddd3}
-.apply-btn{background:#8b5e3c;color:#ffffff;border:none;padding:8px 18px;border-radius:8px;font-weight:600;cursor:pointer;font-size:13px;transition:.15s}
-.apply-btn:hover{background:#6f4b30}
-.footer{background:#2d241e;color:#c9b8a8;margin-top:60px;padding:44px 24px 20px}
-.footer-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px}
-.footer h4{color:#ffffff;font-size:13px;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.6px}
-.footer p{font-size:13px;color:#a08f7e;line-height:1.9}
-.footer-bottom{max-width:1120px;margin:32px auto 0;padding-top:20px;border-top:1px solid #3d2f26;text-align:center;font-size:12px;color:#8a7a6b}
+:root {
+  --brown: #5D4037;
+  --brown-dark: #3E2723;
+  --brown-light: #806052;
+  --cream: #FFF8E1;
+  --gold: #C9A227;
+  --gold-light: #F5E7B2;
+  --white: #FFFFFF;
+  --text: #342722;
+  --muted: #756760;
+  --border: #E8DED0;
+  --green: #287653;
+  --shadow: 0 12px 35px rgba(62,39,35,.07);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background: #FFFCF7;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input {
+  font: inherit;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  width: min(1160px, calc(100% - 40px));
+  margin: auto;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  background: var(--brown);
+  color: white;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 850;
+  letter-spacing: -1px;
+}
+
+.logo-text strong {
+  display: block;
+  color: var(--brown-dark);
+  font-size: 17px;
+  line-height: 1.25;
+  letter-spacing: -.5px;
+}
+
+.logo-text span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 29px;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 650;
+  color: #554740;
+  transition: color .2s;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  min-height: 43px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 13px;
+  font-weight: 750;
+  transition: transform .2s, background .2s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  color: var(--brown);
+  background: white;
+  border-color: #D9C9BB;
+}
+
+.btn-outline:hover {
+  background: var(--cream);
+}
+
+.btn-primary {
+  background: var(--brown);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--brown-dark);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--brown-dark);
+}
+
+.btn-gold:hover {
+  background: #D9B83C;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+  padding: 80px 0 74px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 490px;
+  height: 490px;
+  border-radius: 50%;
+  background: rgba(201,162,39,.12);
+  right: -110px;
+  top: -190px;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 1px solid rgba(93,64,55,.13);
+  right: 90px;
+  bottom: -180px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--brown);
+  background: rgba(255,255,255,.8);
+  border: 1px solid #E9DCC0;
+  padding: 7px 12px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .65px;
+  text-transform: uppercase;
+}
+
+.eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--green);
+  border-radius: 50%;
+}
+
+.hero h1 {
+  max-width: 640px;
+  font-size: clamp(39px, 5vw, 61px);
+  line-height: 1.08;
+  letter-spacing: -2.6px;
+  color: var(--brown-dark);
+  margin: 23px 0 19px;
+}
+
+.hero h1 span {
+  color: var(--brown-light);
+}
+
+.hero-copy {
+  max-width: 520px;
+  color: #6F5E54;
+  font-size: 15px;
+  line-height: 1.9;
+  margin-bottom: 27px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.hero-actions .btn {
+  min-height: 49px;
+  padding: 13px 21px;
+}
+
+.hero-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.check-mark {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #E4EFE6;
+  color: var(--green);
+  font-weight: 800;
+}
+
+.hero-visual {
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.visual-panel {
+  width: 100%;
+  max-width: 430px;
+  background: white;
+  border: 1px solid rgba(93,64,55,.1);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 25px 70px rgba(62,39,35,.12);
+  transform: rotate(1deg);
+}
+
+.panel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 19px;
+  border-bottom: 1px solid #F0E8DF;
+}
+
+.panel-title {
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--brown-dark);
+}
+
+.panel-subtitle {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.panel-label {
+  font-size: 10px;
+  font-weight: 750;
+  color: var(--green);
+  background: #E8F3EA;
+  border-radius: 5px;
+  padding: 6px 8px;
+}
+
+.preview-task {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 16px 0;
+  border-bottom: 1px solid #F3ECE4;
+}
+
+.task-icon {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: var(--cream);
+  color: var(--brown);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.task-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-info strong {
+  display: block;
+  font-size: 12px;
+  color: var(--brown-dark);
+}
+
+.task-info span {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.task-price {
+  font-size: 12px;
+  font-weight: 850;
+  color: var(--brown);
+  white-space: nowrap;
+}
+
+.panel-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 18px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.panel-bottom strong {
+  color: var(--brown);
+}
+
+.floating-note {
+  position: absolute;
+  right: -8px;
+  bottom: 20px;
+  padding: 15px 18px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  transform: rotate(-2deg);
+}
+
+.floating-note strong {
+  display: block;
+  color: var(--brown);
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+.stats-strip {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.stat {
+  padding: 24px 15px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+
+.stat:last-child {
+  border-right: 0;
+}
+
+.stat strong {
+  display: block;
+  font-size: 19px;
+  color: var(--brown);
+  letter-spacing: -.4px;
+}
+
+.stat span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.section {
+  padding: 75px 0;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 28px;
+}
+
+.section-kicker {
+  color: #96741D;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 850;
+  margin-bottom: 9px;
+}
+
+.section-heading h2 {
+  color: var(--brown-dark);
+  font-size: clamp(26px, 3.5vw, 36px);
+  line-height: 1.2;
+  letter-spacing: -1.1px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 9px;
+}
+
+.text-link {
+  color: var(--brown);
+  font-weight: 800;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.category-section {
+  background: white;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.category-card {
+  padding: 22px 18px;
+  background: #FFFCF7;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: .2s;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+}
+
+.category-card:hover,
+.category-card.active {
+  border-color: var(--gold);
+  background: var(--cream);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(93,64,55,.06);
+}
+
+.category-symbol {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  background: #F0E5D5;
+  color: var(--brown);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 850;
+  margin-bottom: 16px;
+}
+
+.category-card strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.category-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.jobs-section {
+  background: #FFFCF7;
+}
+
+.jobs-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 23px;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 230px;
+  max-width: 440px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1px solid #DDD0C1;
+  border-radius: 9px;
+  padding: 0 13px;
+}
+
+.search-symbol {
+  font-size: 19px;
+  color: var(--brown-light);
+}
+
+.search-box input {
+  width: 100%;
+  min-height: 45px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.result-count {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.jobs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.job-card {
+  display: flex;
+  flex-direction: column;
+  padding: 21px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  min-width: 0;
+  transition: .2s;
+}
+
+.job-card:hover {
+  transform: translateY(-3px);
+  border-color: #D7BE82;
+  box-shadow: var(--shadow);
+}
+
+.job-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.job-symbol {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: var(--cream);
+  color: var(--brown);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.job-status {
+  font-size: 10px;
+  color: var(--green);
+  background: #E9F3EA;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-weight: 800;
+}
+
+.job-card h3 {
+  color: var(--brown-dark);
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.job-card p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  flex: 1;
+  margin-bottom: 17px;
+}
+
+.job-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 17px;
+}
+
+.job-tags span {
+  background: #F5F0E9;
+  color: #6B5548;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-size: 10px;
+}
+
+.job-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 15px;
+  border-top: 1px solid #F0E8DF;
+}
+
+.amount {
+  color: var(--brown);
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.amount small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.apply-btn {
+  border: 0;
+  border-radius: 7px;
+  background: var(--brown);
+  color: white;
+  font-size: 11px;
+  font-weight: 750;
+  padding: 10px 13px;
+  white-space: nowrap;
+}
+
+.apply-btn:hover {
+  background: var(--brown-dark);
+}
+
+.no-results {
+  display: none;
+  padding: 35px;
+  text-align: center;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.process-section {
+  background: white;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.step {
+  position: relative;
+  padding: 24px 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #FFFCF7;
+}
+
+.step-number {
+  display: grid;
+  place-items: center;
+  width: 37px;
+  height: 37px;
+  background: var(--brown);
+  color: white;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 850;
+  margin-bottom: 18px;
+}
+
+.step h3 {
+  font-size: 14px;
+  color: var(--brown-dark);
+  margin-bottom: 8px;
+}
+
+.step p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.fee-section {
+  padding: 0 0 75px;
+  background: white;
+}
+
+.fee-box {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 30px;
+  background: var(--brown-dark);
+  color: white;
+  padding: 34px 38px;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+}
+
+.fee-box::after {
+  content: "";
+  position: absolute;
+  width: 210px;
+  height: 210px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50%;
+  right: 130px;
+  top: -125px;
+  pointer-events: none;
+}
+
+.fee-box h2 {
+  font-size: 25px;
+  line-height: 1.3;
+  margin-bottom: 9px;
+}
+
+.fee-box p {
+  max-width: 570px;
+  color: #E2D5CB;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.fee-action {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  min-width: 175px;
+}
+
+.fee-price {
+  display: block;
+  font-size: 30px;
+  font-weight: 850;
+  margin-bottom: 12px;
+}
+
+.fee-price small {
+  display: block;
+  color: #E2D5CB;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.footer {
+  background: #2E211D;
+  color: white;
+  padding: 53px 0 20px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 35px;
+  padding-bottom: 35px;
+}
+
+.footer-brand {
+  max-width: 300px;
+}
+
+.footer .logo-text strong {
+  color: white;
+}
+
+.footer .logo-text span {
+  color: #C8B9AE;
+}
+
+.footer-description {
+  color: #C8B9AE;
+  font-size: 12px;
+  line-height: 1.9;
+  margin-top: 17px;
+}
+
+.footer h4 {
+  font-size: 12px;
+  margin-bottom: 17px;
+  color: #F0DFA6;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.footer-links a {
+  color: #D0C4BD;
+  font-size: 12px;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: 19px;
+  color: #C8B9AE;
+  font-size: 10px;
+}
+
+@media (max-width: 950px) {
+  .nav-links {
+    gap: 15px;
+  }
+
+  .hero-grid {
+    gap: 30px;
+  }
+
+  .hero h1 {
+    font-size: 46px;
+  }
+
+  .categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .jobs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .container {
+    width: min(100% - 30px, 1160px);
+  }
+
+  .navbar {
+    min-height: 69px;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 12px 0;
+  }
+
+  .logo-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .logo-text strong {
+    font-size: 14px;
+  }
+
+  .logo-text span {
+    font-size: 10px;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-links a {
+    font-size: 11px;
+  }
+
+  .nav-actions {
+    gap: 6px;
+  }
+
+  .nav-actions .btn {
+    padding: 8px 11px;
+    min-height: 36px;
+    font-size: 11px;
+  }
+
+  .hero {
+    padding: 53px 0 38px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .hero h1 {
+    font-size: clamp(37px, 10vw, 48px);
+    letter-spacing: -1.7px;
+  }
+
+  .hero-copy {
+    font-size: 13px;
+  }
+
+  .hero-visual {
+    min-height: 335px;
+    padding: 10px 5px 22px;
+  }
+
+  .visual-panel {
+    padding: 18px;
+  }
+
+  .floating-note {
+    right: 0;
+    bottom: 0;
+  }
+
+  .stat {
+    padding: 19px 7px;
+  }
+
+  .stat strong {
+    font-size: 15px;
+  }
+
+  .stat span {
+    font-size: 10px;
+  }
+
+  .section {
+    padding: 52px 0;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .categories {
+    gap: 10px;
+  }
+
+  .category-card {
+    padding: 16px 13px;
+  }
+
+  .jobs {
+    grid-template-columns: 1fr;
+  }
+
+  .search-box {
+    max-width: none;
+    min-width: 100%;
+  }
+
+  .jobs-toolbar {
+    align-items: stretch;
+  }
+
+  .steps {
+    gap: 12px;
+  }
+
+  .step {
+    padding: 17px 13px;
+  }
+
+  .step h3 {
+    font-size: 12px;
+  }
+
+  .step p {
+    font-size: 11px;
+  }
+
+  .fee-section {
+    padding-bottom: 48px;
+  }
+
+  .fee-box {
+    grid-template-columns: 1fr;
+    padding: 27px 22px;
+    gap: 20px;
+  }
+
+  .fee-box h2 {
+    font-size: 22px;
+  }
+
+  .fee-action {
+    text-align: left;
+  }
+
+  .footer-grid {
+    gap: 28px 18px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 370px) {
+  .logo-text strong {
+    font-size: 12px;
+  }
+
+  .nav-actions .btn {
+    padding: 7px 8px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Online Works Kenya ? light cream and warm brown theme */
+:root {
+  --brown: #96745A;
+  --brown-dark: #70543F;
+  --brown-light: #C4A98E;
+  --cream: #F8F3EB;
+  --gold: #D9B978;
+  --gold-light: #F1E6D2;
+  --white: #FFFFFF;
+  --text: #40372F;
+  --muted: #786E64;
+  --border: #E8DED1;
+  --green: #287653;
+  --shadow: 0 10px 28px rgba(112,84,63,.07);
+}
+body {
+  background: #FFFCF7;
+  color: var(--text);
+}
+nav, .navbar {
+  background: #FFFCF7 !important;
+  color: var(--text) !important;
+  border-bottom: 1px solid var(--border);
+}
+nav a, .navbar a, .nav-links a {
+  color: var(--text) !important;
+}
+.hero {
+  background: var(--cream);
+}
+.step-number {
+  background: #F0E5D5 !important;
+  color: #80664E !important;
+  border: 1px solid #E5D5C2;
+  border-radius: 50% !important;
+}
+.cta-section, .cta-banner {
+  background: #F1E7D9 !important;
+  color: var(--text) !important;
+}
+.footer {
+  background: #F4EBDD !important;
+  color: var(--text) !important;
+  border-top: 1px solid var(--border);
+}
+.footer a, .footer h4, .footer p,
+.footer .logo-text span, .footer-description,
+.footer-links a, .footer-bottom {
+  color: #665547 !important;
+}
+.job-card {
+  background: #FFFFFF;
+  border: 1px solid #E8DED1;
+  border-top: 3px solid #D9B978;
+  box-shadow: 0 5px 18px rgba(112,84,63,.04);
+}
+.job-card h3 {
+  color: #70543F;
+}
+
+/* Light cream task-list styling */
+
+/* Clean, light task list */
+.new-task-section { background: #FFFCF7; }
+.new-task-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 28px;
+}
+.new-task-row {
+  padding: 22px 8px;
+  border-bottom: 1px solid #E8DED1;
+}
+.new-task-row:hover { background: #FBF7F0; }
+.new-task-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.new-task-info { flex: 1; min-width: 0; }
+.new-task-info h3 {
+  margin: 0 0 5px;
+  color: #70543F;
+  font-size: 17px;
+  font-weight: 650;
+}
+.new-task-info p {
+  margin: 0 0 8px;
+  color: #786E64;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.new-task-toggle {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #896C4E;
+  font-size: 12px;
+  font-weight: 650;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.new-task-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.new-task-actions strong {
+  color: #70543F;
+  font-size: 16px;
+  white-space: nowrap;
+}
+.new-task-apply {
+  display: inline-block;
+  padding: 9px 22px;
+  border-radius: 6px;
+  background: #96745A;
+  color: white;
+  font-size: 12px;
+  text-decoration: none;
+}
+.new-task-apply:hover { background: #806047; }
+.new-task-details {
+  margin-top: 15px;
+  padding: 15px 18px;
+  border-radius: 8px;
+  background: #F8F3EB;
+  color: #665547;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.new-task-details p { margin: 0 0 8px; }
+.new-task-details p:last-child { margin-bottom: 0; }
+.new-task-note {
+  margin-top: 22px;
+  color: #786E64;
+  font-size: 12px;
+}
+@media(max-width:600px) {
+  .new-task-row { padding: 18px 2px; }
+  .new-task-main { align-items: flex-start; gap: 12px; }
+  .new-task-info h3 { font-size: 15px; }
+  .new-task-info p { font-size: 12px; }
+  .new-task-actions { gap: 10px; }
+  .new-task-actions strong { font-size: 13px; }
+  .new-task-apply { padding: 8px 13px; }
+}
+
+
+/* professional-next-steps-icon */
+.next-steps-icon-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin: 12px 0;
+  border: 1px solid #d8c5a6;
+  border-radius: 50%;
+  background: #fffaf2;
+  color: #5D4037;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease, border-color .2s ease;
+}
+.next-steps-icon-toggle:hover {
+  background: #efe3d0;
+  border-color: #b89a68;
+}
+.next-steps-icon-toggle:focus-visible {
+  outline: 3px solid #c9a96e;
+  outline-offset: 3px;
+}
+.next-steps-icon-toggle svg {
+  transition: transform .2s ease;
+}
+.next-steps-icon-toggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+#next-steps-content[hidden] {
+  display: none !important;
+}
+/* end professional-next-steps-icon */
+
+/* BLACK AND WHITE WEBSITE THEME */
+:root {
+  --brown: #000000 !important;
+  --cream: #FFFFFF !important;
+  --gold: #000000 !important;
+  --background: #FFFFFF !important;
+  --text: #000000 !important;
+  --muted: #555555 !important;
+  --border: #D6D6D6 !important;
+}
+
+html {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+}
+
+body {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+}
+
+header, nav, .navbar, .header, .site-header {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #D6D6D6 !important;
+}
+
+section, main, .container, .section,
+.category-section, .process-section, .steps,
+.categories, .new-task-list, .new-task-row,
+.category-card, .step, .fee-box, .dashboard-card {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #D6D6D6 !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, strong, label, li {
+  color: #000000;
+}
+
+a, .text-link {
+  color: #000000 !important;
+}
+
+button, .btn, input[type="submit"] {
+  background: #000000 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #000000 !important;
+}
+
+button:hover, .btn:hover, input[type="submit"]:hover {
+  background: #333333 !important;
+  color: #FFFFFF !important;
+}
+
+input, select, textarea {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #999999 !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #666666 !important;
+}
+
+.footer, footer {
+  background: #000000 !important;
+  color: #FFFFFF !important;
+  border-color: #000000 !important;
+}
+
+.footer h1, .footer h2, .footer h3, .footer h4,
+.footer p, .footer span, .footer a,
+footer h1, footer h2, footer h3, footer h4,
+footer p, footer span, footer a {
+  color: #FFFFFF !important;
+}
+
+.new-task-details, #next-steps-content {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #D6D6D6 !important;
+}
+
+.category-card:hover, .new-task-row:hover {
+  border-color: #000000 !important;
+}
+
+.logo-mark {
+  background: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+.next-steps-icon-toggle {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+}
+
+.next-steps-icon-toggle:hover {
+  background: #EAEAEA !important;
+  color: #000000 !important;
+}
+
+img {
+  border-color: #D6D6D6;
+}
+/* END BLACK AND WHITE WEBSITE THEME */
+
+
+/* BLACK, WHITE, CREAM AND FAINT BROWN THEME */
+:root {
+  --brown: #6F5B50;
+  --cream: #F8F4ED;
+  --gold: #C8B49A;
+  --background: #F8F4ED;
+  --text: #171513;
+  --muted: #6F675F;
+  --border: #E3D8CB;
+}
+
+html, body {
+  background-color: #F8F4ED !important;
+  color: #171513 !important;
+}
+
+body {
+  background-image: none !important;
+}
+
+header, nav, .navbar, .header, .site-header {
+  background-color: #F8F4ED !important;
+  color: #171513 !important;
+  border-color: #E3D8CB !important;
+}
+
+section, main, .section, .container,
+.category-section, .process-section, .steps,
+.categories, .new-task-list, .new-task-row,
+.category-card, .step, .fee-box, .dashboard-card,
+.new-task-details {
+  color: #171513;
+  border-color: #E3D8CB;
+}
+
+.category-card, .step, .new-task-row, .fee-box,
+.dashboard-card, .new-task-details {
+  background-color: #FFFCF7 !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, strong, label, li {
+  color: #171513;
+}
+
+.section-kicker, .new-task-note, .muted,
+small, .footer-description {
+  color: #6F675F;
+}
+
+a, .text-link {
+  color: #4D3F36;
+}
+
+button, .btn, input[type="submit"] {
+  background-color: #171513;
+  color: #FFFFFF;
+  border-color: #171513;
+}
+
+button:hover, .btn:hover, input[type="submit"]:hover {
+  background-color: #51443B;
+  color: #FFFFFF;
+}
+
+input, select, textarea {
+  background-color: #FFFFFF;
+  color: #171513;
+  border-color: #CDBEAE;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #766C63;
+}
+
+/* Keep every icon visible against cream and white surfaces. */
+svg, svg path, svg circle, svg line, svg polyline,
+svg rect, svg polygon {
+  stroke: currentColor;
+}
+
+.category-symbol, .category-symbol *,
+.icon, .icon *,
+i[class*="icon"], [class*="icon"] svg {
+  color: #51443B;
+}
+
+.logo-mark {
+  background-color: #171513 !important;
+  color: #FFFFFF !important;
+}
+
+.footer, footer {
+  background-color: #211D1A !important;
+  color: #FFFFFF !important;
+  border-color: #211D1A !important;
+}
+
+.footer h1, .footer h2, .footer h3, .footer h4,
+.footer p, .footer span, .footer a,
+footer h1, footer h2, footer h3, footer h4,
+footer p, footer span, footer a {
+  color: #FFFFFF;
+}
+
+.next-steps-icon-toggle {
+  background-color: #F8F4ED !important;
+  color: #51443B !important;
+  border: 1px solid #CDBEAE !important;
+}
+
+.next-steps-icon-toggle:hover {
+  background-color: #EDE3D7 !important;
+  color: #171513 !important;
+}
+
+.new-task-toggle {
+  background-color: #51443B;
+  color: #FFFFFF;
+}
+
+[hidden] {
+  display: none !important;
+}
+/* END BLACK, WHITE, CREAM AND FAINT BROWN THEME */
+
+
+/* READABLE CREAM, BLACK AND SOFT BROWN THEME */
+html, body {
+  background: #F8F4ED !important;
+  color: #211D1A !important;
+}
+
+body {
+  -webkit-text-fill-color: #211D1A;
+}
+
+h1, h2, h3, h4, h5, h6,
+p, li, label, strong, b, td, th,
+legend, summary, figcaption {
+  color: #211D1A;
+  -webkit-text-fill-color: currentColor;
+}
+
+section, main, .section, .container {
+  color: #211D1A;
+}
+
+.category-card, .step, .new-task-row,
+.new-task-details, .fee-box, .dashboard-card,
+table, thead, tbody, tr, td, th {
+  color: #211D1A;
+  border-color: #D8C9B8;
+}
+
+.category-card, .step, .new-task-row,
+.new-task-details, .fee-box, .dashboard-card {
+  background-color: #FFFCF7;
+}
+
+a, .text-link, .footer-links a {
+  color: #514034;
+  -webkit-text-fill-color: currentColor;
+}
+
+button, .btn, input[type="submit"],
+input[type="button"] {
+  background-color: #211D1A;
+  color: #FFFFFF;
+  -webkit-text-fill-color: #FFFFFF;
+  border-color: #211D1A;
+}
+
+input, select, textarea {
+  background-color: #FFFFFF;
+  color: #211D1A;
+  -webkit-text-fill-color: #211D1A;
+  border: 1px solid #BDAA96;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #6F6257;
+  -webkit-text-fill-color: #6F6257;
+  opacity: 1;
+}
+
+/* Make icons visible without forcing every SVG to use the same fill. */
+svg {
+  color: inherit;
+}
+
+button svg, a svg, .category-symbol,
+.icon, [class*="icon"] {
+  color: #514034;
+}
+
+button svg, .btn svg {
+  color: inherit;
+}
+
+/* Keep footer text readable on the dark footer. */
+footer, .footer {
+  background-color: #211D1A;
+  color: #FFFFFF;
+}
+
+footer h1, footer h2, footer h3, footer h4,
+footer p, footer span, footer a,
+.footer h1, .footer h2, .footer h3, .footer h4,
+.footer p, .footer span, .footer a {
+  color: #FFFFFF;
+  -webkit-text-fill-color: #FFFFFF;
+}
+
+/* Restore visibility of bottom tables and their wrappers. */
+table {
+  display: table !important;
+  width: 100%;
+  border-collapse: collapse;
+  background: #FFFCF7;
+}
+
+thead {
+  display: table-header-group !important;
+}
+
+tbody {
+  display: table-row-group !important;
+}
+
+tr {
+  display: table-row !important;
+}
+
+th, td {
+  display: table-cell !important;
+  padding: 10px;
+  border: 1px solid #D8C9B8;
+  background-color: #FFFCF7;
+  color: #211D1A;
+  text-align: left;
+}
+
+th {
+  background-color: #EDE3D7;
+  font-weight: 700;
+}
+
+table caption {
+  color: #211D1A;
+}
+
+[hidden] {
+  display: none !important;
+}
+/* END READABILITY FIX */
+
+
+/* CREAM, WHITE AND GREY THEME */
+:root {
+  --brown: #555555;
+  --brown-dark: #333333;
+  --brown-light: #777777;
+  --cream: #F5F3EE;
+  --gold: #B7B7B7;
+  --gold-light: #E8E8E8;
+  --white: #FFFFFF;
+  --text: #333333;
+  --muted: #777777;
+  --border: #E2E0DB;
+  --shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+html, body {
+  background: #F5F3EE !important;
+  color: #333333 !important;
+}
+
+.header, .navbar {
+  background-color: #FFFFFF;
+}
+
+.hero, .section, .fee-section {
+  background-color: #F5F3EE;
+}
+
+.category-card, .job-card, .step, .fee-box {
+  background-color: #FFFFFF !important;
+  border-color: #E2E0DB !important;
+}
+
+.btn-primary, .logo-mark {
+  background-color: #555555 !important;
+  color: #FFFFFF !important;
+}
+
+.btn-gold {
+  background-color: #DADADA !important;
+  color: #333333 !important;
+  border-color: #DADADA !important;
+}
+
+.btn-outline {
+  border-color: #BDBDBD !important;
+  color: #444444 !important;
+}
+
+/* FOOTER VISIBILITY AND COLOUR FIX */
+html body footer#footer {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  clear: both !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 180px;
+  overflow: visible !important;
+  background: #E8E6E1 !important;
+  color: #333333 !important;
+  border-top: 1px solid #D5D3CE;
+  padding: 45px 0 20px;
+}
+
+html body footer#footer .footer-grid {
+  display: grid !important;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 35px;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+html body footer#footer .footer-bottom {
+  display: flex !important;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid #D0CEC8;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+html body footer#footer h4,
+html body footer#footer p,
+html body footer#footer a,
+html body footer#footer span {
+  color: #444444 !important;
+  -webkit-text-fill-color: #444444 !important;
+}
+
+html body footer#footer a:hover {
+  color: #111111 !important;
+  -webkit-text-fill-color: #111111 !important;
+}
+
+@media (max-width: 768px) {
+  html body footer#footer .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  html body footer#footer .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* END CREAM, WHITE AND GREY THEME */
+
+
+/* FINAL CREAM, WHITE AND GREY COLOUR THEME */
+:root {
+  --brown: #F3F0E9;
+  --brown-dark: #E9E6DF;
+  --brown-light: #E5E2DB;
+  --cream: #F5F3EE;
+  --gold: #D5D5D5;
+  --gold-light: #EEEEEE;
+  --white: #FFFFFF;
+  --text: #505050;
+  --muted: #777777;
+  --border: #DEDEDE;
+  --shadow: 0 8px 25px rgba(0,0,0,0.045);
+}
+
+html body {
+  background: #F5F3EE !important;
+  color: #505050 !important;
+}
+
+.header {
+  background: #FFFFFF !important;
+  border-color: #E0E0E0 !important;
+}
+
+.hero,
+.section,
+.fee-section {
+  background-color: #F5F3EE !important;
+}
+
+h1, h2, h3, h4, p, label {
+  color: #505050;
+}
+
+.logo-mark,
+.btn-primary,
+.btn-gold,
+.btn-outline,
+.category-card .icon,
+.job-symbol,
+.step-number {
+  background-color: #E6E3DC !important;
+  color: #505050 !important;
+  border-color: #D5D2CB !important;
+  box-shadow: none !important;
+}
+
+.logo-text strong,
+.hero h1 span,
+.section-heading h2 span,
+.eyebrow,
+.stat strong {
+  color: #777777 !important;
+}
+
+.category-card,
+.job-card,
+.step,
+.fee-box,
+.search-box,
+.stat {
+  background: #FFFFFF !important;
+  border-color: #E0E0E0 !important;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.035) !important;
+}
+
+/* APPLY AND VIEW DETAILS BUTTONS */
+a.btn,
+button.btn,
+a[class*="apply"],
+button[class*="apply"],
+a[class*="details"],
+button[class*="details"],
+.job-card a,
+.job-card button {
+  background-color: #D6D6D6 !important;
+  color: #4D4D4D !important;
+  border-color: #C8C8C8 !important;
+  -webkit-text-fill-color: #4D4D4D !important;
+  box-shadow: none !important;
+}
+
+a.btn:hover,
+button.btn:hover,
+a[class*="apply"]:hover,
+button[class*="apply"]:hover,
+a[class*="details"]:hover,
+button[class*="details"]:hover,
+.job-card a:hover,
+.job-card button:hover {
+  background-color: #BDBDBD !important;
+  color: #333333 !important;
+  -webkit-text-fill-color: #333333 !important;
+}
+
+/* ENCLOSED FOOTER PANEL */
+html body footer#footer {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: auto !important;
+  position: relative !important;
+  clear: both !important;
+  overflow: visible !important;
+  background: #EAE8E2 !important;
+  color: #555555 !important;
+  border-top: 1px solid #D5D3CD !important;
+  padding: 40px 0 25px !important;
+}
+
+footer#footer > .container {
+  width: min(1160px, calc(100% - 32px)) !important;
+  padding: 28px !important;
+  background: #F8F7F3 !important;
+  border: 1px solid #D5D5D0 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.04) !important;
+}
+
+html body footer#footer .footer-grid {
+  display: grid !important;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr !important;
+  gap: 24px !important;
+  align-items: start !important;
+}
+
+html body footer#footer .footer-grid > div {
+  min-width: 0;
+  padding: 8px 12px;
+}
+
+html body footer#footer .footer-grid > div + div {
+  border-left: 1px solid #DDDDD7;
+}
+
+html body footer#footer h4 {
+  color: #444444 !important;
+  -webkit-text-fill-color: #444444 !important;
+  margin-bottom: 14px;
+}
+
+html body footer#footer p,
+html body footer#footer a,
+html body footer#footer span {
+  color: #666666 !important;
+  -webkit-text-fill-color: #666666 !important;
+}
+
+html body footer#footer a:hover {
+  color: #333333 !important;
+  -webkit-text-fill-color: #333333 !important;
+}
+
+html body footer#footer .footer-bottom {
+  display: flex !important;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+  padding-top: 18px;
+  border-top: 1px solid #D8D8D2;
+}
+
+@media (max-width: 768px) {
+  html body footer#footer .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body footer#footer .footer-grid > div + div {
+    border-left: none;
+  }
+}
+
+@media (max-width: 480px) {
+  footer#footer > .container {
+    padding: 16px !important;
+  }
+
+  html body footer#footer .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body footer#footer .footer-grid > div {
+    border-bottom: 1px solid #DDDDD7;
+    padding: 15px 5px;
+  }
+
+  html body footer#footer .footer-bottom {
+    flex-direction: column;
+  }
+}
+/* END FINAL CREAM, WHITE AND GREY THEME */
+
+
+/* WARM WHITE, CREAM AND SOFT BROWN THEME */
+:root {
+  --brown: #8B7565;
+  --brown-dark: #665347;
+  --brown-light: #B5A292;
+  --cream: #F7F1E8;
+  --gold: #D8C5A3;
+  --gold-light: #EEE3D1;
+  --white: #FFFFFF;
+  --text: #49433F;
+  --muted: #81766E;
+  --border: #E8DED2;
+  --shadow: 0 8px 25px rgba(80,60,45,0.05);
+}
+
+html body {
+  background: #F8F5EF !important;
+  color: #49433F !important;
+}
+
+.header {
+  background: #FFFFFF !important;
+  border-color: #E8DED2 !important;
+}
+
+.hero,
+.section,
+.fee-section {
+  background-color: #F8F5EF !important;
+}
+
+h1, h2, h3, h4, p, label {
+  color: #49433F;
+}
+
+.logo-mark {
+  background: #8B7565 !important;
+  color: #FFFFFF !important;
+}
+
+.logo-text strong {
+  color: #665347 !important;
+}
+
+.category-card,
+.job-card,
+.step,
+.fee-box,
+.search-box,
+.stat {
+  background: #FFFFFF !important;
+  border-color: #E8DED2 !important;
+  box-shadow: 0 5px 18px rgba(80,60,45,0.035) !important;
+}
+
+/* Keep task action buttons grey */
+a[class*="apply"],
+button[class*="apply"],
+a[class*="details"],
+button[class*="details"],
+.job-card a,
+.job-card button {
+  background-color: #E2E2E2 !important;
+  color: #4F4F4F !important;
+  border-color: #D2D2D2 !important;
+  -webkit-text-fill-color: #4F4F4F !important;
+  box-shadow: none !important;
+}
+
+a[class*="apply"]:hover,
+button[class*="apply"]:hover,
+a[class*="details"]:hover,
+button[class*="details"]:hover,
+.job-card a:hover,
+.job-card button:hover {
+  background-color: #CDCDCD !important;
+}
+
+/* Soft cream footer with enclosed columns */
+html body footer#footer {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  width: 100% !important;
+  height: auto !important;
+  clear: both !important;
+  overflow: visible !important;
+  background: #F0E8DC !important;
+  color: #49433F !important;
+  border-top: 1px solid #E1D5C7 !important;
+  padding: 40px 0 25px !important;
+}
+
+html body footer#footer > .container {
+  width: min(1160px, calc(100% - 32px)) !important;
+  padding: 28px !important;
+  background: #FFFEFC !important;
+  border: 1px solid #E3D8CA !important;
+  border-radius: 14px !important;
+  box-shadow: 0 5px 20px rgba(80,60,45,0.04) !important;
+}
+
+html body footer#footer .footer-grid {
+  display: grid !important;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr !important;
+  gap: 24px !important;
+  align-items: start !important;
+}
+
+html body footer#footer .footer-grid > div {
+  min-width: 0;
+  padding: 8px 12px;
+}
+
+html body footer#footer .footer-grid > div + div {
+  border-left: 1px solid #E8DED2;
+}
+
+html body footer#footer h4 {
+  color: #665347 !important;
+  -webkit-text-fill-color: #665347 !important;
+  margin-bottom: 14px;
+}
+
+html body footer#footer p,
+html body footer#footer a,
+html body footer#footer span {
+  color: #6F6258 !important;
+  -webkit-text-fill-color: #6F6258 !important;
+}
+
+html body footer#footer .logo-mark {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+
+html body footer#footer .footer-bottom {
+  display: flex !important;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+  padding-top: 18px;
+  border-top: 1px solid #E3D8CA;
+}
+
+@media (max-width: 768px) {
+  html body footer#footer .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  html body footer#footer .footer-grid > div + div {
+    border-left: none;
+  }
+}
+
+@media (max-width: 480px) {
+  html body footer#footer > .container {
+    padding: 16px !important;
+  }
+
+  html body footer#footer .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body footer#footer .footer-grid > div {
+    border-bottom: 1px solid #E8DED2;
+    padding: 15px 5px;
+  }
+
+  html body footer#footer .footer-bottom {
+    flex-direction: column;
+  }
+}
+/* END WARM THEME */
+
+
+/* SOFT BROWN BUTTONS AND CREAM FOOTER */
+button, a.btn, .btn, [class*="apply"], [class*="details"] {
+  background-color: #E8DDD2 !important;
+  border-color: #D5C4B5 !important;
+  color: #665347 !important;
+  -webkit-text-fill-color: #665347 !important;
+}
+button:hover, a.btn:hover, .btn:hover, [class*="apply"]:hover, [class*="details"]:hover {
+  background-color: #DCCABB !important;
+}
+html body footer#footer {
+  background: #F0E8DC !important;
+  color: #665347 !important;
+}
+html body footer#footer > .container {
+  background: #FFFEFC !important;
+  border-color: #E3D8CA !important;
+}
+html body footer#footer h4 {
+  color: #665347 !important;
+}
+html body footer#footer p,
+html body footer#footer a,
+html body footer#footer span {
+  color: #6F6258 !important;
+}
+/* END SOFT BROWN BUTTONS AND CREAM FOOTER */
+
+
+/* FAINT BROWN APPLY BUTTONS AND CREAM FOOTER TABLE */
+html body a[class*="apply"],
+html body button[class*="apply"],
+html body .apply-btn,
+html body .apply-button {
+  background: #E8D8C8 !important;
+  background-color: #E8D8C8 !important;
+  color: #665347 !important;
+  -webkit-text-fill-color: #665347 !important;
+  border: 1px solid #D5BFAE !important;
+  box-shadow: none !important;
+}
+html body a[class*="apply"]:hover,
+html body button[class*="apply"]:hover,
+html body .apply-btn:hover,
+html body .apply-button:hover {
+  background: #DCC6B3 !important;
+}
+html body footer#footer > .container {
+  background: #FBF7F0 !important;
+  background-color: #FBF7F0 !important;
+  border: 1px solid #E5D8C9 !important;
+  border-radius: 14px !important;
+}
+html body footer#footer .footer-grid > div {
+  background: #FBF7F0 !important;
+}
+html body footer#footer {
+  background: #F0E8DC !important;
+}
+/* END FAINT BROWN AND CREAM FOOTER */
+
+
+/* PROFESSIONAL BROWN BUTTONS */
+html body a[class*="apply"],
+html body button[class*="apply"],
+html body .apply-btn,
+html body .apply-button {
+  background: #80634F !important;
+  background-color: #80634F !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  border: 1px solid #80634F !important;
+  border-radius: 7px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+  transition: background-color 0.2s ease !important;
+}
+html body a[class*="apply"]:hover,
+html body button[class*="apply"]:hover,
+html body .apply-btn:hover,
+html body .apply-button:hover {
+  background: #66503F !important;
+  background-color: #66503F !important;
+}
+
+/* PROFESSIONAL TOP LOGIN BUTTON — SINGLE LINE */
+html body header a[href*="login"],
+html body .header a[href*="login"],
+html body nav a[href*="login"],
+html body a.login-btn,
+html body .login-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  width: auto !important;
+  min-width: 85px !important;
+  min-height: 40px !important;
+  padding: 10px 20px !important;
+  background: #80634F !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  border: 1px solid #80634F !important;
+  border-radius: 7px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  text-decoration: none !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+}
+html body header a[href*="login"]:hover,
+html body .header a[href*="login"]:hover,
+html body nav a[href*="login"]:hover,
+html body a.login-btn:hover,
+html body .login-btn:hover {
+  background: #66503F !important;
+  color: #FFFFFF !important;
+}
+
+/* END PROFESSIONAL BUTTON STYLING */
+
+
+/* CONSISTENT BROWN ACCENTS ACROSS HOMEPAGE */
+:root {
+  --brown: #80634F;
+  --brown-dark: #604735;
+  --brown-light: #80634F;
+  --gold: #80634F;
+  --gold-light: #E8DDD2;
+}
+
+/* Brown accents, borders and icons */
+html body .logo-mark,
+html body .primary-btn,
+html body .hero-btn,
+html body .search-btn,
+html body .category-icon,
+html body .step-number,
+html body .stat-icon,
+html body .bottom-icon {
+  background-color: #80634F !important;
+  border-color: #80634F !important;
+}
+
+/* Brown headings and highlighted text */
+html body .section-title span,
+html body .hero h1 span,
+html body .highlight,
+html body .logo-text strong {
+  color: #80634F !important;
+}
+
+/* Brown links and secondary accents */
+html body a:not(.job-card a):not(footer a):hover,
+html body .nav-link.active,
+html body .category-card:hover,
+html body .step:hover {
+  color: #604735 !important;
+}
+
+/* Brown action buttons */
+html body a[class*="apply"],
+html body button[class*="apply"],
+html body .apply-btn,
+html body .apply-button,
+html body .login-btn {
+  background: #80634F !important;
+  background-color: #80634F !important;
+  border-color: #80634F !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+
+/* Keep the page backgrounds light */
+html body,
+html body .hero,
+html body .section {
+  background-color: #F8F5EF;
+}
+
+/* END HOMEPAGE BROWN ACCENTS */
+
+
+/* REGISTER NOW — PROFESSIONAL BROWN */
+html body a[href*="register"],
+html body a[href*="register"].btn,
+html body .register-btn,
+html body a.register-button,
+html body button[class*="register"] {
+  background: #80634F !important;
+  background-color: #80634F !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  border: 1px solid #80634F !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+html body a[href*="register"]:hover,
+html body .register-btn:hover,
+html body a.register-button:hover,
+html body button[class*="register"]:hover {
+  background: #66503F !important;
+  background-color: #66503F !important;
+}
+
+/* PROFESSIONAL ENCLOSED FOOTER TABLE */
+html body footer#footer {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  background: #F0E8DC !important;
+  padding: 42px 0 28px !important;
+  border-top: 1px solid #E3D6C7 !important;
+  box-sizing: border-box !important;
+}
+html body footer#footer > .container {
+  width: min(1160px, calc(100% - 32px)) !important;
+  max-width: 1160px !important;
+  margin: 0 auto !important;
+  padding: 30px !important;
+  background: #FFFEFC !important;
+  border: 1px solid #DFD0C0 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 28px rgba(80,60,45,0.08) !important;
+  box-sizing: border-box !important;
+}
+html body footer#footer .footer-grid {
+  display: grid !important;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+}
+html body footer#footer .footer-grid > div {
+  min-width: 0 !important;
+  padding: 12px 18px !important;
+  overflow-wrap: anywhere !important;
+}
+html body footer#footer .footer-grid > div + div {
+  border-left: 1px solid #E8DED2 !important;
+}
+html body footer#footer h4 {
+  color: #66503F !important;
+  margin-bottom: 14px !important;
+}
+html body footer#footer p,
+html body footer#footer a,
+html body footer#footer span {
+  color: #716257 !important;
+}
+html body footer#footer .footer-bottom {
+  margin-top: 24px !important;
+  padding-top: 18px !important;
+  border-top: 1px solid #E8DED2 !important;
+}
+@media (max-width: 768px) {
+  html body footer#footer .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  html body footer#footer .footer-grid > div + div {
+    border-left: none !important;
+  }
+}
+@media (max-width: 480px) {
+  html body footer#footer > .container {
+    padding: 16px !important;
+  }
+  html body footer#footer .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+  html body footer#footer .footer-grid > div {
+    padding: 16px 5px !important;
+    border-bottom: 1px solid #E8DED2 !important;
+  }
+}
+/* END REGISTER AND FOOTER DESIGN */
+
+
+/* MAKE READY TO GET STARTED SECTION VISIBLE */
+html body section,
+html body .cta-section,
+html body .get-started,
+html body .ready-section,
+html body .ready-to-start {
+  visibility: visible;
+}
+html body .cta-section *,
+html body .get-started *,
+html body .ready-section *,
+html body .ready-to-start * {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* UNIFY FOOTER TEXT COLOURS */
+html body footer#footer,
+html body footer#footer *,
+html body footer#footer h1,
+html body footer#footer h2,
+html body footer#footer h3,
+html body footer#footer h4,
+html body footer#footer p,
+html body footer#footer a,
+html body footer#footer span,
+html body footer#footer li {
+  color: #6F6258 !important;
+  -webkit-text-fill-color: #6F6258 !important;
+}
+html body footer#footer .logo-mark {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+html body footer#footer a:hover {
+  color: #6F6258 !important;
+  -webkit-text-fill-color: #6F6258 !important;
+}
+
+/* END SECTION AND FOOTER FIX */
+
+
+/* FOOTER ACCOUNT LINKS — NEUTRAL COLOURS */
+html body footer#footer a[href*="register"],
+html body footer#footer a[href*="signup"],
+html body footer#footer a[href*="create-account"],
+html body footer#footer a[class*="register"],
+html body footer#footer a[class*="signup"],
+html body footer#footer button[class*="register"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #6F6258 !important;
+  -webkit-text-fill-color: #6F6258 !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+/* END FOOTER ACCOUNT LINKS */
+
 </style>
 </head>
+
 <body>
-<div class="header">
-<div class="logo">WorkRemotely</div>
-<div class="nav">
-<a onclick="document.getElementById('jobsSection').scrollIntoView({behavior:'smooth'})">Tasks</a>
-<a onclick="document.getElementById('footer').scrollIntoView({behavior:'smooth'})">Contact</a>
-<button class="btn btn-outline" onclick="location.href='login.html'">Login</button>
-<button class="btn btn-primary" onclick="location.href='register.html'">Register</button>
-</div>
-</div>
-<div class="hero">
-<img src="handshake.jpg" onerror="this.src='handshake.jpg.webp'" alt="Handshake">
-<div class="hero-overlay">
-<h1>Brighten your future by working remotely</h1>
-<p>Verified remote tasks � Daily M-Pesa payouts � Free training included</p>
-</div>
-</div>
-<div class="container">
-<div id="jobsSection">
-<div class="section-head"><h2>Available Tasks (9)</h2><span>All tasks available</span></div>
-<div class="jobs">
-<div class="job-card"><span class="badge-available">Available</span><h3>Data Entry</h3><p>Enter product details, prices and descriptions into e-commerce admin panel from provided sheets.</p><div class="job-meta"><span class="amount">KES 1000 per task</span><button class="apply-btn" onclick="location.href='register.html'">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><h3>Typing Job</h3><p>Retype scanned PDF documents and handwritten notes into Word format. Simple copy typing task.</p><div class="job-meta"><span class="amount">KES 900 per task</span><button class="apply-btn" onclick="location.href='register.html'">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><h3>Data Verification</h3><p>Cross-check customer names, phone numbers and IDs against database to confirm accuracy.</p><div class="job-meta"><span class="amount">KES 1100 per task</span><button class="apply-btn" onclick="location.href='register.html'">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><h3>Transcription</h3><p>Convert 5-10 minute audio interviews into text. Requires good listening and fast typing.</p><div class="job-meta"><span class="amount">KES 1200 per task</span><button class="apply-btn" onclick="location.href='register.html'">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><h3>Content Writing</h3><p>Write 300-400 word SEO articles on given topics. Requires research and good grammar. Most complex task.</p><div class="job-meta"><span class="amount">KES 1500 per task</span><button class="apply-btn" onclick="location.href='register.html'">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><h3>Survey Completion</h3><p>Complete market research surveys for international clients. Easy, 3-4 minutes per survey.</p><div class="job-meta"><span class="amount">KES 900 per task</span><button class="apply-btn" onclick="location.href='register.html'">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><h3>Data Analysis</h3><p>Categorize sales data and create simple summaries in Excel. Intermediate Excel skills needed.</p><div class="job-meta"><span class="amount">KES 1400 per task</span><button class="apply-btn" onclick="location.href='register.html'">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><h3>Customer Support</h3><p>Answer customer questions via chat using pre-written templates. Good English required.</p><div class="job-meta"><span class="amount">KES 1300 per task</span><button class="apply-btn" onclick="location.href='register.html'">Apply</button></div></div>
-<div class="job-card"><span class="badge-available">Available</span><h3>Image Annotation</h3><p>Label and tag images for AI training. Draw boxes around objects and name them correctly.</p><div class="job-meta"><span class="amount">KES 1250 per task</span><button class="apply-btn" onclick="location.href='register.html'">Apply</button></div></div>
-</div>
-</div>
-</div>
-<footer class="footer" id="footer"><div class="footer-grid"><div><h4>WorkRemotely</h4><p>We connect skilled Kenyans to verified remote tasks. Work from home, get paid via M-Pesa daily.</p></div><div><h4>Platform</h4><p>Browse Tasks<br>Training Center<br>Payment Proof</p></div><div><h4>Legal</h4><p>Terms of Service<br>Privacy Policy<br>Refund Policy</p></div><div><h4>Contact</h4><p>support@workremotely.co.ke<br>+254 700 000 000<br>Eldoret, Kenya</p></div></div><div class="footer-bottom">� 2026 WorkRemotely. All rights reserved.</div></footer>
+
+<header class="header">
+  <div class="container navbar">
+    <a class="logo" href="index.html" aria-label="Online Works Kenya home">
+      <span class="logo-mark">OW</span>
+      <span class="logo-text">
+        <strong>ONLINE WORKS KENYA</strong>
+        
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#categories">Explore Work</a>
+      <a href="#new-task-list">Available Tasks</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#footer">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a class="btn btn-outline" href="login.html">Log In</a>
+      <a class="btn btn-primary" href="register.html">Get Started</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Your next opportunity starts here
+      </div>
+
+      <h1>Brighten Your Future by <span>Working Remotely.</span></h1>
+
+      <p class="hero-copy">
+        Discover online work opportunities, explore practical tasks, and build
+        your digital experience with Online Works Kenya. Work from wherever
+        you have an internet connection.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#new-task-list">
+          Explore Available Tasks <span aria-hidden="true">&rarr;</span>
+        </a>
+        <a class="btn btn-outline" href="register.html">Create Your Account</a>
+      </div>
+
+      <div class="hero-note">
+        
+        .
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+
+
+<section class="section category-section" id="categories">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <div class="section-kicker">Explore your options</div>
+        <h2>Find work by category</h2>
+        <p>Start with the type of online task that interests you.</p>
+      </div>
+      <a class="text-link" href="#new-task-list">Browse available tasks &rarr;</a>
+    </div>
+
+    <div class="categories">
+      <button class="category-card" data-category="Data Entry">
+        <strong>Data Entry</strong>
+        <span>Records and information</span>
+      </button>
+
+      <button class="category-card" data-category="Transcription">
+        <strong>Transcription</strong>
+        <span>Audio and document tasks</span>
+      </button>
+
+      <button class="category-card" data-category="Writing">
+        <strong>Content Writing</strong>
+        <span>Writing and editing</span>
+      </button>
+
+      <button class="category-card" data-category="Research">
+        <strong>Online Research</strong>
+        <span>Research and verification</span>
+      </button>
+
+      <button class="category-card" data-category="Proofreading">
+        <strong>Proofreading</strong>
+        <span>Review written content</span>
+      </button>
+
+      <button class="category-card" data-category="Virtual Assistant">
+        <strong>Virtual Assistant</strong>
+        <span>Administrative support</span>
+      </button>
+
+      <button class="category-card" data-category="Data">
+        <strong>Data Verification</strong>
+        <span>Accuracy and checking</span>
+      </button>
+
+      <button class="category-card" data-category="Analysis">
+        <strong>Data Analysis</strong>
+        <span>Spreadsheets and summaries</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section new-task-section" id="new-task-list">
+  <div class="container">
+    <div class="section-heading">
+      <span class="section-kicker">TASK CATEGORIES</span>
+      <h2>Explore online work</h2>
+      <p>Browse task descriptions and review the details before applying.</p>
+    </div>
+    <div class="new-task-list">
+      
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Data Entry Assistant</h3>
+      <p>Enter and organise information in spreadsheets and online forms.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 850</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-0" hidden>
+    <p>Requirements: Basic spreadsheet skills, accurate typing, attention to detail, and the ability to follow written instructions.</p>
+    <p>Deliverables: A completed spreadsheet or online form using the supplied data. Keep the original column headings and formatting unless instructed otherwise.</p>
+    <p>Quality check: Check for missing entries, duplicate records, spelling errors, and incorrect values before submission.</p>
+    <p>Estimated time: 1–3 hours, depending on the number of records.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Audio Transcription</h3>
+      <p>Convert supplied audio recordings into accurate written transcripts.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 1,250</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-1" hidden>
+    <p>Requirements: Good listening skills, accurate typing, and proficiency in the language used in the recording.</p>
+    <p>Deliverables: A written transcript in the requested format. Include speaker labels or timestamps only when requested.</p>
+    <p>Quality check: Replay unclear sections and check names, punctuation, and spelling. Mark genuinely inaudible sections instead of guessing.</p>
+    <p>Estimated time: 2–4 hours per 30 minutes of audio, depending on audio clarity.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Content Writing</h3>
+      <p>Write original content based on a supplied topic and brief.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 1,000</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-2" hidden>
+    <p>Requirements: Good written English, original writing, research skills, and the ability to follow a supplied topic and brief.</p>
+    <p>Deliverables: An original article or written piece that meets the specified word count, audience, tone, and format.</p>
+    <p>Quality check: Check grammar, factual accuracy, structure, originality, and compliance with the brief. Do not copy another writer's work.</p>
+    <p>Estimated time: 2–4 hours for a short article, depending on research needs.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Online Research</h3>
+      <p>Research topics online and organise findings with source references.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 900</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-3" hidden>
+    <p>Requirements: Internet research skills, careful source evaluation, accurate note-taking, and basic spreadsheet skills.</p>
+    <p>Deliverables: An organised report or spreadsheet containing the requested findings and links to reliable sources.</p>
+    <p>Quality check: Verify important facts against credible sources, remove duplicates, and ensure every required field is completed.</p>
+    <p>Estimated time: 1–3 hours, depending on the number and complexity of research questions.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Proofreading</h3>
+      <p>Check documents for spelling, grammar and punctuation.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 750</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-4" hidden>
+    <p>Requirements: Strong grammar, spelling, punctuation, and written-language skills, with attention to detail.</p>
+    <p>Deliverables: A corrected document with errors fixed while preserving the author's intended meaning and tone.</p>
+    <p>Quality check: Review grammar, spelling, punctuation, consistency, and formatting. Flag unclear wording rather than changing its meaning without reason.</p>
+    <p>Estimated time: 1–3 hours for a short document.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Document Formatting</h3>
+      <p>Format documents with consistent headings, spacing and page layouts.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 650</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-5" hidden>
+    <p>Requirements: Basic Microsoft Word or compatible document-editor skills and the ability to follow formatting instructions.</p>
+    <p>Deliverables: A neatly formatted document with consistent headings, spacing, fonts, margins, and page layout.</p>
+    <p>Quality check: Check page breaks, alignment, heading consistency, tables, and readability. Provide a PDF as well if requested.</p>
+    <p>Estimated time: 1–2 hours for a standard document.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Data Collection</h3>
+      <p>Collect specified information and enter it into a provided template.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 800</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-6" hidden>
+    <p>Requirements: Careful online information gathering, accurate recording, and the ability to follow the supplied collection criteria.</p>
+    <p>Deliverables: A spreadsheet or report containing the requested information, with source links where applicable.</p>
+    <p>Quality check: Confirm that entries meet the collection criteria, check for duplicates, and leave unavailable information clearly marked rather than inventing it.</p>
+    <p>Estimated time: 2–4 hours, depending on the number of items requested.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Virtual Assistant Support</h3>
+      <p>Assist with digital files, schedules and routine administrative tasks.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 1,400</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-7" hidden>
+    <p>Requirements: Organisation, clear communication, time management, and basic email, calendar, and document skills.</p>
+    <p>Deliverables: The agreed administrative work, such as an organised schedule, prepared documents, or an updated task tracker.</p>
+    <p>Quality check: Confirm dates, names, priorities, and requested actions. Obtain permission before sending messages or making changes on someone else's behalf.</p>
+    <p>Estimated time: 1–3 hours for a defined assignment.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Data Verification</h3>
+      <p>Compare records against source information and flag inconsistencies.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 600</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-8" hidden>
+    <p>Requirements: Strong attention to detail, careful comparison skills, and the ability to follow verification rules.</p>
+    <p>Deliverables: A checked dataset with errors corrected where authorised and uncertain records flagged for review.</p>
+    <p>Quality check: Compare records with the supplied trusted source, record discrepancies, and do not guess missing or conflicting information.</p>
+    <p>Estimated time: 1–3 hours, depending on the number of records.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Image Annotation</h3>
+      <p>Label supplied images according to project instructions.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 950</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-9" hidden>
+    <p>Requirements: Careful visual observation, consistency, and the ability to follow the supplied labelling guidelines.</p>
+    <p>Deliverables: Images labelled or categorised according to the assignment's required categories and output format.</p>
+    <p>Quality check: Check that labels match the images, use category definitions consistently, and flag ambiguous examples for review.</p>
+    <p>Estimated time: 1–3 hours, depending on image count and annotation complexity.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Product Description Writing</h3>
+      <p>Prepare clear product descriptions from supplied product information.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 900</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-10" hidden>
+    <p>Requirements: Clear writing, concise product communication, and the ability to work from verified product information.</p>
+    <p>Deliverables: Original product descriptions matching the requested length, tone, and target audience.</p>
+    <p>Quality check: Verify product features against the supplied information, correct grammar, and avoid unsupported claims or invented specifications.</p>
+    <p>Estimated time: 1–3 hours for a small batch of descriptions.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Spreadsheet Cleanup</h3>
+      <p>Standardise spreadsheet entries and identify duplicate records.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 700</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-11" hidden>
+    <p>Requirements: Basic spreadsheet skills, knowledge of sorting and filtering, and careful handling of structured data.</p>
+    <p>Deliverables: A cleaned spreadsheet with inconsistencies corrected according to the supplied rules.</p>
+    <p>Quality check: Check duplicate rows, inconsistent date formats, extra spaces, missing values, and column alignment. Preserve the original data in a backup.</p>
+    <p>Estimated time: 1–3 hours, depending on spreadsheet size.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>PDF to Word Conversion</h3>
+      <p>Transfer supplied PDF content into an editable document.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 800</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-12" hidden>
+    <p>Requirements: Basic word-processing skills and the ability to compare a converted document with its original PDF.</p>
+    <p>Deliverables: An editable Word document that follows the original document's content and layout as closely as practical.</p>
+    <p>Quality check: Check text accuracy, headings, tables, page breaks, and special characters. Flag scanned or unreadable sections.</p>
+    <p>Estimated time: 1–3 hours for a short, text-based PDF.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Web Content Review</h3>
+      <p>Review supplied web content and identify outdated or incomplete information.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 850</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-13" hidden>
+    <p>Requirements: Good reading comprehension, attention to detail, and the ability to apply a supplied review checklist.</p>
+    <p>Deliverables: A review sheet identifying the requested content issues, with page links and clear notes.</p>
+    <p>Quality check: Confirm that each issue is supported by the page content, avoid unsupported conclusions, and record inaccessible pages.</p>
+    <p>Estimated time: 1–3 hours, depending on the number of pages.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Survey Response Organisation</h3>
+      <p>Sort provided survey responses into categories and summarise results.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 750</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-14" hidden>
+    <p>Requirements: Basic spreadsheet skills, accurate categorisation, and careful handling of survey responses.</p>
+    <p>Deliverables: Responses organised into the requested columns or categories, with a summary if specified.</p>
+    <p>Quality check: Preserve the meaning of responses, check duplicates and missing fields, and keep personal information confidential.</p>
+    <p>Estimated time: 1–3 hours, depending on response count.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Meeting Notes Formatting</h3>
+      <p>Organise supplied notes into a clear document with headings.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 700</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-15" hidden>
+    <p>Requirements: Good written communication, organisation, and basic document-formatting skills.</p>
+    <p>Deliverables: Clear meeting notes organised into topics, decisions, action items, responsible people, and deadlines when provided.</p>
+    <p>Quality check: Preserve the original meaning and distinguish confirmed decisions from proposals. Do not invent action items or deadlines.</p>
+    <p>Estimated time: 1–2 hours for a standard set of notes.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Contact List Organisation</h3>
+      <p>Standardise the formatting of an authorised contact list.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 650</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-16" hidden>
+    <p>Requirements: Spreadsheet skills, careful data handling, and respect for confidentiality.</p>
+    <p>Deliverables: A structured contact list with consistent fields and formatting, using only information provided or authorised for the assignment.</p>
+    <p>Quality check: Check formatting and duplicates, preserve uncertain entries for review, and do not search for or expose private contact details without authorisation.</p>
+    <p>Estimated time: 1–2 hours for a small list.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Short Audio Review</h3>
+      <p>Review short audio clips and record information using project guidelines.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 800</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-17" hidden>
+    <p>Requirements: Good listening skills and the ability to follow a supplied audio-review checklist.</p>
+    <p>Deliverables: A short evaluation recording the requested observations, such as clarity, sound quality, or whether specified content is present.</p>
+    <p>Quality check: Base feedback on the supplied audio, distinguish observations from assumptions, and identify unclear sections accurately.</p>
+    <p>Estimated time: 30–90 minutes for a small batch of short clips.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Fact Checking</h3>
+      <p>Check supplied factual statements against reliable sources.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 1,100</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-18" hidden>
+    <p>Requirements: Online research skills, critical thinking, and the ability to distinguish reliable evidence from unsupported claims.</p>
+    <p>Deliverables: A list of checked claims with a finding, supporting source links, and brief explanations.</p>
+    <p>Quality check: Prefer authoritative and relevant sources, check dates and context, and label claims inconclusive when the evidence is insufficient.</p>
+    <p>Estimated time: 1–3 hours for a small set of claims.</p>
+  </div>
+</article>
+
+<article class="new-task-row">
+  <div class="new-task-main">
+    <div class="new-task-info">
+      <h3>Website Content Proofreading</h3>
+      <p>Review website text and suggest corrections to language errors.</p>
+      
+    </div>
+    <div class="new-task-actions">
+      <strong>KSh 950</strong>
+      <a class="new-task-apply" href="register.html">Apply</a>
+    </div>
+  </div>
+  <div class="new-task-details" id="new-task-details-19" hidden>
+    <p>Requirements: Strong grammar and spelling skills, careful reading, and familiarity with web-page content.</p>
+    <p>Deliverables: A list of identified corrections with page links and suggested wording, or corrected text in the agreed format.</p>
+    <p>Quality check: Check spelling, grammar, broken wording, consistency, and readability without changing factual meaning or making unauthorised site edits.</p>
+    <p>Estimated time: 1–3 hours for a small set of pages.</p>
+  </div>
+</article>
+    </div>
+    <p class="new-task-note"></p>
+  </div>
+</section>
+
+<section class="section process-section" id="how-it-works">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <div class="section-kicker">Getting started</div>
+        <h2>Your next steps</h2>
+        <p>A straightforward introduction to using the platform.</p>
+      </div>
+    </div>
+
+    <button type="button" id="next-steps-toggle" class="next-steps-icon-toggle" aria-expanded="false" aria-controls="next-steps-content" aria-label="Show next steps" title="Show next steps"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div id="next-steps-content" hidden>
+    <div class="steps">
+      <article class="step">
+        <span class="step-number">01</span>
+        <h3>Create an account</h3>
+        <p>Register with your details to begin setting up your account.</p>
+      </article>
+
+      <article class="step">
+        <span class="step-number">02</span>
+        <h3>Review activation</h3>
+        <p>Review the registration fee, payment instructions and terms before proceeding.</p>
+      </article>
+
+      <article class="step">
+        <span class="step-number">03</span>
+        <h3>Explore tasks</h3>
+        <p>Review available task descriptions, requirements and listed compensation.</p>
+      </article>
+
+      <article class="step">
+        <span class="step-number">04</span>
+        <h3>Complete eligible work</h3>
+        <p>Follow the task instructions and applicable review and payment procedures.</p>
+      </article>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="fee-section" id="registration">
+  <div class="container">
+    <div class="fee-box">
+      <div>
+        <h2>Ready to get started?</h2>
+        <p>
+          Create your account and review the registration and activation details.
+          Check the applicable terms and payment conditions before paying any fee.
+        </p>
+      </div>
+
+      <div class="fee-action">
+
+        <a class="btn btn-gold" href="register.html">Register Now &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">
+          <span class="logo-mark">OW</span>
+          <span class="logo-text">
+            <strong>ONLINE WORKS KENYA</strong>
+            
+          </span>
+        </a>
+        <p class="footer-description">
+          Explore digital work opportunities and task categories through
+          Online Works Kenya. Review each listing and its terms before applying.
+        </p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <div class="footer-links">
+          <a href="#new-task-list">Available Tasks</a>
+          <a href="#categories">Work Categories</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="register.html">Create Account</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Your Account</h4>
+        <div class="footer-links">
+          <a href="login.html">Log In</a>
+          <a href="register.html">Register</a>
+
+        </div>
+      </div>
+
+      <div>
+        <h4>Information</h4>
+        <div class="footer-links">
+          <a href="about.html">About Us</a>
+          <a href="#footer">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Online Works Kenya. All rights reserved.</span>
+      <span>Task listings and compensation are subject to applicable terms.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const searchInput = document.getElementById("taskSearch");
+  const jobCards = Array.from(document.querySelectorAll(".job-card"));
+  const categoryButtons = Array.from(document.querySelectorAll(".category-card"));
+  const resultCount = document.getElementById("resultCount");
+  const noResults = document.getElementById("noResults");
+
+  let activeCategory = "";
+
+  function filterJobs() {
+    const query = searchInput.value.trim().toLowerCase();
+    let visible = 0;
+
+    jobCards.forEach(function (card) {
+      const title = card.querySelector("h3").textContent.toLowerCase();
+      const searchable = (
+        title + " " +
+        card.dataset.search + " " +
+        card.textContent
+      ).toLowerCase();
+
+      const matchesQuery = !query || searchable.includes(query);
+
+      const categories = (card.dataset.category || "").toLowerCase();
+      const filter = activeCategory.toLowerCase();
+
+      let matchesCategory = !filter;
+
+      if (filter) {
+        matchesCategory =
+          categories.includes(filter) ||
+          searchable.includes(filter);
+
+        if (filter === "writing") {
+          matchesCategory =
+            categories.includes("writing") ||
+            searchable.includes("proofreading");
+        }
+
+        if (filter === "data") {
+          matchesCategory =
+            categories.includes("data") ||
+            searchable.includes("data");
+        }
+
+        if (filter === "research") {
+          matchesCategory =
+            categories.includes("research") ||
+            searchable.includes("research") ||
+            searchable.includes("image annotation");
+        }
+      }
+
+      const show = matchesQuery && matchesCategory;
+
+      card.style.display = show ? "flex" : "none";
+
+      if (show) {
+        visible++;
+      }
+    });
+
+    resultCount.textContent =
+      visible + (visible === 1 ? " task listing" : " task listings");
+
+    noResults.style.display = visible ? "none" : "block";
+  }
+
+  searchInput.addEventListener("input", filterJobs);
+
+  categoryButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const selected = button.dataset.category;
+
+      if (activeCategory === selected) {
+        activeCategory = "";
+      } else {
+        activeCategory = selected;
+      }
+
+      categoryButtons.forEach(function (item) {
+        item.classList.toggle(
+          "active",
+          item.dataset.category === activeCategory
+        );
+      });
+
+      searchInput.value = "";
+      filterJobs();
+
+      document.getElementById("jobsSection").scrollIntoView({
+        behavior: "smooth"
+      });
+    });
+  });
+})();
+</script>
+
+
+
+
+<script>
+/* professional-next-steps-toggle-handler */
+document.addEventListener("click", function(event) {
+  const button = event.target.closest("#next-steps-toggle");
+  if (!button) return;
+
+  const content = document.getElementById("next-steps-content");
+  if (!content) return;
+
+  const opening = content.hidden;
+  content.hidden = !opening;
+  button.setAttribute("aria-expanded", String(opening));
+  button.setAttribute("aria-label", opening ? "Hide next steps" : "Show next steps");
+  button.setAttribute("title", opening ? "Hide next steps" : "Show next steps");
+});
+</script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
